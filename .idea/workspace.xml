@@ -39,7 +39,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "<unknown>",
     "last_opened_file_path": "/Users/jerometh/PycharmProjects/LivingStones",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -57,7 +57,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1716256546724</updated>
-      <workItem from="1716256547872" duration="8353000" />
+      <workItem from="1716256547872" duration="9266000" />
     </task>
     <servers />
   </component>
