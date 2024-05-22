@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from models import Monster, Blow
+from .models import Monster, Blow
 from .serializers import MonsterSerializer, BlowSerializer
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
@@ -42,7 +42,7 @@ def logout_request(request):
 def registration(request):
     context = {}
     data = json.loads(request.body)
-    username = data['userName']
+    username = data['username']
     password = data['password']
     first_name = data['firstName']
     last_name = data['lastName']

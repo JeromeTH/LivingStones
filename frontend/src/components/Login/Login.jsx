@@ -1,68 +1,71 @@
-import React, { useState } from 'react';
-import './Login.css';
+import React, {useState} from 'react';
+import "./Login.css";
+import Header from '../Header/Header';
 
-const Login = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+const Login = ({onClose}) => {
+    const [userName, setUserName] = useState("");
+    const [password, setPassword] = useState("");
+    const [open, setOpen] = useState(true);
 
-    const handleLogin = async (e) => {
+    let login_url = window.location.origin + "/livingstonesapp/login";
+
+    const login = async (e) => {
         e.preventDefault();
-        const response = await fetch('/livingstonesapp/login/', {
-            method: 'POST',
+
+        const res = await fetch(login_url, {
+            method: "POST",
             headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': getCookie('csrftoken')
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify({ username, password })
+            body: JSON.stringify({
+                "userName": userName,
+                "password": password
+            }),
         });
-        const data = await response.json();
-        if (data.error) {
-            setError(data.error);
+
+        const json = await res.json();
+        if (json.status != null && json.status === "Authenticated") {
+            sessionStorage.setItem('username', json.userName);
+            setOpen(false);
         } else {
-            window.location.href = '/';
+            alert("The user could not be authenticated.");
         }
     };
 
-    const getCookie = (name) => {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    };
+    if (!open) {
+        window.location.href = "/";
+    }
 
     return (
         <div className="login-container">
-            <h1>Login</h1>
-            {error && <p className="error">{error}</p>}
-            <form onSubmit={handleLogin}>
-                <label htmlFor="username">Username:</label>
-                <input
-                    type="text"
-                    id="username"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                />
-                <label htmlFor="password">Password:</label>
-                <input
-                    type="password"
-                    id="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <button type="submit">Login</button>
-            </form>
-            <p>Don't have an account? <a href="/register">Register here</a>.</p>
+            <Header/>
+            <div className="login-modal" onClick={onClose}>
+                <div
+                    onClick={(e) => {
+                        e.stopPropagation();
+                    }}
+                    className='modalContainer'
+                >
+                    <form className="login_panel" onSubmit={login}>
+                        <div>
+                            <span className="input_field">Username </span>
+                            <input type="text" name="username" placeholder="Username" className="input_field"
+                                   onChange={(e) => setUserName(e.target.value)}/>
+                        </div>
+                        <div>
+                            <span className="input_field">Password </span>
+                            <input name="psw" type="password" placeholder="Password" className="input_field"
+                                   onChange={(e) => setPassword(e.target.value)}/>
+                        </div>
+                        <div>
+                            <input className="action_button" type="submit" value="Login"/>
+                            <input className="action_button" type="button" value="Cancel"
+                                   onClick={() => setOpen(false)}/>
+                        </div>
+                        <a className="loginlink" href="/register">Register Now</a>
+                    </form>
+                </div>
+            </div>
         </div>
     );
 };
