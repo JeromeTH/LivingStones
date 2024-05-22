@@ -1,14 +1,18 @@
-from rest_framework import viewsets
-from .models import Monster, Blow
-from .serializers import MonsterSerializer, BlowSerializer
+from django.utils import timezone
+from django.utils.decorators import method_decorator
+from rest_framework import viewsets, status
+from .models import Game, Monster, Attack
+from .serializers import GameSerializer, MonsterSerializer, AttackSerializer
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import logout
 import logging
 import json
+from rest_framework.response import Response
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -75,6 +79,49 @@ class MonsterViewSet(viewsets.ModelViewSet):
     serializer_class = MonsterSerializer
 
 
-class BlowViewSet(viewsets.ModelViewSet):
-    queryset = Blow.objects.all()
-    serializer_class = BlowSerializer
+@csrf_exempt
+def create_game(request):
+    if request.method == 'POST':
+        creator = request.user
+        data = json.loads(request.body)
+        monster_data = data.pop('monster')
+        game = Game.objects.create(creator=creator, **data)
+        Monster.objects.create(game=game, **monster_data)
+        return JsonResponse({'id': game.id}, status=201)
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+
+@method_decorator(csrf_exempt, name='dispatch')
+class GameViewSet(viewsets.ModelViewSet):
+    queryset = Game.objects.all()
+    serializer_class = GameSerializer
+
+    def create(self, request, *args, **kwargs):
+        creator = request.user
+        monster_data = request.data.pop('monster')
+        game = Game.objects.create(creator=creator, **request.data)
+        Monster.objects.create(game=game, **monster_data)
+        serializer = self.get_serializer(game)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    @action(detail=True, methods=['post'])
+    def join(self, request, pk=None):
+        game = self.get_object()
+        if request.user not in game.participants.all():
+            game.participants.add(request.user)
+        return Response({'status': 'joined'})
+
+    @action(detail=True, methods=['post'])
+    def attack(self, request, pk=None):
+        game = self.get_object()
+        damage = request.data.get('damage')
+        attacker = request.user
+        Attack.objects.create(game=game, attacker=attacker, damage=damage)
+        game.monster.blood_level -= damage
+        if game.monster.blood_level <= 0:
+            game.monster.blood_level = 0
+            game.is_active = False
+            game.end_time = timezone.now()
+        game.monster.save()
+        game.save()
+        return Response({'status': 'attacked'})

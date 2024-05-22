@@ -50,7 +50,7 @@ const Header = () => {
                 <h1>Monster Fighting App</h1>
                 <nav>
                     <a className="homepage_links" href="/">Home</a>
-                    <a className="homepage_links" href="/newgame">New Game</a>
+                    <a className="homepage_links" href="/create-game">New Game</a>
                     {home_page_items}
                 </nav>
             </div>

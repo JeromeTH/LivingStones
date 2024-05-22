@@ -12,3 +12,5 @@ clean:
 	find . -name '*.pyc' -delete
 	find . -name '__pycache__' -delete
 	rm -rf frontend/build
+migrate:
+	python3 manage.py makemigrations && python3 manage.py migrate
