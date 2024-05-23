@@ -10,7 +10,7 @@ const Game = () => {
     useEffect(() => {
         const fetchGame = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/api/games/${id}/`);
+                const response = await fetch(window.location.origin + `livingstonesapp/games/${id}/`);
 
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -28,7 +28,7 @@ const Game = () => {
 
     const joinGame = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/api/games/${id}/join/`, {
+            const response = await fetch(window.location.origin + `livingstonesapp/games/${id}/join/`, {
                 method: 'POST',
             });
 
@@ -50,7 +50,7 @@ const Game = () => {
         event.preventDefault();
 
         try {
-            const response = await fetch(`http://localhost:3000/api/games/${id}/attack/`, {
+            const response = await fetch(window.location.origin + `livingstonesapp/games/${id}/attack/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -9,10 +9,11 @@ const Header = () => {
             method: "GET",
         });
 
-        const json = await res.json();
-        if (json) {
+        if (res.ok) {
             let username = sessionStorage.getItem('username');
             sessionStorage.removeItem('username');
+            localStorage.removeItem('token'); // Remove the JWT token
+
             window.location.href = window.location.origin;
             window.location.reload();
             alert("Logging out " + username + "...");

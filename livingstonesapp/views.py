@@ -13,6 +13,7 @@ from django.contrib.auth import logout
 import logging
 import json
 from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -30,7 +31,11 @@ def login_user(request):
     if user is not None:
         # If user is valid, call login method to login current user
         login(request, user)
-        data = {"userName": username, "status": "Authenticated"}
+        # Generate JWT token
+        refresh = RefreshToken.for_user(user)
+        access_token = str(refresh.access_token)
+        data = {"userName": username, "status": "Authenticated", "access": access_token}
+
     return JsonResponse(data)
 
 
@@ -91,11 +96,11 @@ def create_game(request):
     return JsonResponse({'error': 'Invalid request method'}, status=400)
 
 
-@method_decorator(csrf_exempt, name='dispatch')
 class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
 
+    @method_decorator(csrf_exempt, name='dispatch')
     def create(self, request, *args, **kwargs):
         creator = request.user
         monster_data = request.data.pop('monster')

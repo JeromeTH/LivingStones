@@ -19,12 +19,22 @@ from django.urls import path, include
 from django.views.generic import TemplateView
 from django.conf.urls.static import static
 from django.conf import settings
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+from rest_framework_simplejwt.views import TokenVerifyView
+
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('livingstonesapp/', include('livingstonesapp.urls')),
                   path('', TemplateView.as_view(template_name="index.html")),
+                  path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+                  path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
                   path('login/', TemplateView.as_view(template_name='index.html')),
                   path('register/', TemplateView.as_view(template_name='index.html')),
                   path('create-game/', TemplateView.as_view(template_name='index.html')),
+                  path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

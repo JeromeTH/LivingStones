@@ -8,31 +8,30 @@ const CreateGame = () => {
     const navigate = useNavigate();
     const createGame = async (event) => {
         event.preventDefault();
-
-        try {
-            const response = await fetch(window.location.origin + '/livingstonesapp/create-game', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
+        const token = localStorage.getItem('token'); // Retrieve the JWT token
+        console.log(token)
+        const response = await fetch(window.location.origin + '/livingstonesapp/create-game', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                monster: {
+                    name: monsterName,
+                    blood_level: bloodLevel,
                 },
-                body: JSON.stringify({
-                    monster: {
-                        name: monsterName,
-                        blood_level: bloodLevel,
-                    },
-                }),
-            });
+            }),
+        });
 
-            if (response.ok) {
-                const data = await response.json();
-                navigate(`/game/${data.id}`);
-            } else {
-                const errorDetails = await response.json();
-                console.error('Error creating game:', errorDetails.message);
-            }
-        } catch (error) {
-            console.error('Error creating game:', error);
+        if (response.ok) {
+            const data = await response.json();
+            navigate(`/game/${data.id}`);
+        } else {
+            const errorDetails = await response.json();
+            console.error('Error in creating game:', errorDetails.message);
         }
+
     };
 
     return (
