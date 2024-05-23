@@ -6,12 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="0b85747b-3110-4217-a003-492b004ef81e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstones/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstones/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstones/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstones/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/livingstonesapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/livingstonesapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,7 +97,7 @@
       <workItem from="1716256547872" duration="18754000" />
       <workItem from="1716302688894" duration="11043000" />
       <workItem from="1716352971540" duration="20293000" />
-      <workItem from="1716379669116" duration="10008000" />
+      <workItem from="1716379669116" duration="14683000" />
     </task>
     <servers />
   </component>

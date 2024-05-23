@@ -1,6 +1,9 @@
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from rest_framework import viewsets, status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import generics
+
 from .models import Game, Monster, Attack
 from .serializers import GameSerializer, MonsterSerializer, AttackSerializer
 from django.contrib.auth.models import User
@@ -84,22 +87,11 @@ class MonsterViewSet(viewsets.ModelViewSet):
     serializer_class = MonsterSerializer
 
 
-@csrf_exempt
-def create_game(request):
-    if request.method == 'POST':
-        creator = request.user
-        data = json.loads(request.body)
-        monster_data = data.pop('monster')
-        game = Game.objects.create(creator=creator, **data)
-        Monster.objects.create(game=game, **monster_data)
-        return JsonResponse({'id': game.id}, status=201)
-    return JsonResponse({'error': 'Invalid request method'}, status=400)
-
-
 class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
 
+    # lookup_field = pk (default)
     @method_decorator(csrf_exempt, name='dispatch')
     def create(self, request, *args, **kwargs):
         creator = request.user
@@ -108,6 +100,19 @@ class GameViewSet(viewsets.ModelViewSet):
         Monster.objects.create(game=game, **monster_data)
         serializer = self.get_serializer(game)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def retrieve(self, request, *args, **kwargs):
+        game = self.get_object()  # This method uses the pk to query the database and retrieve the specific Game object.
+        serializer = self.get_serializer(game)
+        return Response(serializer.data)
+
+    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
+    def join(self, request, pk=None):
+        game = self.get_object()
+        user = request.user
+        game.participants.add(user)
+        game.save()
+        return Response({'status': 'joined'}, status=status.HTTP_200_OK)
 
     @action(detail=True, methods=['post'])
     def join(self, request, pk=None):

@@ -18,6 +18,10 @@ urlpatterns = [
                   path(route='login', view=views.login_user, name='login'),
                   path(route='logout', view=views.logout_request, name='logout'),
                   path(route='create-game', view=views.GameViewSet.as_view({'post': 'create'}), name='create-game'),
+                  path('game/<int:pk>/', views.GameViewSet.as_view({'get': 'retrieve'}), name='game-detail'),
+                  path('game/<int:pk>/join/', views.GameViewSet.as_view({'post': 'join'}), name='game-join'),
+                  path('game/<int:pk>/attack/', views.GameViewSet.as_view({'post': 'attack'}), name='game-attack'),
+
                   path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
                   path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
                   path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),

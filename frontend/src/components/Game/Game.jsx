@@ -1,16 +1,15 @@
-// Game.jsx
-import React, {useState, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 const Game = () => {
-    const {id} = useParams();
+    const { id } = useParams();
     const [game, setGame] = useState(null);
     const [damage, setDamage] = useState('');
 
     useEffect(() => {
         const fetchGame = async () => {
             try {
-                const response = await fetch(window.location.origin + `livingstonesapp/games/${id}/`);
+                const response = await fetch(window.location.origin + `/livingstonesapp/game/${id}/`);
 
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -24,38 +23,19 @@ const Game = () => {
         };
 
         fetchGame();
+
     }, [id]);
-
-    const joinGame = async () => {
-        try {
-            const response = await fetch(window.location.origin + `livingstonesapp/games/${id}/join/`, {
-                method: 'POST',
-            });
-
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-
-            const data = await response.json();
-            setGame((prevGame) => ({
-                ...prevGame,
-                participants: [...prevGame.participants, data],
-            }));
-        } catch (error) {
-            console.error('Error joining game:', error);
-        }
-    };
 
     const attackMonster = async (event) => {
         event.preventDefault();
 
         try {
-            const response = await fetch(window.location.origin + `livingstonesapp/games/${id}/attack/`, {
+            const response = await fetch(window.location.origin + `/livingstonesapp/games/${id}/attack/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({damage}),
+                body: JSON.stringify({ damage }),
             });
 
             if (!response.ok) {
@@ -82,7 +62,6 @@ const Game = () => {
             <h2>Game ID: {game.id}</h2>
             <h3>Monster: {game.monster.name}</h3>
             <p>Blood Level: {game.monster.blood_level}</p>
-            <button onClick={joinGame}>Join Game</button>
             <form onSubmit={attackMonster}>
                 <label>
                     Damage:
