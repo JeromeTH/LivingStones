@@ -143,8 +143,8 @@ class GameViewSet(viewsets.ModelViewSet):
             'end_time': game.end_time if game.is_active is False else None
         })
 
-    @action(detail=True, methods=['get'])
-    def leaderboard(self, request, pk=None):
+    @action(detail=True, methods=['get'], permission_classes=[IsAuthenticated])
+    def leaderboard(self, request, pk=None, ):
         game = self.get_object()
         attacks = Attack.objects.filter(game=game)
 

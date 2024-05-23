@@ -7,6 +7,7 @@ import Game from "./components/Game/Game";
 import PrivateRoute from "./PrivateRoute";
 import JoinGame from "./components/JoinGame/JoinGame";
 import ActiveGames from "./components/ActiveGames/ActiveGames";
+import EndGame from "./components/EndGame/EndGame";
 
 function App() {
     return (
@@ -38,6 +39,13 @@ function App() {
                         <JoinGame/>
                     </PrivateRoute>
                 }
+            />
+            <Route
+                path="/game/:id/endgame"
+                element={
+                    <PrivateRoute>
+                        <EndGame/>
+                    </PrivateRoute>}
             />
 
         </Routes>

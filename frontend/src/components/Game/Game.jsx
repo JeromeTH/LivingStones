@@ -46,7 +46,7 @@ const Game = () => {
 
             const data = await response.json();
             if (data.game_active === false) {
-                window.location.href = '/endgame'; // Redirect to EndGame page
+                window.location.href = `/game/${id}/endgame/`; // Redirect to EndGame page
             } else {
                 setGame((prevGame) => ({
                     ...prevGame,
