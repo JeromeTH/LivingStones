@@ -52,6 +52,7 @@ const Header = () => {
                 <nav>
                     <a className="homepage_links" href="/">Home</a>
                     <a className="homepage_links" href="/create-game">New Game</a>
+                    <a className="homepage_links" href="/active-games">Join Game</a>
                     {home_page_items}
                 </nav>
             </div>

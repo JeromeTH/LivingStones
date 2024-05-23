@@ -8,7 +8,6 @@ from rest_framework_simplejwt.views import (
 )
 from rest_framework_simplejwt.views import TokenVerifyView
 
-
 app_name = 'livingstonesapp'
 urlpatterns = [
                   # # path for registration
@@ -21,7 +20,11 @@ urlpatterns = [
                   path('game/<int:pk>/', views.GameViewSet.as_view({'get': 'retrieve'}), name='game-detail'),
                   path('game/<int:pk>/join/', views.GameViewSet.as_view({'post': 'join'}), name='game-join'),
                   path('game/<int:pk>/attack/', views.GameViewSet.as_view({'post': 'attack'}), name='game-attack'),
+                  path('game/<int:pk>/leaderboard/', views.GameViewSet.as_view({'post': 'leaderboard'}), name='game-leaderboard'),
+                  path('game/<int:pk>/endgame/', views.GameViewSet.as_view({'post': 'end_game'}),
+                       name='end_game'),
 
+                  path('active-games/', views.GameViewSet.as_view({'get': 'active'}), name='active-games'),
                   path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
                   path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
                   path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),

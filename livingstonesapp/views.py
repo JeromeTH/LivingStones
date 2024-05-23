@@ -17,6 +17,7 @@ import logging
 import json
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth.decorators import login_required
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
@@ -106,27 +107,28 @@ class GameViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(game)
         return Response(serializer.data)
 
+    @action(detail=False, methods=['get'])
+    def active(self, request):
+        games = Game.objects.filter(is_active=True)
+        serializer = self.get_serializer(games, many=True)
+        return Response(serializer.data)
+
     @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
     def join(self, request, pk=None):
         game = self.get_object()
         user = request.user
-        game.participants.add(user)
+        if user not in game.participants.all():
+            game.participants.add(user)
         game.save()
         return Response({'status': 'joined'}, status=status.HTTP_200_OK)
 
-    @action(detail=True, methods=['post'])
-    def join(self, request, pk=None):
-        game = self.get_object()
-        if request.user not in game.participants.all():
-            game.participants.add(request.user)
-        return Response({'status': 'joined'})
-
-    @action(detail=True, methods=['post'])
+    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
     def attack(self, request, pk=None):
         game = self.get_object()
-        damage = request.data.get('damage')
+        damage = int(request.data.get('damage'))
         attacker = request.user
-        Attack.objects.create(game=game, attacker=attacker, damage=damage)
+        target = game.monster
+        Attack.objects.create(game=game, attacker=attacker, target=target, damage=damage)
         game.monster.blood_level -= damage
         if game.monster.blood_level <= 0:
             game.monster.blood_level = 0
@@ -134,4 +136,37 @@ class GameViewSet(viewsets.ModelViewSet):
             game.end_time = timezone.now()
         game.monster.save()
         game.save()
-        return Response({'status': 'attacked'})
+        return Response({
+            'status': 'attacked',
+            'blood_level': game.monster.blood_level,
+            'game_active': game.is_active,
+            'end_time': game.end_time if game.is_active is False else None
+        })
+
+    @action(detail=True, methods=['get'])
+    def leaderboard(self, request, pk=None):
+        game = self.get_object()
+        attacks = Attack.objects.filter(game=game)
+
+        leaderboard = {}
+        for attack in attacks:
+            user = attack.attacker.username
+            if user in leaderboard:
+                leaderboard[user] += attack.damage
+            else:
+                leaderboard[user] = attack.damage
+
+        sorted_leaderboard = sorted(leaderboard.items(), key=lambda item: item[1], reverse=True)
+
+        response_data = {
+            'leaderboard': sorted_leaderboard
+        }
+
+        return Response(response_data)
+
+    @action(detail=True, methods=['post'])
+    def end_game(self, request, pk=None):
+        game = self.get_object()
+        Attack.objects.filter(game=game).delete()
+        game.delete()
+        return Response({'status': 'game deleted'})

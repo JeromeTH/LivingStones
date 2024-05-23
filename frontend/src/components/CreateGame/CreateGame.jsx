@@ -26,7 +26,7 @@ const CreateGame = () => {
 
         if (response.ok) {
             const data = await response.json();
-            navigate(`/game/${data.id}`);
+            navigate(`/game/${data.id}/join`);
         } else {
             const errorDetails = await response.json();
             console.error('Error in creating game:', errorDetails.message);

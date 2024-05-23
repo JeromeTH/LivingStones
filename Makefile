@@ -14,3 +14,7 @@ clean:
 	rm -rf frontend/build
 migrate:
 	python3 manage.py makemigrations && python3 manage.py migrate
+
+
+activate-env:
+	source livingstonesenv/bin/activate

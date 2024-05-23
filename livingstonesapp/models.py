@@ -24,10 +24,19 @@ class Monster(models.Model):
 
 
 class Attack(models.Model):
-    game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    attacker = models.ForeignKey(User, on_delete=models.CASCADE)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="attack_history")
+    attacker = models.ForeignKey(User, on_delete=models.CASCADE, related_name="attacks")
+    target = models.ForeignKey(Monster, on_delete=models.CASCADE, related_name="attacked_by")
     damage = models.IntegerField()
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['game']),
+            models.Index(fields=['attacker']),
+            models.Index(fields=['target']),
+            models.Index(fields=['timestamp']),
+        ]
 
     def __str__(self):
         return f"{self.attacker.username} attacked {self.damage} damage in Game {self.game.id}"

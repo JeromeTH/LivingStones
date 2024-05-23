@@ -25,16 +25,18 @@ from rest_framework_simplejwt.views import (
 )
 from rest_framework_simplejwt.views import TokenVerifyView
 
-
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('livingstonesapp/', include('livingstonesapp.urls')),
                   path('', TemplateView.as_view(template_name="index.html")),
-                  path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-                  path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
                   path('login/', TemplateView.as_view(template_name='index.html')),
                   path('register/', TemplateView.as_view(template_name='index.html')),
                   path('create-game/', TemplateView.as_view(template_name='index.html')),
+                  path('active-games/', TemplateView.as_view(template_name='index.html')),
+                  path('game/<int:id>', TemplateView.as_view(template_name='index.html')),
+                  path('game/<int:id>/join/', TemplateView.as_view(template_name='index.html')),
                   path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+                  path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+                  path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {useParams} from 'react-router-dom';
 
 const Game = () => {
-    const { id } = useParams();
+    const {id} = useParams();
     const [game, setGame] = useState(null);
     const [damage, setDamage] = useState('');
 
@@ -28,14 +28,16 @@ const Game = () => {
 
     const attackMonster = async (event) => {
         event.preventDefault();
+        const token = localStorage.getItem('token');
 
         try {
-            const response = await fetch(window.location.origin + `/livingstonesapp/games/${id}/attack/`, {
+            const response = await fetch(window.location.origin + `/livingstonesapp/game/${id}/attack/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({ damage }),
+                body: JSON.stringify({damage}),
             });
 
             if (!response.ok) {
@@ -43,13 +45,19 @@ const Game = () => {
             }
 
             const data = await response.json();
-            setGame((prevGame) => ({
-                ...prevGame,
-                monster: {
-                    ...prevGame.monster,
-                    blood_level: data.blood_level,
-                },
-            }));
+            if (data.game_active === false) {
+                window.location.href = '/endgame'; // Redirect to EndGame page
+            } else {
+                setGame((prevGame) => ({
+                    ...prevGame,
+                    monster: {
+                        ...prevGame.monster,
+                        blood_level: data.blood_level,
+                    },
+                }));
+
+            }
+
         } catch (error) {
             console.error('Error attacking monster:', error);
         }

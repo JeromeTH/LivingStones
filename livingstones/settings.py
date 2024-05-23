@@ -39,7 +39,6 @@ INSTALLED_APPS = [
     'livingstonesapp',
     'rest_framework',
     'rest_framework_simplejwt',
-
 ]
 
 MIDDLEWARE = [
