@@ -22,8 +22,8 @@ urlpatterns = [
                   path('game/<int:pk>/', views.GameViewSet.as_view({'get': 'retrieve'}), name='game-detail'),
                   path('game/<int:pk>/join/', views.GameViewSet.as_view({'post': 'join'}), name='game-join'),
                   path('game/<int:pk>/attack/', views.GameViewSet.as_view({'post': 'attack'}), name='game-attack'),
-                  path('game/<int:pk>/leaderboard/', views.GameViewSet.as_view({'get': 'leaderboard'}),
-                       name='game-leaderboard'),
+                  path('game/<int:pk>/summary/', views.GameViewSet.as_view({'get': 'summary'}),
+                       name='game-summary'),
                   path('game/<int:pk>/endgame/', views.GameViewSet.as_view({'post': 'end_game'}),
                        name='end_game'),
 

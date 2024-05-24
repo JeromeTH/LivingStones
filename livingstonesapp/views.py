@@ -145,24 +145,29 @@ class GameViewSet(viewsets.ModelViewSet):
         return Response({
             'status': 'attacked',
             'blood_level': game.monster.blood_level,
-            'game_active': game.is_active,
+            'is_active': game.is_active,
             'end_time': game.end_time if game.is_active is False else None
         })
 
     @action(detail=True, methods=['get'], permission_classes=[IsAuthenticated])
-    def leaderboard(self, request, pk=None, ):
+    def summary(self, request, pk=None):
         game = self.get_object()
         attacks = Attack.objects.filter(game=game)
         leaderboard = {}
+        participants = set()
+
         for attack in attacks:
             user = attack.attacker.username
+            participants.add(user)
             if user in leaderboard:
                 leaderboard[user] += attack.damage
             else:
                 leaderboard[user] = attack.damage
 
         sorted_leaderboard = sorted(leaderboard.items(), key=lambda item: item[1], reverse=True)
+
         response_data = {
-            'leaderboard': sorted_leaderboard
+            'leaderboard': sorted_leaderboard,
+            'participants': list(participants),
         }
-        return Response(response_data)
+        return Response(response_data, status=status.HTTP_200_OK)

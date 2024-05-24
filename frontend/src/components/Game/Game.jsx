@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
-
+import Summary from "./Summary";
 const Game = () => {
     const {id} = useParams();
     const navigate = useNavigate();
     const [game, setGame] = useState(null);
     const [damage, setDamage] = useState('');
-    const [leaderboard, setLeaderboard] = useState([]);
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -19,9 +18,6 @@ const Game = () => {
 
                 const data = await response.json();
                 setGame(data);
-                if (data.game_active === false) {
-                    fetchLeaderboard();
-                }
             } catch (error) {
                 console.error('Error fetching game:', error);
             }
@@ -29,23 +25,6 @@ const Game = () => {
 
         fetchGame();
     }, [id]);
-
-    const fetchLeaderboard = async () => {
-        const token = localStorage.getItem('token');
-        try {
-            const response = await fetch(window.location.origin + `/livingstonesapp/game/${id}/leaderboard/`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`,
-                },
-            });
-            const data = await response.json();
-            setLeaderboard(data.leaderboard);
-        } catch (error) {
-            console.error('Error fetching leaderboard:', error);
-        }
-    };
 
     const attackMonster = async (event) => {
         event.preventDefault();
@@ -66,12 +45,11 @@ const Game = () => {
             }
 
             const data = await response.json();
-            if (data.game_active === false) {
+            if (data.is_active === false) {
                 setGame((prevGame) => ({
                     ...prevGame,
-                    game_active: false,
+                    is_active: false,
                 }));
-                fetchLeaderboard();
             } else {
                 setGame((prevGame) => ({
                     ...prevGame,
@@ -88,52 +66,44 @@ const Game = () => {
     };
 
 
-
     if (!game) return <div>Loading...</div>;
 
-    if (!game.game_active) {
+    if (!game.is_active) {
+        console.log("game is inactive");
+        return (
+            <Summary/>
+        );
+    } else {
+        console.log("game is active");
         return (
             <div>
-                <h1>Game Over</h1>
-                <h2>Leaderboard</h2>
-                <ul>
-                    {leaderboard.map(([username, totalDamage], index) => (
-                        <li key={index}>
-                            {username}: {totalDamage}
-                        </li>
-                    ))}
-                </ul>
-                <button onClick={() => navigate(`/`)}>Go to Home</button>
+                <h2>Game ID: {game.id}</h2>
+                <h3>Monster: {game.monster.name}</h3>
+                <p>Blood Level: {game.monster.blood_level}</p>
+                <form onSubmit={attackMonster}>
+                    <label>
+                        Damage:
+                        <input
+                            type="number"
+                            value={damage}
+                            onChange={(e) => setDamage(e.target.value)}
+                        />
+                    </label>
+                    <button type="submit">Attack</button>
+                </form>
+                <div>
+                    <h4>Participants:</h4>
+                    <ul>
+                        {game.participants.map((participant, index) => (
+                            <li key={index}>{participant}</li>
+                        ))}
+                    </ul>
+                </div>
             </div>
         );
     }
 
-    return (
-        <div>
-            <h2>Game ID: {game.id}</h2>
-            <h3>Monster: {game.monster.name}</h3>
-            <p>Blood Level: {game.monster.blood_level}</p>
-            <form onSubmit={attackMonster}>
-                <label>
-                    Damage:
-                    <input
-                        type="number"
-                        value={damage}
-                        onChange={(e) => setDamage(e.target.value)}
-                    />
-                </label>
-                <button type="submit">Attack</button>
-            </form>
-            <div>
-                <h4>Participants:</h4>
-                <ul>
-                    {game.participants.map((participant, index) => (
-                        <li key={index}>{participant}</li>
-                    ))}
-                </ul>
-            </div>
-        </div>
-    );
+
 };
 
 export default Game;
