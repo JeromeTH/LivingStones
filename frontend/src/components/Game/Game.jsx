@@ -1,10 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useNavigate} from 'react-router-dom';
 
 const Game = () => {
     const {id} = useParams();
+    const navigate = useNavigate();
     const [game, setGame] = useState(null);
     const [damage, setDamage] = useState('');
+    const [leaderboard, setLeaderboard] = useState([]);
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -17,14 +19,33 @@ const Game = () => {
 
                 const data = await response.json();
                 setGame(data);
+                if (data.game_active === false) {
+                    fetchLeaderboard();
+                }
             } catch (error) {
                 console.error('Error fetching game:', error);
             }
         };
 
         fetchGame();
-
     }, [id]);
+
+    const fetchLeaderboard = async () => {
+        const token = localStorage.getItem('token');
+        try {
+            const response = await fetch(window.location.origin + `/livingstonesapp/game/${id}/leaderboard/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            });
+            const data = await response.json();
+            setLeaderboard(data.leaderboard);
+        } catch (error) {
+            console.error('Error fetching leaderboard:', error);
+        }
+    };
 
     const attackMonster = async (event) => {
         event.preventDefault();
@@ -46,7 +67,11 @@ const Game = () => {
 
             const data = await response.json();
             if (data.game_active === false) {
-                window.location.href = `/game/${id}/endgame/`; // Redirect to EndGame page
+                setGame((prevGame) => ({
+                    ...prevGame,
+                    game_active: false,
+                }));
+                fetchLeaderboard();
             } else {
                 setGame((prevGame) => ({
                     ...prevGame,
@@ -55,7 +80,6 @@ const Game = () => {
                         blood_level: data.blood_level,
                     },
                 }));
-
             }
 
         } catch (error) {
@@ -63,7 +87,26 @@ const Game = () => {
         }
     };
 
+
+
     if (!game) return <div>Loading...</div>;
+
+    if (!game.game_active) {
+        return (
+            <div>
+                <h1>Game Over</h1>
+                <h2>Leaderboard</h2>
+                <ul>
+                    {leaderboard.map(([username, totalDamage], index) => (
+                        <li key={index}>
+                            {username}: {totalDamage}
+                        </li>
+                    ))}
+                </ul>
+                <button onClick={() => navigate(`/`)}>Go to Home</button>
+            </div>
+        );
+    }
 
     return (
         <div>
@@ -94,3 +137,4 @@ const Game = () => {
 };
 
 export default Game;
+

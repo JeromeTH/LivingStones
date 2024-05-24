@@ -18,6 +18,7 @@ urlpatterns = [
                   path(route='logout', view=views.logout_request, name='logout'),
                   path(route='create-game', view=views.GameViewSet.as_view({'post': 'create'}), name='create-game'),
                   path('active-games/', views.GameViewSet.as_view({'get': 'active'}), name='active-games'),
+                  path('ended-games/', views.GameViewSet.as_view({'get': 'ended'}), name='ended-games'),
                   path('game/<int:pk>/', views.GameViewSet.as_view({'get': 'retrieve'}), name='game-detail'),
                   path('game/<int:pk>/join/', views.GameViewSet.as_view({'post': 'join'}), name='game-join'),
                   path('game/<int:pk>/attack/', views.GameViewSet.as_view({'post': 'attack'}), name='game-attack'),

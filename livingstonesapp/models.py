@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 class Game(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_games')
     participants = models.ManyToManyField(User, related_name='joined_games')
+    name = models.CharField(max_length=255, null=True, blank=True)  # New field for game name
     start_time = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField(null=True, blank=True)
     is_active = models.BooleanField(default=True)

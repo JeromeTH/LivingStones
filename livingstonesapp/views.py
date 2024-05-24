@@ -113,6 +113,12 @@ class GameViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(games, many=True)
         return Response(serializer.data)
 
+    @action(detail=False, methods=['get'])
+    def ended(self, request):
+        games = Game.objects.filter(is_active=False)
+        serializer = self.get_serializer(games, many=True)
+        return Response(serializer.data)
+
     @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
     def join(self, request, pk=None):
         game = self.get_object()
@@ -147,7 +153,6 @@ class GameViewSet(viewsets.ModelViewSet):
     def leaderboard(self, request, pk=None, ):
         game = self.get_object()
         attacks = Attack.objects.filter(game=game)
-
         leaderboard = {}
         for attack in attacks:
             user = attack.attacker.username
@@ -157,16 +162,7 @@ class GameViewSet(viewsets.ModelViewSet):
                 leaderboard[user] = attack.damage
 
         sorted_leaderboard = sorted(leaderboard.items(), key=lambda item: item[1], reverse=True)
-
         response_data = {
             'leaderboard': sorted_leaderboard
         }
-
         return Response(response_data)
-
-    @action(detail=True, methods=['post'])
-    def end_game(self, request, pk=None):
-        game = self.get_object()
-        Attack.objects.filter(game=game).delete()
-        game.delete()
-        return Response({'status': 'game deleted'})
