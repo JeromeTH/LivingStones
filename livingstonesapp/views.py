@@ -155,17 +155,18 @@ class GameViewSet(viewsets.ModelViewSet):
         attacks = Attack.objects.filter(game=game)
         leaderboard = {}
         participants = set()
+        for participant in game.participants.all():
+            leaderboard[participant.username] = 0
+            participants.add(participant.username)
 
         for attack in attacks:
             user = attack.attacker.username
-            participants.add(user)
             if user in leaderboard:
                 leaderboard[user] += attack.damage
             else:
                 leaderboard[user] = attack.damage
 
         sorted_leaderboard = sorted(leaderboard.items(), key=lambda item: item[1], reverse=True)
-
         response_data = {
             'leaderboard': sorted_leaderboard,
             'participants': list(participants),

@@ -39,7 +39,10 @@ INSTALLED_APPS = [
     'livingstonesapp',
     'rest_framework',
     'rest_framework_simplejwt',
+    'channels',
 ]
+
+ASGI_APPLICATION = 'livingstones.asgi.application'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -136,4 +139,11 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+}
+
+# Channel layers
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    },
 }

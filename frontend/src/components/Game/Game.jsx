@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import Summary from "./Summary";
+
 const Game = () => {
     const {id} = useParams();
     const navigate = useNavigate();
     const [game, setGame] = useState(null);
     const [damage, setDamage] = useState('');
+    const [socket, setSocket] = useState(null);
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -18,12 +20,37 @@ const Game = () => {
 
                 const data = await response.json();
                 setGame(data);
+
+                // Open WebSocket connection
+                const ws = new WebSocket(`ws://${window.location.host}/ws/game/${id}/`);
+                 ws.onopen = () => {
+                    console.log('WebSocket connection opened');
+                };
+
+                ws.onmessage = (e) => {
+                    const message = JSON.parse(e.data);
+                    setGame((prevGame) => ({
+                        ...prevGame,
+                        monster: {
+                            ...prevGame.monster,
+                            blood_level: message.blood_level,
+                        },
+                    }));
+                };
+                setSocket(ws);
+
             } catch (error) {
                 console.error('Error fetching game:', error);
             }
         };
 
         fetchGame();
+
+        return () => {
+            if (socket) {
+                socket.close();
+            }
+        };
     }, [id]);
 
     const attackMonster = async (event) => {
@@ -45,20 +72,23 @@ const Game = () => {
             }
 
             const data = await response.json();
-            if (data.is_active === false) {
-                setGame((prevGame) => ({
-                    ...prevGame,
-                    is_active: false,
-                }));
-            } else {
-                setGame((prevGame) => ({
-                    ...prevGame,
-                    monster: {
-                        ...prevGame.monster,
-                        blood_level: data.blood_level,
-                    },
+            setGame((prevGame) => ({
+                ...prevGame,
+                monster: {
+                    ...prevGame.monster,
+                    blood_level: data.blood_level,
+                },
+                is_active: data.is_active,
+            }));
+
+            // Notify other clients via WebSocket
+            if (socket) {
+                socket.send(JSON.stringify({
+                    blood_level: data.blood_level,
+                    is_active: data.is_active,
                 }));
             }
+
 
         } catch (error) {
             console.error('Error attacking monster:', error);

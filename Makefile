@@ -4,7 +4,11 @@ build-front:
 
 .PHONY: runserver
 runserver:
-	python3 manage.py runserver
+	python3 manage.py runserver 127.0.0.1:8000
+
+daphne:
+	daphne -b 127.0.0.1 -p 8000 livingstones.asgi:application
+
 
 .PHONY: clean
 clean:
