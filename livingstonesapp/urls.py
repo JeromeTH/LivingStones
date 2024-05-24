@@ -24,9 +24,6 @@ urlpatterns = [
                   path('game/<int:pk>/attack/', views.GameViewSet.as_view({'post': 'attack'}), name='game-attack'),
                   path('game/<int:pk>/summary/', views.GameViewSet.as_view({'get': 'summary'}),
                        name='game-summary'),
-                  path('game/<int:pk>/endgame/', views.GameViewSet.as_view({'post': 'end_game'}),
-                       name='end_game'),
-
                   path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
                   path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
                   path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),

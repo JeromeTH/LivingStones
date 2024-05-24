@@ -42,13 +42,6 @@ function App() {
                     </PrivateRoute>
                 }
             />
-            <Route
-                path="/game/:id/endgame"
-                element={
-                    <PrivateRoute>
-                        <EndGame/>
-                    </PrivateRoute>}
-            />
 
         </Routes>
     );

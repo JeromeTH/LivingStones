@@ -36,7 +36,6 @@ urlpatterns = [
                   path('archive/', TemplateView.as_view(template_name='index.html')),
                   path('game/<int:id>/', TemplateView.as_view(template_name='index.html')),
                   path('game/<int:id>/join/', TemplateView.as_view(template_name='index.html')),
-                  path('game/<int:id>/endgame/', TemplateView.as_view(template_name='index.html')),
                   path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
                   path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
                   path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
