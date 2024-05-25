@@ -1,10 +1,10 @@
 import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from typing import Any, Coroutine
+from asgiref.sync import sync_to_async
 
 
 class GameConsumer(AsyncWebsocketConsumer):
-
     async def connect(self):
         self.game_id = self.scope['url_route']['kwargs']['game_id']
         self.game_group_name = f'game_{self.game_id}'
@@ -25,6 +25,7 @@ class GameConsumer(AsyncWebsocketConsumer):
         data = json.loads(text_data)
         blood_level = data['blood_level']
         is_active = data.get('is_active', True)
+        leaderboard = data['leaderboard']
 
         await self.channel_layer.group_send(
             self.game_group_name,
@@ -32,7 +33,7 @@ class GameConsumer(AsyncWebsocketConsumer):
                 'type': 'update_blood_level',
                 'blood_level': blood_level,
                 'is_active': is_active,
-
+                'leaderboard': leaderboard,
             }
         )
         return None
@@ -40,8 +41,10 @@ class GameConsumer(AsyncWebsocketConsumer):
     async def update_blood_level(self, event):
         blood_level = event['blood_level']
         is_active = event['is_active']
+        leaderboard = event['leaderboard']
 
         await self.send(text_data=json.dumps({
             'blood_level': blood_level,
-            'is_active': is_active
+            'is_active': is_active,
+            'leaderboard': leaderboard,
         }))

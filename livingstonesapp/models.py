@@ -25,7 +25,7 @@ class Monster(models.Model):
 
 
 class Attack(models.Model):
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="attack_history")
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="attacks")
     attacker = models.ForeignKey(User, on_delete=models.CASCADE, related_name="attacks")
     target = models.ForeignKey(Monster, on_delete=models.CASCADE, related_name="attacked_by")
     damage = models.IntegerField()

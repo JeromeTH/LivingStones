@@ -19,4 +19,6 @@ todo:
 1. game's historical attacks, create game-attack table
 2. Debug game logic
 3. game_active, is_active standardize.
-4. 
+4. https://www.w3schools.com/graphics/game_intro.asp
+5. Bug: total attack value should not be more than monster blood level
+6. 

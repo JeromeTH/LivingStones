@@ -1,11 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import Summary from "./Summary";
+import "./Game.css";
+import Leaderboard from "./Leaderboard";
 
 const Game = () => {
     const {id} = useParams();
     const navigate = useNavigate();
     const [game, setGame] = useState(null);
+    const [leaderboard, setLeaderboard] = useState([]);
     const [damage, setDamage] = useState('');
     const [socket, setSocket] = useState(null);
 
@@ -20,10 +23,12 @@ const Game = () => {
 
                 const data = await response.json();
                 setGame(data);
+                setLeaderboard(data.leaderboard);
+
 
                 // Open WebSocket connection
                 const ws = new WebSocket(`ws://${window.location.host}/ws/game/${id}/`);
-                 ws.onopen = () => {
+                ws.onopen = () => {
                     console.log('WebSocket connection opened');
                 };
 
@@ -36,6 +41,7 @@ const Game = () => {
                             blood_level: message.blood_level,
                         },
                     }));
+                    setLeaderboard(message.leaderboard);
                 };
                 setSocket(ws);
 
@@ -86,6 +92,7 @@ const Game = () => {
                 socket.send(JSON.stringify({
                     blood_level: data.blood_level,
                     is_active: data.is_active,
+                    leaderboard: data.leaderboard
                 }));
             }
 
@@ -106,29 +113,37 @@ const Game = () => {
     } else {
         console.log("game is active");
         return (
-            <div>
-                <h2>Game ID: {game.id}</h2>
-                <h3>Monster: {game.monster.name}</h3>
-                <p>Blood Level: {game.monster.blood_level}</p>
-                <form onSubmit={attackMonster}>
-                    <label>
-                        Damage:
-                        <input
-                            type="number"
-                            value={damage}
-                            onChange={(e) => setDamage(e.target.value)}
-                        />
-                    </label>
-                    <button type="submit">Attack</button>
-                </form>
-                <div>
-                    <h4>Participants:</h4>
-                    <ul>
-                        {game.participants.map((participant, index) => (
-                            <li key={index}>{participant}</li>
-                        ))}
-                    </ul>
+            <div className="game-container">
+                <div className="game-info">
+                    <h2>Game ID: {game.id}</h2>
+                    <h3>Monster: {game.monster.name}</h3>
+                    <div className="blood-level-bar-container">
+                        <div
+                            className="blood-level-bar"
+                            style={{width: `${game.monster.blood_level}%`}}
+                        ></div>
+                    </div>
+                    <form onSubmit={attackMonster} className="attack-form">
+                        <label>
+                            Damage:
+                            <input
+                                type="number"
+                                value={damage}
+                                onChange={(e) => setDamage(e.target.value)}
+                            />
+                        </label>
+                        <button type="submit">Attack</button>
+                    </form>
+                    <div>
+                        <h4>Participants:</h4>
+                        <ul>
+                            {game.participants.map((participant, index) => (
+                                <li key={index}>{participant}</li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
+                <Leaderboard leaderboard={leaderboard}/>
             </div>
         );
     }

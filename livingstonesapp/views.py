@@ -88,6 +88,8 @@ class MonsterViewSet(viewsets.ModelViewSet):
     serializer_class = MonsterSerializer
 
 
+
+
 class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
@@ -103,9 +105,29 @@ class GameViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def retrieve(self, request, *args, **kwargs):
-        game = self.get_object()  # This method uses the pk to query the database and retrieve the specific Game object.
-        serializer = self.get_serializer(game)
-        return Response(serializer.data)
+        try:
+            game = self.get_object()
+            serializer = self.get_serializer(game)
+            leaderboard = self.calculate_leaderboard(game)
+            data = serializer.data
+            data['leaderboard'] = leaderboard
+            return Response(data)
+        except Exception as e:
+            logger.error(f"Error in retrieve method: {e}")
+            return Response({"error": "An error occurred."}, status=500)
+
+    @staticmethod
+    def calculate_leaderboard(game):
+        attacks = game.attacks.all()
+        leaderboard = {}
+        for attack in attacks:
+            user = attack.attacker.username
+            if user not in leaderboard:
+                leaderboard[user] = 0
+            leaderboard[user] += attack.damage
+        sorted_leaderboard = [{'username': user, 'total_damage': damage} for user, damage in
+                              sorted(leaderboard.items(), key=lambda item: item[1], reverse=True)]
+        return sorted_leaderboard
 
     @action(detail=False, methods=['get'])
     def active(self, request):
@@ -135,6 +157,7 @@ class GameViewSet(viewsets.ModelViewSet):
         attacker = request.user
         target = game.monster
         Attack.objects.create(game=game, attacker=attacker, target=target, damage=damage)
+        leaderboard = self.calculate_leaderboard(game)
         game.monster.blood_level -= damage
         if game.monster.blood_level <= 0:
             game.monster.blood_level = 0
@@ -146,29 +169,15 @@ class GameViewSet(viewsets.ModelViewSet):
             'status': 'attacked',
             'blood_level': game.monster.blood_level,
             'is_active': game.is_active,
-            'end_time': game.end_time if game.is_active is False else None
+            'end_time': game.end_time if game.is_active is False else None,
+            'leaderboard': leaderboard
         })
 
     @action(detail=True, methods=['get'], permission_classes=[IsAuthenticated])
     def summary(self, request, pk=None):
         game = self.get_object()
-        attacks = Attack.objects.filter(game=game)
-        leaderboard = {}
-        participants = set()
-        for participant in game.participants.all():
-            leaderboard[participant.username] = 0
-            participants.add(participant.username)
-
-        for attack in attacks:
-            user = attack.attacker.username
-            if user in leaderboard:
-                leaderboard[user] += attack.damage
-            else:
-                leaderboard[user] = attack.damage
-
-        sorted_leaderboard = sorted(leaderboard.items(), key=lambda item: item[1], reverse=True)
         response_data = {
-            'leaderboard': sorted_leaderboard,
-            'participants': list(participants),
+            'leaderboard': self.calculate_leaderboard(game),
+            'participants':list(game.participants.all()),
         }
         return Response(response_data, status=status.HTTP_200_OK)

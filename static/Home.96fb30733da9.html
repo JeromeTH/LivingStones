@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monster Fighting App</title>
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <script>
+        const logout = async () => {
+            let logout_url = window.location.origin + "/livingstonesapp/logout";
+            const res = await fetch(logout_url, {
+                method: "GET",
+            });
+            const json = await res.json();
+            if (json) {
+                let username = sessionStorage.getItem('username');
+                sessionStorage.removeItem('username');
+                window.location.href = window.location.origin;
+                window.location.reload();
+                alert("Logging out " + username + "...");
+            } else {
+                alert("The user could not be logged out.");
+            }
+        };
+
+        const checkSession = () => {
+            let curr_user = sessionStorage.getItem("username");
+
+            if (curr_user && curr_user !== "") {
+                document.getElementById("loginlogout").innerHTML =
+                    `<span class="homepage_links">${curr_user}</span>
+                    <a class="homepage_links" onclick="logout()" href="javascript:void(0);">Logout</a>`;
+            } else {
+                document.getElementById("loginlogout").innerHTML =
+                    `<a class="homepage_links" href="/login">Login</a>
+                    <a class="homepage_links" href="/register">Register</a>`;
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", checkSession);
+    </script>
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Monster Fighting App</h1>
+        <nav id="loginlogout">
+            <!-- Login/Logout links will be injected here by JavaScript -->
+        </nav>
+    </header>
+    <main>
+        <h2>Welcome to the Monster Fighting Arena!</h2>
+        <p>Login to start fighting monsters and track your progress.</p>
+    </main>
+    <footer>
+        <p>&copy; 2024 Monster Fighting App</p>
+    </footer>
+</div>
+</body>
+</html>

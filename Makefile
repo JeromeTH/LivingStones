@@ -6,9 +6,11 @@ build-front:
 runserver:
 	python3 manage.py runserver 127.0.0.1:8000
 
+collectstatic:
+	python manage.py collectstatic
+
 daphne:
 	daphne -b 127.0.0.1 -p 8000 livingstones.asgi:application
-
 
 .PHONY: clean
 clean:
@@ -16,9 +18,9 @@ clean:
 	find . -name '*.pyc' -delete
 	find . -name '__pycache__' -delete
 	rm -rf frontend/build
+
 migrate:
 	python3 manage.py makemigrations && python3 manage.py migrate
-
 
 activate-env:
 	source livingstonesenv/bin/activate
