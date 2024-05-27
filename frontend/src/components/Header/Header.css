@@ -1,4 +1,7 @@
 /* Header.css */
+body {
+    font-family: 'Quicksand', serif;
+}
 
 header.navbar {
     position: fixed;

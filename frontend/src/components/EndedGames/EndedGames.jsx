@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {Link} from 'react-router-dom';
+import Panel from "../Elements/Panel";
 
 const Archive = () => {
     const [endedGames, setEndedGames] = useState([]);
@@ -17,7 +18,6 @@ const Archive = () => {
                 console.error('Error fetching ended games:', error);
             }
         };
-
         fetchEndedGames();
     }, []);
 
@@ -27,16 +27,18 @@ const Archive = () => {
 
     return (
         <div>
-            <h1>Archived Games</h1>
-            <ul>
-                {endedGames.map((game) => (
-                    <li key={game.id}>
-                        <a href={`/game/${game.id}/`}>
-                            {game.name ? game.name : `Game ${game.id}`}
-                        </a>
-                    </li>
-                ))}
-            </ul>
+            <Panel>
+                <h1>Ended Games</h1>
+                <ul>
+                    {endedGames.map((game) => (
+                        <li key={game.id}>
+                            <a href={`/game/${game.id}/`}>
+                                {game.name ? game.name : `Game ${game.id}`}
+                            </a>
+                        </li>
+                    ))}
+                </ul>
+            </Panel>
         </div>
     );
 };

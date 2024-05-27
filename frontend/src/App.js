@@ -8,6 +8,7 @@ import PrivateRoute from "./PrivateRoute";
 import JoinGame from "./components/JoinGame/JoinGame";
 import ActiveGames from "./components/ActiveGames/ActiveGames";
 import EndedGames from "./components/EndedGames/EndedGames";
+
 function App() {
     return (
         <Routes>

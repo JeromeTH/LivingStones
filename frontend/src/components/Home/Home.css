@@ -1,7 +1,6 @@
 /* Home.css */
 
 body {
-    font-family: Arial, sans-serif;
     background-color: #1c1717; /* Dark background */
     color: #f0e6ef; /* Light text */
     margin: 0;
@@ -10,6 +9,7 @@ body {
     flex-direction: column;
     min-height: 100vh;
     align-items: center;
+    font-family: 'Quicksand', serif;
 }
 
 .home-container {
@@ -19,25 +19,12 @@ body {
     align-items: center;
     text-align: center;
     background-color: #1c1717; /* Dark background to match body */
-    color: #f0e6ef; /* Light text */
+    color: #e6e8f0; /* Light text */
     padding: 20px;
     flex: 1; /* Take up the remaining space */
     width: 100vw;
     height: 100vh;
-}
-
-header {
-    width: 100%;
-    padding: 20px 0;
-    background-color: #0e0b16; /* Dark background for header */
-    border-bottom: 2px solid #c3073f; /* Red border for header */
-    text-align: center;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 2.5em;
-    color: #c3073f; /* Red color for heading */
+    font-family: 'Quicksand', Arial, sans-serif;
 }
 
 nav {
@@ -68,8 +55,8 @@ main {
     padding: 20px;
     background-color: #441313; /* Dark background */
     color: #f0e6ef; /* Light text */
-    height: 50%; /* Full height to center content */
-    width: 50%; /* Full width */
+    height: 50%;
+    width: 50%;
     flex: 1;
 }
 
@@ -93,3 +80,4 @@ footer {
     text-align: center;
     margin-top: 20px;
 }
+

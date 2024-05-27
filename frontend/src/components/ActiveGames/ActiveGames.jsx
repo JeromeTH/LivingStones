@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import './ActiveGames.css';
-
+import Panel from "../Elements/Panel"
 const ActiveGames = () => {
     const [games, setGames] = useState([]);
 
@@ -24,8 +24,8 @@ const ActiveGames = () => {
 
     return (
         <div>
-            <h2>Active Games</h2>
-            <div className="modal-container">
+            <Panel>
+                <h2>Active Games</h2>
                 <Link to="/create-game">
                     <button>Create New Game</button>
                 </Link>
@@ -36,8 +36,7 @@ const ActiveGames = () => {
                         </li>
                     ))}
                 </ul>
-            </div>
-
+            </Panel>
         </div>
     );
 };
