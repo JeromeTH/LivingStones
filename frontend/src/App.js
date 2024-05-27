@@ -8,6 +8,7 @@ import PrivateRoute from "./PrivateRoute";
 import JoinGame from "./components/JoinGame/JoinGame";
 import ActiveGames from "./components/ActiveGames/ActiveGames";
 import EndedGames from "./components/EndedGames/EndedGames";
+import reportWebVitals from "./reportWebVitals";
 
 function App() {
     return (
@@ -46,4 +47,5 @@ function App() {
     );
 }
 
+reportWebVitals();
 export default App;

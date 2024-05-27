@@ -1,11 +1,4 @@
 /* General Styles */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #1c1717;
-    margin: 0;
-    padding: 0;
-}
-
 /* Summary Container */
 .summary-container {
     width: 80%;
