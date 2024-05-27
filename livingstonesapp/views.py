@@ -88,8 +88,6 @@ class MonsterViewSet(viewsets.ModelViewSet):
     serializer_class = MonsterSerializer
 
 
-
-
 class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
@@ -176,8 +174,12 @@ class GameViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['get'], permission_classes=[IsAuthenticated])
     def summary(self, request, pk=None):
         game = self.get_object()
+        participants = set()
+        for participant in game.participants.all():
+            user = participant.username
+            participants.add(user)
         response_data = {
             'leaderboard': self.calculate_leaderboard(game),
-            'participants':list(game.participants.all()),
+            'participants': list(participants),
         }
         return Response(response_data, status=status.HTTP_200_OK)

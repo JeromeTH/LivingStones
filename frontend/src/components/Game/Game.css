@@ -1,18 +1,148 @@
 /* Add this to your main CSS file or a CSS module */
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1c1717;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #441313;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+
+/* Game Info Styles */
+.game-info {
+    width: 100%;
+}
+
+/* Game Info Styles */
+.game-info {
+    width: 100%;
+}
+
 .blood-level-bar-container {
     width: 100%;
-    max-width: 300px;
-    height: 20px;
+    max-width: 600px;
+    height: 60px;
     background-color: #e0e0e0;
-    border-radius: 10px;
-    margin: 10px 0;
+    border-radius: 15px;
+    margin: 20px 0;
     overflow: hidden;
+    position: relative;
+    text-align: center;
 }
+
+.blood-level-bar-container h2 {
+    color: #333; /* Set your desired text color here */
+    margin-bottom: 10px; /* Adjust margin as needed */
+}
+
 
 .blood-level-bar {
     height: 100%;
     background-color: red;
     width: 0%;
-    border-radius: 10px;
+    border-radius: 15px;
     transition: width 0.5s ease;
+}
+
+.attack-form {
+    margin: 20px 0;
+}
+
+.attack-form label {
+    margin-right: 10px;
+}
+
+.attack-form input {
+    margin-right: 10px;
+    padding: 5px;
+    font-size: 16px;
+}
+
+.attack-form button {
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.attack-form button:hover {
+    background-color: #0056b3;
+}
+
+/* Leaderboard Styles */
+.leaderboard {
+    position: fixed; /* Change to fixed to position relative to the viewport */
+    top: 20px;
+    right: 20px;
+    width: 300px;
+    background-color: #7f7fbb;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.leaderboard h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.leaderboard ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.leaderboard li {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.leaderboard .username {
+    font-weight: bold;
+}
+
+.leaderboard .damage {
+    color: #d9534f;
+}
+
+/* Participants Styles */
+.participants {
+    margin-top: 20px;
+}
+
+.participants h4 {
+    margin-bottom: 10px;
+}
+
+.participants ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.participants li {
+    margin-bottom: 5px;
 }

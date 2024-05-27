@@ -25,7 +25,7 @@ const JoinGame = () => {
     }, [id]);
 
     const joinGame = async () => {
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
         try {
             const response = await fetch(window.location.origin + `/livingstonesapp/game/${id}/join/`, {
                 method: 'POST',

@@ -12,7 +12,7 @@ const Header = () => {
         if (res.ok) {
             let username = sessionStorage.getItem('username');
             sessionStorage.removeItem('username');
-            localStorage.removeItem('token'); // Remove the JWT token
+            sessionStorage.removeItem('token'); // Remove the JWT token
 
             window.location.href = window.location.origin;
             window.location.reload();
@@ -53,7 +53,7 @@ const Header = () => {
                     <a className="homepage_links" href="/">Home</a>
                     <a className="homepage_links" href="/create-game">New Game</a>
                     <a className="homepage_links" href="/active-games">Active Games</a>
-                    <a className="homepage_links" href="/archive">Past Games</a>
+                    <a className="homepage_links" href="/ended-games">Past Games</a>
                     {home_page_items}
                 </nav>
             </div>

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-
+import "./Summary.css"
 
 const Summary = () => {
     const {id} = useParams();
@@ -9,7 +9,7 @@ const Summary = () => {
 
     useEffect(() => {
         const fetchSummary = async () => {
-            const token = localStorage.getItem('token');
+            const token = sessionStorage.getItem('token');
             try {
                 const response = await fetch(window.location.origin + `/livingstonesapp/game/${id}/summary/`, {
                     method: 'GET',
@@ -33,17 +33,20 @@ const Summary = () => {
     console.log("summary object: ", summary);
 
     return (
-        <div>
+        <div className="summary-container">
             <h2>Summary</h2>
-            <ul>
-                {summary.leaderboard.map(([username, totalDamage], index) => (
-                    <li key={index}>
-                        {username}: {totalDamage}
-                    </li>
-                ))}
+            <ul className="leaderboard">
+                <h3>Leaderboard</h3>
+                {summary.leaderboard.map((item, index) => {
+                    return (
+                        <li key={index}>
+                            {item.username}: {item.total_damage}
+                        </li>
+                    );
+                })}
             </ul>
-            <h2>Participants</h2>
-            <ul>
+            <ul className="participants">
+                <h2>Participants</h2>
                 {summary.participants.map((participant, index) => (
                     <li key={index}>{participant}</li>
                 ))}

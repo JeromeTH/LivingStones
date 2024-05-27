@@ -8,7 +8,7 @@ const CreateGame = () => {
     const navigate = useNavigate();
     const createGame = async (event) => {
         event.preventDefault();
-        const token = localStorage.getItem('token'); // Retrieve the JWT token
+        const token = sessionStorage.getItem('token'); // Retrieve the JWT token
         console.log(token)
         const response = await fetch(window.location.origin + '/livingstonesapp/create-game', {
             method: 'POST',

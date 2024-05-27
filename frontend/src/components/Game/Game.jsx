@@ -61,7 +61,7 @@ const Game = () => {
 
     const attackMonster = async (event) => {
         event.preventDefault();
-        const token = localStorage.getItem('token');
+        const token = sessionStorage.getItem('token');
 
         try {
             const response = await fetch(window.location.origin + `/livingstonesapp/game/${id}/attack/`, {
@@ -113,14 +113,15 @@ const Game = () => {
     } else {
         console.log("game is active");
         return (
-            <div className="game-container">
+         <div className="game-container">
                 <div className="game-info">
                     <h2>Game ID: {game.id}</h2>
                     <h3>Monster: {game.monster.name}</h3>
                     <div className="blood-level-bar-container">
+                        <h2>Blood Level: {game.monster.blood_level}</h2>
                         <div
                             className="blood-level-bar"
-                            style={{width: `${game.monster.blood_level}%`}}
+                            style={{ width: `${game.monster.blood_level/100}%` }}
                         ></div>
                     </div>
                     <form onSubmit={attackMonster} className="attack-form">
@@ -134,7 +135,7 @@ const Game = () => {
                         </label>
                         <button type="submit">Attack</button>
                     </form>
-                    <div>
+                    <div className="participants">
                         <h4>Participants:</h4>
                         <ul>
                             {game.participants.map((participant, index) => (
@@ -143,7 +144,7 @@ const Game = () => {
                         </ul>
                     </div>
                 </div>
-                <Leaderboard leaderboard={leaderboard}/>
+                <Leaderboard leaderboard={leaderboard} />
             </div>
         );
     }

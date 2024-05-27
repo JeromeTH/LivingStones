@@ -7,8 +7,7 @@ import Game from "./components/Game/Game";
 import PrivateRoute from "./PrivateRoute";
 import JoinGame from "./components/JoinGame/JoinGame";
 import ActiveGames from "./components/ActiveGames/ActiveGames";
-import Archive from "./components/Archive/Archive";
-
+import EndedGames from "./components/EndedGames/EndedGames";
 function App() {
     return (
         <Routes>
@@ -16,13 +15,7 @@ function App() {
             <Route path="/register" element={<Register/>}/>
             <Route path="" element={<Home/>}/>
             <Route path="/active-games" element={<ActiveGames/>}/>
-            <Route
-                path="/archive"
-                element={
-                <PrivateRoute>
-                <Archive/>
-                </PrivateRoute>
-            }/>
+            <Route path="/ended-games" element={<EndedGames/>}/>
             <Route
                 path="/create-game"
                 element={

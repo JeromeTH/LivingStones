@@ -26,7 +26,7 @@ const Login = ({onClose}) => {
         const json = await res.json();
         if (json.status != null && json.status === "Authenticated") {
             sessionStorage.setItem('username', json.userName);
-            localStorage.setItem('token', json.access);
+            sessionStorage.setItem('token', json.access);
             console.log(json.access)
             setOpen(false);
 
