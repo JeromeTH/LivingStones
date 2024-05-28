@@ -81,43 +81,7 @@
     background-color: #0056b3;
 }
 
-/* Leaderboard Styles */
-.leaderboard {
-    position: fixed; /* Change to fixed to position relative to the viewport */
-    top: 20px;
-    right: 20px;
-    width: 300px;
-    background-color: #7f7fbb;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
 
-.leaderboard h3 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.leaderboard ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.leaderboard li {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border-bottom: 1px solid #eee;
-}
-
-.leaderboard .username {
-    font-weight: bold;
-}
-
-.leaderboard .damage {
-    color: #d9534f;
-}
 
 /* Participants Styles */
 .participants {

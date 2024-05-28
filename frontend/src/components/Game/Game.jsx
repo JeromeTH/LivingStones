@@ -106,9 +106,7 @@ const Game = () => {
     if (!game) return <div>Loading...</div>;
     if (!game.is_active) {
         console.log("game is inactive");
-        return (
-            <Summary/>
-        );
+        navigate(`/game/${id}/summary/`);
     } else {
         console.log("game is active");
         return (

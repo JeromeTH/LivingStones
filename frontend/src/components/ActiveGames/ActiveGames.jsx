@@ -2,6 +2,15 @@ import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import './ActiveGames.css';
 import Panel from "../Elements/Panel"
+import Header from "../Header/Header";
+import PaginatedPanel from "../Elements/PaginatedPanel";
+
+const renderGameEntry = (game) => (
+    <a href={`/game/${game.id}/join/`}>
+        {game.name ? game.name : `Game ${game.id}`}
+    </a>
+)
+
 const ActiveGames = () => {
     const [games, setGames] = useState([]);
 
@@ -23,20 +32,18 @@ const ActiveGames = () => {
     }, []);
 
     return (
-        <div>
-            <Panel>
-                <h2>Active Games</h2>
+        <div className={"active-games-container"}>
+            <Header/>
+            <div className={"active-games"}>
+                <PaginatedPanel items={games} itemsPerPage={10} title={"Active Games"}
+                                renderEntry={renderGameEntry}/>
                 <Link to="/create-game">
-                    <button>Create New Game</button>
+                    <button className={"button-large"}>Create New Game</button>
                 </Link>
-                <ul>
-                    {games.map((game) => (
-                        <li key={game.id}>
-                            <a href={`/game/${game.id}/join/`}> Game Number {game.id} </a>
-                        </li>
-                    ))}
-                </ul>
-            </Panel>
+            </div>
+            <footer>
+                <p>&copy; 2024 Monster Fighting App</p>
+            </footer>
         </div>
     );
 };

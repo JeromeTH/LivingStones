@@ -5,14 +5,12 @@
     flex-direction: column;
     justify-content: space-between; /* Ensure footer is at the bottom */
     align-items: center;
-    text-align: center;
     background-color: #1c1717; /* Dark background to match body */
     color: #e6e8f0; /* Light text */
     padding: 20px;
     flex: 1; /* Take up the remaining space */
     width: 100vw;
     height: 100vh;
-    font-family: 'Quicksand', Arial, sans-serif;
 }
 
 nav {
@@ -56,16 +54,5 @@ main h2 {
 
 main p {
     font-size: 1.2em;
-}
-
-footer {
-    padding: 10px 0;
-    background-color: #1c1717; /* Dark background for footer */
-    color: #f0e6ef; /* Light text for footer */
-    font-size: 0.9em;
-    border-top: 2px solid #c3073f; /* Red border for footer */
-    width: 100%;
-    text-align: center;
-    margin-top: 20px;
 }
 

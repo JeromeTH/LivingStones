@@ -4,6 +4,7 @@ import {useNavigate} from 'react-router-dom';
 import Modal from "../Elements/Modal"
 import Panel from "../Elements/Panel";
 import "./CreateGame.css"
+import Header from "../Header/Header";
 const CreateGame = () => {
     const [monsterName, setMonsterName] = useState('');
     const [showModal, setShowModal] = useState(false);
@@ -40,7 +41,8 @@ const CreateGame = () => {
     };
 
     return (
-        <div className={"create-game"}>
+        <div className={"create-game-container"}>
+            <Header/>
             <button className={"button-large"} onClick={() => setShowModal(true)}>Create Game</button>
             <Modal show={showModal} onClose={() => setShowModal(false)}>
                 <form onSubmit={createGame}>
@@ -67,6 +69,9 @@ const CreateGame = () => {
                     <button type="submit">Create Game</button>
                 </form>
             </Modal>
+            <footer>
+                <p>&copy; 2024 Monster Fighting App</p>
+            </footer>
         </div>
     );
 };

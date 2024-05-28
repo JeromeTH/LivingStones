@@ -17,17 +17,18 @@
     padding: 20px;
     border: 2px solid #c3073f;
     border-radius: 8px;
-    max-width: 500px;
     width: 100%;
-    height: 700px; /* Fixed height */
+    height: 100%; /* Fixed height */
     font-family: 'Quicksand', Arial, sans-serif;
     display: flex;
     flex-direction: column;
+    overflow-y: auto; /* Add vertical scrolling if content overflows */
 }
 
 .panel .list-container {
     min-height: 400px; /* Adjust this height based on your needs */
     justify-content: flex-start;
+    overflow-y: auto; /* Add vertical scrolling if content overflows */
 }
 
 

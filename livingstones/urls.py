@@ -26,7 +26,6 @@ from rest_framework_simplejwt.views import (
 from rest_framework_simplejwt.views import TokenVerifyView
 from django.views.static import serve
 
-
 urlpatterns = [
                   path('admin/', admin.site.urls),
                   path('livingstonesapp/', include('livingstonesapp.urls')),
@@ -38,6 +37,7 @@ urlpatterns = [
                   path('ended-games/', TemplateView.as_view(template_name='index.html')),
                   path('game/<int:id>/', TemplateView.as_view(template_name='index.html')),
                   path('game/<int:id>/join/', TemplateView.as_view(template_name='index.html')),
+                  path('game/<int:id>/summary/', TemplateView.as_view(template_name='index.html')),
                   path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
                   path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
                   path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

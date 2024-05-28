@@ -59,7 +59,7 @@ button:active {
 
 /* Disabled state */
 button:disabled {
-    background-color: #cccccc; /* Gray background for disabled button */
+    background-color: #a7a8ab; /* Gray background for disabled button */
     cursor: not-allowed; /* Change cursor for disabled button */
 }
 
@@ -73,4 +73,16 @@ button:disabled {
 .button-small {
     font-size: 0.75em;
     padding: 5px 10px;
+}
+
+footer {
+    padding: 10px 0;
+    background-color: #1c1717; /* Dark background for footer */
+    color: #f0e6ef; /* Light text for footer */
+    font-size: 0.9em;
+    border-top: 2px solid #c3073f; /* Red border for footer */
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 10px; /* Position footer 10px from the bottom */
 }

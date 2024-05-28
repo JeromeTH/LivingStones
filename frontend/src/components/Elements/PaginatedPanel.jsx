@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import "./PaginatedPanel.css"
-const PaginatedPanel = ({items, title, itemsPerPage = 10, itemName = "Item", href = "/item"}) => {
+const PaginatedPanel = ({items, title, itemsPerPage = 10, renderEntry}) => {
     const [currentPage, setCurrentPage] = useState(1);
 
     const totalPages = Math.ceil(items.length / itemsPerPage);
@@ -20,17 +20,15 @@ const PaginatedPanel = ({items, title, itemsPerPage = 10, itemName = "Item", hre
             setCurrentPage(currentPage - 1);
         }
     };
-
+    console.log(currentItems);
     return (
         <div className="panel">
             <div className={"list-container"}>
                 <h1>{title}</h1>
                 <ul>
-                    {currentItems.map((item) => (
-                        <li key={item.id}>
-                            <a href={`${href}/${item.id}/`}>
-                                {item.name ? item.name : `${itemName} ${item.id}`}
-                            </a>
+                    {currentItems.map((item, index) => (
+                        <li key={index}>
+                            {renderEntry(item)}
                         </li>
                     ))}
                 </ul>

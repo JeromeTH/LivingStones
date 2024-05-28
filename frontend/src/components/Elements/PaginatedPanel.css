@@ -1,7 +1,4 @@
 @import './Panel.css';
-
-
-
 .panel .pagination {
     display: flex;
     align-items: center;

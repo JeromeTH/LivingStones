@@ -1,5 +1,15 @@
+.ended-games-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+}
 .ended-games{
     display: flex; /* Use flexbox to center the button */
     justify-content: center; /* Center horizontally */
     padding-top: 50px; /* Adjust this value to set the distance from the top */
+    width: 50%;
+    height: 80%;
 }

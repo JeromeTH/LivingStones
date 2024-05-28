@@ -9,6 +9,7 @@ import JoinGame from "./components/JoinGame/JoinGame";
 import ActiveGames from "./components/ActiveGames/ActiveGames";
 import EndedGames from "./components/EndedGames/EndedGames";
 import reportWebVitals from "./reportWebVitals";
+import Summary from "./components/Game/Summary";
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="/create-game" element={<CreateGame/>}/>
             <Route path="/game/:id" element={<Game/>}/>
             <Route path="/game/:id/join" element={<JoinGame/>}/>
+            <Route path="/game/:id/summary" element={<Summary/>}/>
 
             {/*<Route*/}
             {/*    path="/create-game"*/}

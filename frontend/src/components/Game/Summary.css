@@ -1,60 +1,63 @@
 /* General Styles */
 /* Summary Container */
 .summary-container {
-    width: 80%;
-    max-width: 800px;
-    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh; /* Fixed height for the summary container */
     padding: 20px;
     background-color: #1c1717;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
-.summary-container h2 {
-    color: #333;
-    margin-bottom: 20px;
-    text-align: center;
+.summary {
+    display: flex; /* Use flexbox to center the button */
+    justify-content: center; /* Center horizontally */
+    padding-top: 50px; /* Adjust this value to set the distance from the top */
+    width: 50%;
+    height: 80%;
+    flex-direction: column;
+    align-items: center;
 }
 
-.summary-container ul {
+.summary ul {
     list-style-type: none;
     padding: 0;
 }
 
-.summary-container li {
+.summary li {
     padding: 10px;
     border-bottom: 1px solid #eee;
     display: flex;
     justify-content: space-between;
 }
 
-.summary-container li:last-child {
+.summary li:last-child {
     border-bottom: none;
 }
 
-.summary-container .leaderboard li {
-    color: #d9534f;
-}
-
-.summary-container .participants li {
+.summary .participants li {
     color: #007bff;
 }
 
-.summary-container button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-top: 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    text-align: center;
-    transition: background-color 0.3s;
-}
+/*.summary-container button {*/
+/*    display: block;*/
+/*    width: 100%;*/
+/*    padding: 10px;*/
+/*    margin-top: 20px;*/
+/*    background-color: #007bff;*/
+/*    color: #fff;*/
+/*    border: none;*/
+/*    border-radius: 5px;*/
+/*    cursor: pointer;*/
+/*    font-size: 16px;*/
+/*    text-align: center;*/
+/*    transition: background-color 0.3s;*/
+/*}*/
 
-.summary-container button:hover {
-    background-color: #0056b3;
-}
+/*.summary-container button:hover {*/
+/*    background-color: #0056b3;*/
+/*}*/
