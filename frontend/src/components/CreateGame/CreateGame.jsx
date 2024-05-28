@@ -2,7 +2,8 @@
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Modal from "../Elements/Modal"
-
+import Panel from "../Elements/Panel";
+import "./CreateGame.css"
 const CreateGame = () => {
     const [monsterName, setMonsterName] = useState('');
     const [showModal, setShowModal] = useState(false);
@@ -39,8 +40,8 @@ const CreateGame = () => {
     };
 
     return (
-        <div>
-            <button onClick={() => setShowModal(true)}>Create Game</button>
+        <div className={"create-game"}>
+            <button className={"button-large"} onClick={() => setShowModal(true)}>Create Game</button>
             <Modal show={showModal} onClose={() => setShowModal(false)}>
                 <form onSubmit={createGame}>
                     <div>

@@ -1,0 +1,36 @@
+@import './Panel.css';
+
+
+
+.panel .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: auto; /* Push pagination to the bottom */
+    padding-top: 10px;
+    background-color: #1c1717; /* Match the panel background */
+}
+
+
+.paginated-panel .pagination button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.paginated-panel .pagination button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.paginated-panel .pagination button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.paginated-panel .pagination span {
+  font-size: 1em;
+}

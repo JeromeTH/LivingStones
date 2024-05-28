@@ -18,30 +18,34 @@ function App() {
             <Route path="" element={<Home/>}/>
             <Route path="/active-games" element={<ActiveGames/>}/>
             <Route path="/ended-games" element={<EndedGames/>}/>
-            <Route
-                path="/create-game"
-                element={
-                    <PrivateRoute>
-                        <CreateGame/>
-                    </PrivateRoute>
-                }
-            />
+            <Route path="/create-game" element={<CreateGame/>}/>
+            <Route path="/game/:id" element={<Game/>}/>
+            <Route path="/game/:id/join" element={<JoinGame/>}/>
 
-            <Route
-                path="/game/:id"
-                element={
-                    <PrivateRoute>
-                        <Game/>
-                    </PrivateRoute>}
-            />
-            <Route
-                path="/game/:id/join"
-                element={
-                    <PrivateRoute>
-                        <JoinGame/>
-                    </PrivateRoute>
-                }
-            />
+            {/*<Route*/}
+            {/*    path="/create-game"*/}
+            {/*    element={*/}
+            {/*        <PrivateRoute>*/}
+            {/*            <CreateGame/>*/}
+            {/*        </PrivateRoute>*/}
+            {/*    }*/}
+            {/*/>*/}
+
+            {/*<Route*/}
+            {/*    path="/game/:id"*/}
+            {/*    element={*/}
+            {/*        <PrivateRoute>*/}
+            {/*            <Game/>*/}
+            {/*        </PrivateRoute>}*/}
+            {/*/>*/}
+            {/*<Route*/}
+            {/*    path="/game/:id/join"*/}
+            {/*    element={*/}
+            {/*        <PrivateRoute>*/}
+            {/*            <JoinGame/>*/}
+            {/*        </PrivateRoute>*/}
+            {/*    }*/}
+            {/*/>*/}
 
         </Routes>
     );

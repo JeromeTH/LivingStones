@@ -18,10 +18,59 @@
 
 html, body {
     font-family: 'Quicksand', serif;
-    background-color: lightgray;
+    background-color: #1c1717;
 }
 
 h1 {
     color: blue; /* Example style */
 
+}
+
+/* Buttons*/
+:root {
+    --button-font-size: 1em;
+    --button-padding: 10px 20px;
+}
+
+button {
+    font-family: 'Quicksand', serif;
+    text-decoration: none;
+    color: #d7dce7; /* Light text */
+    margin: 0 10px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: 2px solid #c3073f; /* Red border for links */
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #441313; /* Red background on hover */
+}
+
+/* Hover state */
+button:hover {
+    background-color: #c3073f; /* Red background on hover */
+    color: #fff;
+}
+
+/* Active state */
+button:active {
+    background-color: #004494; /* Even darker background on active */
+    transform: scale(0.98); /* Slightly scale down on click */
+}
+
+/* Disabled state */
+button:disabled {
+    background-color: #cccccc; /* Gray background for disabled button */
+    cursor: not-allowed; /* Change cursor for disabled button */
+}
+
+/* Large button size */
+.button-large {
+    font-size: large;
+    padding: 10px 20px;
+}
+
+/* Small button size */
+.button-small {
+    font-size: 0.75em;
+    padding: 5px 10px;
 }

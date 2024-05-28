@@ -1,0 +1,5 @@
+.ended-games{
+    display: flex; /* Use flexbox to center the button */
+    justify-content: center; /* Center horizontally */
+    padding-top: 50px; /* Adjust this value to set the distance from the top */
+}
