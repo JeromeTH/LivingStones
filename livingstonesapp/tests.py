@@ -13,17 +13,17 @@ class NPCModelTest(TestCase):
 
     def test_create_npc(self):
         # Create a npc instance
-        npc = NPC.objects.create(game=self.game, name='Dragon', blood_level=100)
+        npc = NPC.objects.create(game=self.game, name='Dragon', current_blood=100)
 
         # Assertions to check if the npc was created successfully
         self.assertEqual(npc.name, 'Dragon')
-        self.assertEqual(npc.blood_level, 100)
+        self.assertEqual(npc.current_blood, 100)
         self.assertEqual(npc.game, self.game)
         self.assertIsInstance(npc, NPC)
 
     def test_npc_str(self):
         # Create a npc instance
-        npc = NPC.objects.create(game=self.game, name='Goblin', blood_level=50)
+        npc = NPC.objects.create(game=self.game, name='Goblin', current_blood=50)
 
         # Assertion to check the __str__ method
         self.assertEqual(str(npc), 'Goblin')

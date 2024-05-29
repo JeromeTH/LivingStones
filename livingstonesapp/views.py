@@ -103,16 +103,13 @@ class GameViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def retrieve(self, request, *args, **kwargs):
-        try:
-            game = self.get_object()
-            serializer = self.get_serializer(game)
-            leaderboard = self.calculate_leaderboard(game)
-            data = serializer.data
-            data['leaderboard'] = leaderboard
-            return Response(data)
-        except Exception as e:
-            logger.error(f"Error in retrieve method: {e}")
-            return Response({"error": "An error occurred."}, status=500)
+        game = self.get_object()
+        serializer = self.get_serializer(game)
+        leaderboard = self.calculate_leaderboard(game)
+        data = serializer.data
+        data['leaderboard'] = leaderboard
+        return Response(data)
+
 
     @staticmethod
     def calculate_leaderboard(game):
@@ -151,21 +148,20 @@ class GameViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
     def attack(self, request, pk=None):
         game = self.get_object()
-        damage = int(request.data.get('damage'))
+        damage = min(int(request.data.get('damage')), game.npc.current_blood)
         attacker = request.user
         target = game.npc
         Attack.objects.create(game=game, attacker=attacker, target=target, damage=damage)
         leaderboard = self.calculate_leaderboard(game)
-        game.npc.blood_level -= damage
-        if game.npc.blood_level <= 0:
-            game.npc.blood_level = 0
+        game.npc.current_blood -= damage
+        if game.npc.current_blood <= 0:
             game.is_active = False
-            game.end_time = timezone.now()
+            game.end_time = timezone.now() 
         game.npc.save()
         game.save()
         return Response({
             'status': 'attacked',
-            'blood_level': game.npc.blood_level,
+            'current_blood': game.npc.current_blood,
             'is_active': game.is_active,
             'end_time': game.end_time if game.is_active is False else None,
             'leaderboard': leaderboard

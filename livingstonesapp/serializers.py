@@ -1,12 +1,20 @@
 # serializers.py
 from rest_framework import serializers
-from .models import Game, NPC, Attack
+from .models import Game, NPC, Attack, GameNPC
 
 
 class NPCSerializer(serializers.ModelSerializer):
     class Meta:
         model = NPC
         fields = '__all__'
+
+
+class GameNPCSerializer(serializers.ModelSerializer):
+    attr = NPCSerializer(read_only=True)  # Include nested NPC details
+
+    class Meta:
+        model = GameNPC
+        fields = ['id', 'game', 'attr', 'current_blood']
 
 
 class AttackSerializer(serializers.ModelSerializer):
@@ -16,7 +24,7 @@ class AttackSerializer(serializers.ModelSerializer):
 
 
 class GameSerializer(serializers.ModelSerializer):
-    npc = NPCSerializer()
+    npc = GameNPCSerializer(many=False, read_only=True)
     attacks = AttackSerializer(many=True, read_only=True)
     participants = serializers.StringRelatedField(many=True, read_only=True)
 

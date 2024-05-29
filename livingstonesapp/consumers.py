@@ -23,28 +23,28 @@ class GameConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data: Any = None, bytes_data: Any = None) -> None:
         data = json.loads(text_data)
-        blood_level = data['blood_level']
+        current_blood = data['current_blood']
         is_active = data.get('is_active', True)
         leaderboard = data['leaderboard']
 
         await self.channel_layer.group_send(
             self.game_group_name,
             {
-                'type': 'update_blood_level',
-                'blood_level': blood_level,
+                'type': 'update_current_blood',
+                'current_blood': current_blood,
                 'is_active': is_active,
                 'leaderboard': leaderboard,
             }
         )
         return None
 
-    async def update_blood_level(self, event):
-        blood_level = event['blood_level']
+    async def update_current_blood(self, event):
+        current_blood = event['current_blood']
         is_active = event['is_active']
         leaderboard = event['leaderboard']
 
         await self.send(text_data=json.dumps({
-            'blood_level': blood_level,
+            'current_blood': current_blood,
             'is_active': is_active,
             'leaderboard': leaderboard,
         }))

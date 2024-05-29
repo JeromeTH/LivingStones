@@ -6,22 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="0b85747b-3110-4217-a003-492b004ef81e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstones/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstones/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstones/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstones/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/livingstonesapp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/livingstonesapp/consumers.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/consumers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/livingstonesapp/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstonesapp/migrations/0002_game_name_alter_attack_target.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/livingstonesapp/migrations/__init__.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/livingstonesapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/livingstonesapp/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/livingstonesapp/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/tests.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/livingstonesapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/Home.96fb30733da9.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/Home.96fb30733da9.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/Home.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/Home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/Home.html.gz" beforeDir="false" afterPath="$PROJECT_DIR$/static/Home.html.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/static/asset-manifest.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/asset-manifest.json.gz" beforeDir="false" afterPath="$PROJECT_DIR$/static/asset-manifest.json.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/index.html" afterDir="false" />
@@ -34,6 +28,12 @@
       <change beforePath="$PROJECT_DIR$/static/js/main.17924de5.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.17924de5.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/main.17924de5.js.a80b3b69d9d2.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.17924de5.js.a80b3b69d9d2.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/main.17924de5.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.17924de5.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/main.18986f28.0ef8ac6ae00c.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.18986f28.0ef8ac6ae00c.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/main.18986f28.6f4a03f6eb91.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.18986f28.6f4a03f6eb91.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/main.18986f28.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.18986f28.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/main.18986f28.js.7e4fd60367af.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.18986f28.js.7e4fd60367af.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/main.18986f28.js.aa93bb084f06.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.18986f28.js.aa93bb084f06.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/main.18986f28.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.18986f28.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/main.18ef3430.2770d7142687.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.18ef3430.2770d7142687.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/main.18ef3430.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.18ef3430.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/main.18ef3430.js.735279cdd8ac.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.18ef3430.js.735279cdd8ac.map" afterDir="false" />
@@ -50,6 +50,10 @@
       <change beforePath="$PROJECT_DIR$/static/js/main.35acfeed.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.35acfeed.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/main.35acfeed.js.29c1bee7029d.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.35acfeed.js.29c1bee7029d.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/main.35acfeed.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.35acfeed.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/main.37ad2c0b.9660162c48f1.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.37ad2c0b.9660162c48f1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/main.37ad2c0b.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.37ad2c0b.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/main.37ad2c0b.js.61f528e18934.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.37ad2c0b.js.61f528e18934.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/main.37ad2c0b.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.37ad2c0b.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/main.452b2690.dcb3f55a43fc.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.452b2690.dcb3f55a43fc.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/main.452b2690.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.452b2690.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/main.452b2690.js.203292c188d0.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.452b2690.js.203292c188d0.map" afterDir="false" />
@@ -142,6 +146,10 @@
       <change beforePath="$PROJECT_DIR$/static/js/main.d6ebfb50.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.d6ebfb50.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/main.d6ebfb50.js.9f160ab1c4bf.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.d6ebfb50.js.9f160ab1c4bf.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/main.d6ebfb50.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.d6ebfb50.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/main.dd171fe6.e747f3182f11.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.dd171fe6.e747f3182f11.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/main.dd171fe6.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.dd171fe6.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/main.dd171fe6.js.85615fc85bcc.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.dd171fe6.js.85615fc85bcc.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/main.dd171fe6.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.dd171fe6.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/main.e123d328.d8fc56df0bad.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.e123d328.d8fc56df0bad.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/main.e123d328.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.e123d328.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/main.e123d328.js.ac99240a2197.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.e123d328.js.ac99240a2197.map" afterDir="false" />
@@ -162,9 +170,6 @@
       <change beforePath="$PROJECT_DIR$/static/js/main.f7726b59.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.f7726b59.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/main.f7726b59.js.920df64c9ac9.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.f7726b59.js.920df64c9ac9.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/main.f7726b59.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/main.f7726b59.js.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/rest_framework/docs/js/highlight.pack.479b5f21dcba.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/rest_framework/docs/js/highlight.pack.479b5f21dcba.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/rest_framework/docs/js/highlight.pack.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/rest_framework/docs/js/highlight.pack.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/rest_framework/docs/js/highlight.pack.js.gz" beforeDir="false" afterPath="$PROJECT_DIR$/static/rest_framework/docs/js/highlight.pack.js.gz" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static/js/main.13ed1696.3074a570b757.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.13ed1696.3074a570b757.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static/js/main.13ed1696.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.13ed1696.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static/js/main.13ed1696.js.074bb12f0681.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.13ed1696.js.074bb12f0681.map" afterDir="false" />
@@ -173,6 +178,12 @@
       <change beforePath="$PROJECT_DIR$/static/static/js/main.17924de5.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.17924de5.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static/js/main.17924de5.js.a80b3b69d9d2.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.17924de5.js.a80b3b69d9d2.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static/js/main.17924de5.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.17924de5.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/static/js/main.18986f28.0ef8ac6ae00c.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.18986f28.0ef8ac6ae00c.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/static/js/main.18986f28.6f4a03f6eb91.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.18986f28.6f4a03f6eb91.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/static/js/main.18986f28.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.18986f28.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/static/js/main.18986f28.js.7e4fd60367af.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.18986f28.js.7e4fd60367af.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/static/js/main.18986f28.js.aa93bb084f06.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.18986f28.js.aa93bb084f06.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/static/js/main.18986f28.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.18986f28.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static/js/main.18ef3430.2770d7142687.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.18ef3430.2770d7142687.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static/js/main.18ef3430.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.18ef3430.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static/js/main.18ef3430.js.735279cdd8ac.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.18ef3430.js.735279cdd8ac.map" afterDir="false" />
@@ -189,6 +200,10 @@
       <change beforePath="$PROJECT_DIR$/static/static/js/main.35acfeed.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.35acfeed.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static/js/main.35acfeed.js.29c1bee7029d.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.35acfeed.js.29c1bee7029d.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static/js/main.35acfeed.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.35acfeed.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/static/js/main.37ad2c0b.9660162c48f1.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.37ad2c0b.9660162c48f1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/static/js/main.37ad2c0b.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.37ad2c0b.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/static/js/main.37ad2c0b.js.61f528e18934.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.37ad2c0b.js.61f528e18934.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/static/js/main.37ad2c0b.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.37ad2c0b.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static/js/main.452b2690.dcb3f55a43fc.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.452b2690.dcb3f55a43fc.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static/js/main.452b2690.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.452b2690.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static/js/main.452b2690.js.203292c188d0.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.452b2690.js.203292c188d0.map" afterDir="false" />
@@ -281,6 +296,10 @@
       <change beforePath="$PROJECT_DIR$/static/static/js/main.d6ebfb50.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.d6ebfb50.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static/js/main.d6ebfb50.js.9f160ab1c4bf.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.d6ebfb50.js.9f160ab1c4bf.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static/js/main.d6ebfb50.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.d6ebfb50.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/static/js/main.dd171fe6.e747f3182f11.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.dd171fe6.e747f3182f11.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/static/js/main.dd171fe6.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.dd171fe6.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/static/js/main.dd171fe6.js.85615fc85bcc.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.dd171fe6.js.85615fc85bcc.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/static/js/main.dd171fe6.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.dd171fe6.js.map" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static/js/main.e123d328.d8fc56df0bad.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.e123d328.d8fc56df0bad.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static/js/main.e123d328.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.e123d328.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/static/js/main.e123d328.js.ac99240a2197.map" beforeDir="false" afterPath="$PROJECT_DIR$/static/static/js/main.e123d328.js.ac99240a2197.map" afterDir="false" />
@@ -396,7 +415,7 @@
       <workItem from="1716256547872" duration="18754000" />
       <workItem from="1716302688894" duration="11043000" />
       <workItem from="1716352971540" duration="20293000" />
-      <workItem from="1716379669116" duration="114748000" />
+      <workItem from="1716379669116" duration="122106000" />
     </task>
     <servers />
   </component>

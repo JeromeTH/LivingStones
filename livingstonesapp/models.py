@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 class NPC(models.Model):
     name = models.CharField(max_length=100)
     total_blood = models.IntegerField(default=100)
-    blood_level = models.IntegerField()
     image = models.ImageField(upload_to='npc_images/', blank=True,
                               null=True)  # Images will be stored in media/npc_images/
 
@@ -17,7 +16,6 @@ class NPC(models.Model):
 class Game(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_games')
     participants = models.ManyToManyField(User, related_name='joined_games')
-    npc = models.ForeignKey(NPC, on_delete=models.CASCADE, related_name='games')  # Changed to ForeignKey
     name = models.CharField(max_length=255, null=True, blank=True)  # New field for game name
     start_time = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField(null=True, blank=True)
@@ -27,10 +25,26 @@ class Game(models.Model):
         return f"Game {self.id} by {self.creator.username}"
 
 
+class GameNPC(models.Model):
+    game = models.OneToOneField(Game, on_delete=models.CASCADE, related_name='npc')
+    attr = models.ForeignKey(NPC, on_delete=models.CASCADE)
+    current_blood = models.IntegerField()
+    # You can add more fields if needed to track NPC state in the game
+
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            # Set default blood level based on the NPC's total blood level when first created (when it does not have pk)
+            self.current = self.attr.total_blood
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.attr.name} in Game {self.game.id}"
+
+
 class Attack(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="attacks")
     attacker = models.ForeignKey(User, on_delete=models.CASCADE, related_name="attacks")
-    target = models.ForeignKey(NPC, on_delete=models.CASCADE, related_name="attacked_by")
+    target = models.ForeignKey(GameNPC, on_delete=models.CASCADE, related_name="attacked_by")
     damage = models.IntegerField()
     timestamp = models.DateTimeField(auto_now_add=True)
 

@@ -7,7 +7,7 @@ runserver:
 	python3 manage.py runserver 127.0.0.1:8000
 
 collectstatic:
-	python manage.py collectstatic
+	python manage.py collectstatic --noinput
 
 daphne:
 	daphne -b 0.0.0.0 -p 8000 livingstones.asgi:application
@@ -24,3 +24,6 @@ migrate:
 
 activate-env:
 	source livingstonesenv/bin/activate
+
+re-build-run:
+	cd frontend && npm run build && cd .. && python manage.py collectstatic --noinput && daphne -b 0.0.0.0 -p 8000 livingstones.asgi:application

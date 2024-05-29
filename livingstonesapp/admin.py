@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Game, NPC
+from .models import Game, NPC, GameNPC
 
 
 # Registering models with their respective admins
@@ -11,9 +11,10 @@ from .models import Game, NPC
 #
 #
 # class NPCAdmin(admin.ModelAdmin):
-#     list_display = ('name', 'blood_level')
+#     list_display = ('name', 'current_blood')
 #     search_fields = ('name',)
 
 
 admin.site.register(Game)
 admin.site.register(NPC)
+admin.site.register(GameNPC)

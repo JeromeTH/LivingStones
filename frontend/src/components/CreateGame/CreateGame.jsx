@@ -23,7 +23,7 @@ const CreateGame = () => {
             body: JSON.stringify({
                 npc: {
                     name: npcName,
-                    blood_level: bloodLevel,
+                    current_blood: bloodLevel,
                 },
             }),
         });

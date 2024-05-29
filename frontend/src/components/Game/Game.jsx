@@ -24,7 +24,7 @@ const Game = () => {
                 const data = await response.json();
                 setGame(data);
                 setLeaderboard(data.leaderboard);
-
+                console.log(data);
 
                 // Open WebSocket connection
                 const ws = new WebSocket(`ws://${window.location.host}/ws/game/${id}/`);
@@ -32,13 +32,16 @@ const Game = () => {
                     console.log('WebSocket connection opened');
                 };
 
+
+
+
                 ws.onmessage = (e) => {
                     const message = JSON.parse(e.data);
                     setGame((prevGame) => ({
                         ...prevGame,
                         npc: {
                             ...prevGame.npc,
-                            blood_level: message.blood_level,
+                            current_blood: message.current_blood,
                         },
                     }));
                     setLeaderboard(message.leaderboard);
@@ -78,11 +81,12 @@ const Game = () => {
             }
 
             const data = await response.json();
+            console.log(data);
             setGame((prevGame) => ({
                 ...prevGame,
                 npc: {
                     ...prevGame.npc,
-                    blood_level: data.blood_level,
+                    current_blood: data.current_blood,
                 },
                 is_active: data.is_active,
             }));
@@ -90,7 +94,7 @@ const Game = () => {
             // Notify other clients via WebSocket
             if (socket) {
                 socket.send(JSON.stringify({
-                    blood_level: data.blood_level,
+                    current_blood: data.current_blood,
                     is_active: data.is_active,
                     leaderboard: data.leaderboard
                 }));
@@ -115,10 +119,10 @@ const Game = () => {
                     <h2>Game ID: {game.id}</h2>
                     <h3>NPC: {game.npc.name}</h3>
                     <div className="blood-level-bar-container">
-                        <h2>Blood Level: {game.npc.blood_level}</h2>
+                        <h2>Blood Level: {game.npc.current_blood}</h2>
                         <div
                             className="blood-level-bar"
-                            style={{ width: `${game.npc.blood_level/100}%` }}
+                            style={{ width: `${game.npc.current_blood/game.npc.attr.total_blood}%` }}
                         ></div>
                     </div>
                     <form onSubmit={attackNPC} className="attack-form">
@@ -145,8 +149,6 @@ const Game = () => {
             </div>
         );
     }
-
-
 };
 
 export default Game;
