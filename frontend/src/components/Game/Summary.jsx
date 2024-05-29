@@ -4,6 +4,7 @@ import "./Summary.css"
 import "./Leaderboard.css"
 import Leaderboard from "./Leaderboard";
 import Header from "../Header/Header";
+import Footer from "../Elements/Footer";
 
 const Summary = () => {
     const {id} = useParams();
@@ -64,9 +65,7 @@ const Summary = () => {
                 {/*</ul>*/}
                 <button className={"button-large"} onClick={() => navigate(`/`)}>Go to Home</button>
             </div>
-            <footer>
-                <p>&copy; 2024 Monster Fighting App</p>
-            </footer>
+            <Footer/>
         </div>
     );
 }

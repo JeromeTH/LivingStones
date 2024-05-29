@@ -36,8 +36,8 @@ const Game = () => {
                     const message = JSON.parse(e.data);
                     setGame((prevGame) => ({
                         ...prevGame,
-                        monster: {
-                            ...prevGame.monster,
+                        npc: {
+                            ...prevGame.npc,
                             blood_level: message.blood_level,
                         },
                     }));
@@ -59,7 +59,7 @@ const Game = () => {
         };
     }, [id]);
 
-    const attackMonster = async (event) => {
+    const attackNPC = async (event) => {
         event.preventDefault();
         const token = sessionStorage.getItem('token');
 
@@ -80,8 +80,8 @@ const Game = () => {
             const data = await response.json();
             setGame((prevGame) => ({
                 ...prevGame,
-                monster: {
-                    ...prevGame.monster,
+                npc: {
+                    ...prevGame.npc,
                     blood_level: data.blood_level,
                 },
                 is_active: data.is_active,
@@ -98,7 +98,7 @@ const Game = () => {
 
 
         } catch (error) {
-            console.error('Error attacking monster:', error);
+            console.error('Error attacking npc:', error);
         }
     };
 
@@ -113,15 +113,15 @@ const Game = () => {
          <div className="game-container">
                 <div className="game-info">
                     <h2>Game ID: {game.id}</h2>
-                    <h3>Monster: {game.monster.name}</h3>
+                    <h3>NPC: {game.npc.name}</h3>
                     <div className="blood-level-bar-container">
-                        <h2>Blood Level: {game.monster.blood_level}</h2>
+                        <h2>Blood Level: {game.npc.blood_level}</h2>
                         <div
                             className="blood-level-bar"
-                            style={{ width: `${game.monster.blood_level/100}%` }}
+                            style={{ width: `${game.npc.blood_level/100}%` }}
                         ></div>
                     </div>
-                    <form onSubmit={attackMonster} className="attack-form">
+                    <form onSubmit={attackNPC} className="attack-form">
                         <label>
                             Damage:
                             <input

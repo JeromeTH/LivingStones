@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '../Header/Header'; // Adjust the path if necessary
-import './Home.css'; // Assuming you have a CSS file for styling
+import './Home.css';
+import Footer from "../Elements/Footer"; // Assuming you have a CSS file for styling
 
 const Home = () => {
     return (
@@ -8,11 +9,9 @@ const Home = () => {
             <Header/>
             <main>
                 <h2>Welcome to Living Stones</h2>
-                <p>Login to start fighting monsters and track your progress.</p>
+                <p>Login to start fighting npcs and track your progress.</p>
             </main>
-            <footer>
-                <p>&copy; 2024 Monster Fighting App</p>
-            </footer>
+            <Footer/>
         </div>
     );
 };

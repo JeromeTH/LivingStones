@@ -48,7 +48,7 @@ const Header = () => {
     return (
         <header className="navbar">
             <div className="container">
-                <h1>Monster Fighting App</h1>
+                <h1>Living Stones</h1>
                 <nav>
                     <a className="homepage_links" href="/">Home</a>
                     <a className="homepage_links" href="/create-game">New Game</a>

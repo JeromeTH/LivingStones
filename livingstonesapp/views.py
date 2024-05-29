@@ -4,8 +4,8 @@ from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 
-from .models import Game, Monster, Attack
-from .serializers import GameSerializer, MonsterSerializer, AttackSerializer
+from .models import Game, NPC, Attack
+from .serializers import GameSerializer, NPCSerializer, AttackSerializer
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.http import JsonResponse
@@ -83,9 +83,9 @@ def registration(request):
         return JsonResponse(data)
 
 
-class MonsterViewSet(viewsets.ModelViewSet):
-    queryset = Monster.objects.all()
-    serializer_class = MonsterSerializer
+class NPCViewSet(viewsets.ModelViewSet):
+    queryset = NPC.objects.all()
+    serializer_class = NPCSerializer
 
 
 class GameViewSet(viewsets.ModelViewSet):
@@ -96,9 +96,9 @@ class GameViewSet(viewsets.ModelViewSet):
     @method_decorator(csrf_exempt, name='dispatch')
     def create(self, request, *args, **kwargs):
         creator = request.user
-        monster_data = request.data.pop('monster')
+        npc_data = request.data.pop('npc')
         game = Game.objects.create(creator=creator, **request.data)
-        Monster.objects.create(game=game, **monster_data)
+        NPC.objects.create(game=game, **npc_data)
         serializer = self.get_serializer(game)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -153,19 +153,19 @@ class GameViewSet(viewsets.ModelViewSet):
         game = self.get_object()
         damage = int(request.data.get('damage'))
         attacker = request.user
-        target = game.monster
+        target = game.npc
         Attack.objects.create(game=game, attacker=attacker, target=target, damage=damage)
         leaderboard = self.calculate_leaderboard(game)
-        game.monster.blood_level -= damage
-        if game.monster.blood_level <= 0:
-            game.monster.blood_level = 0
+        game.npc.blood_level -= damage
+        if game.npc.blood_level <= 0:
+            game.npc.blood_level = 0
             game.is_active = False
             game.end_time = timezone.now()
-        game.monster.save()
+        game.npc.save()
         game.save()
         return Response({
             'status': 'attacked',
-            'blood_level': game.monster.blood_level,
+            'blood_level': game.npc.blood_level,
             'is_active': game.is_active,
             'end_time': game.end_time if game.is_active is False else None,
             'leaderboard': leaderboard

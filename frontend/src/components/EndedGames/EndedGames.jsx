@@ -4,6 +4,7 @@ import Panel from "../Elements/Panel";
 import PaginatedPanel from "../Elements/PaginatedPanel";
 import "./EndedGames.css"
 import Header from "../Header/Header";
+import Footer from "../Elements/Footer";
 
 const renderGameEntry = (game) => (
     <a href={`/game/${game.id}/`}>
@@ -51,10 +52,6 @@ const Archive = () => {
         fetchEndedGames();
     }, []);
 
-    if (endedGames.length === 0) {
-        return <div>No ended games found</div>;
-    }
-
     return (
         <div className={"ended-games-container"}>
             <Header/>
@@ -74,9 +71,7 @@ const Archive = () => {
                 <PaginatedPanel items={endedGames} itemsPerPage={10} title={"Ended Games"}
                                 renderEntry={renderGameEntry}/>
             </div>
-            <footer>
-                <p>&copy; 2024 Monster Fighting App</p>
-            </footer>
+            <Footer/>
         </div>
 
     );

@@ -6,7 +6,7 @@ import Panel from "../Elements/Panel";
 import "./CreateGame.css"
 import Header from "../Header/Header";
 const CreateGame = () => {
-    const [monsterName, setMonsterName] = useState('');
+    const [npcName, setNPCName] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [bloodLevel, setBloodLevel] = useState('');
     const navigate = useNavigate();
@@ -21,8 +21,8 @@ const CreateGame = () => {
                 'Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify({
-                monster: {
-                    name: monsterName,
+                npc: {
+                    name: npcName,
                     blood_level: bloodLevel,
                 },
             }),
@@ -35,7 +35,7 @@ const CreateGame = () => {
             const errorDetails = await response.json();
             console.error('Error in creating game:', errorDetails.message);
         }
-        console.log('Game created:', {monsterName, bloodLevel});
+        console.log('Game created:', {npcName, bloodLevel});
         setShowModal(false);
 
     };
@@ -48,11 +48,11 @@ const CreateGame = () => {
                 <form onSubmit={createGame}>
                     <div>
                         <label>
-                            Monster Name:
+                            NPC Name:
                             <input
                                 type="text"
-                                value={monsterName}
-                                onChange={(e) => setMonsterName(e.target.value)}
+                                value={npcName}
+                                onChange={(e) => setNPCName(e.target.value)}
                             />
                         </label>
                     </div>
@@ -70,7 +70,7 @@ const CreateGame = () => {
                 </form>
             </Modal>
             <footer>
-                <p>&copy; 2024 Monster Fighting App</p>
+                <p>&copy; 2024 NPC Fighting App</p>
             </footer>
         </div>
     );

@@ -47,3 +47,8 @@ urlpatterns = [
 # urlpatterns += [
 #     re_path(r'^manifest\.json$', serve, {'document_root': settings.STATIC_ROOT, 'path': 'manifest.json'}),
 # ]
+
+# This block adds URL patterns to serve static and media files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

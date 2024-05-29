@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
+import {useParams, useNavigate} from 'react-router-dom';
+import "./JoinGame.css"
 
 const JoinGame = () => {
-    const { id } = useParams();
+    const {id} = useParams();
     const navigate = useNavigate();
     const [game, setGame] = useState(null);
     const [error, setError] = useState(null);
@@ -54,12 +55,13 @@ const JoinGame = () => {
     }
 
     return (
-        <div>
-            <h1>Join Game</h1>
-            <p>Game ID: {game.id}</p>
-            <p>Game Name: {game.name}</p>
-            <p>Creator: {game.creator.username}</p>
-            <button onClick={joinGame}>Join Game</button>
+        <div className={"join-game-container"}>
+            <div className={"join-game"}>
+                <p>Game ID: {game.id}</p>
+                <p>Game Name: {game.name}</p>
+                <p>Creator: {game.creator.username}</p>
+                <button className={"button-large"} onClick={joinGame}>Join Game</button>
+            </div>
         </div>
     );
 };

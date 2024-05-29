@@ -4,6 +4,7 @@ import './ActiveGames.css';
 import Panel from "../Elements/Panel"
 import Header from "../Header/Header";
 import PaginatedPanel from "../Elements/PaginatedPanel";
+import Footer from "../Elements/Footer";
 
 const renderGameEntry = (game) => (
     <a href={`/game/${game.id}/join/`}>
@@ -41,9 +42,7 @@ const ActiveGames = () => {
                     <button className={"button-large"}>Create New Game</button>
                 </Link>
             </div>
-            <footer>
-                <p>&copy; 2024 Monster Fighting App</p>
-            </footer>
+            <Footer/>
         </div>
     );
 };
