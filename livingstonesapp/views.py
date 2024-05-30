@@ -4,7 +4,7 @@ from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 
-from .models import Game, NPC, Attack
+from .models import Game, NPC, Attack, GamePlayer, GameNPC
 from .serializers import GameSerializer, NPCSerializer, AttackSerializer
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
@@ -110,16 +110,12 @@ class GameViewSet(viewsets.ModelViewSet):
         data['leaderboard'] = leaderboard
         return Response(data)
 
-
     @staticmethod
     def calculate_leaderboard(game):
-        attacks = game.attacks.all()
+        players = game.players.all()
         leaderboard = {}
-        for attack in attacks:
-            user = attack.attacker.username
-            if user not in leaderboard:
-                leaderboard[user] = 0
-            leaderboard[user] += attack.damage
+        for player in players:
+            leaderboard[player.user.username] = player.total_damage
         sorted_leaderboard = [{'username': user, 'total_damage': damage} for user, damage in
                               sorted(leaderboard.items(), key=lambda item: item[1], reverse=True)]
         return sorted_leaderboard
@@ -140,8 +136,11 @@ class GameViewSet(viewsets.ModelViewSet):
     def join(self, request, pk=None):
         game = self.get_object()
         user = request.user
-        if user not in game.participants.all():
-            game.participants.add(user)
+        player, created = GamePlayer.objects.get_or_create(
+            game=game,
+            user=user,
+            defaults={'total_damage': 0}
+        )
         game.save()
         return Response({'status': 'joined'}, status=status.HTTP_200_OK)
 
@@ -149,16 +148,18 @@ class GameViewSet(viewsets.ModelViewSet):
     def attack(self, request, pk=None):
         game = self.get_object()
         damage = min(int(request.data.get('damage')), game.npc.current_blood)
-        attacker = request.user
+        attacker = game.players.filter(user=request.user).first()
         target = game.npc
         Attack.objects.create(game=game, attacker=attacker, target=target, damage=damage)
-        leaderboard = self.calculate_leaderboard(game)
+        attacker.total_damage += damage
         game.npc.current_blood -= damage
         if game.npc.current_blood <= 0:
             game.is_active = False
-            game.end_time = timezone.now() 
+            game.end_time = timezone.now()
+        attacker.save()
         game.npc.save()
         game.save()
+        leaderboard = self.calculate_leaderboard(game)
         return Response({
             'status': 'attacked',
             'current_blood': game.npc.current_blood,

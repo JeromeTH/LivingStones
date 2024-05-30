@@ -15,7 +15,6 @@ class NPC(models.Model):
 
 class Game(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_games')
-    participants = models.ManyToManyField(User, related_name='joined_games')
     name = models.CharField(max_length=255, null=True, blank=True)  # New field for game name
     start_time = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField(null=True, blank=True)
@@ -41,9 +40,26 @@ class GameNPC(models.Model):
         return f"{self.attr.name} in Game {self.game.id}"
 
 
+class GamePlayer(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='players')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    total_damage = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['game']),
+            models.Index(fields=['user']),
+            models.Index(fields=['created_at']),
+        ]
+
+    def __str__(self):
+        return f"Player {self.id} in Game {self.game.id}"
+
+
 class Attack(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="attacks")
-    attacker = models.ForeignKey(User, on_delete=models.CASCADE, related_name="attacks")
+    attacker = models.ForeignKey(GamePlayer, on_delete=models.CASCADE, related_name="attacks")
     target = models.ForeignKey(GameNPC, on_delete=models.CASCADE, related_name="attacked_by")
     damage = models.IntegerField()
     timestamp = models.DateTimeField(auto_now_add=True)

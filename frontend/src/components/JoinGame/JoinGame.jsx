@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import "./JoinGame.css"
+import Header from "../Header/Header";
+import Footer from "../Elements/Footer";
 
 const JoinGame = () => {
     const {id} = useParams();
@@ -17,6 +19,7 @@ const JoinGame = () => {
                 }
                 const data = await response.json();
                 setGame(data);
+                console.log(data);
             } catch (error) {
                 setError(error.message);
             }
@@ -56,12 +59,14 @@ const JoinGame = () => {
 
     return (
         <div className={"join-game-container"}>
+            <Header/>
             <div className={"join-game"}>
                 <p>Game ID: {game.id}</p>
                 <p>Game Name: {game.name}</p>
                 <p>Creator: {game.creator.username}</p>
                 <button className={"button-large"} onClick={joinGame}>Join Game</button>
             </div>
+            <Footer/>
         </div>
     );
 };

@@ -27,3 +27,6 @@ activate-env:
 
 re-build-run:
 	cd frontend && npm run build && cd .. && python manage.py collectstatic --noinput && daphne -b 0.0.0.0 -p 8000 livingstones.asgi:application
+
+debug:
+	python3 debug.py

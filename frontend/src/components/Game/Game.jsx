@@ -3,6 +3,7 @@ import {useParams, useNavigate} from 'react-router-dom';
 import Summary from "./Summary";
 import "./Game.css";
 import Leaderboard from "./Leaderboard";
+import Footer from "../Elements/Footer";
 
 const Game = () => {
     const {id} = useParams();
@@ -31,8 +32,6 @@ const Game = () => {
                 ws.onopen = () => {
                     console.log('WebSocket connection opened');
                 };
-
-
 
 
                 ws.onmessage = (e) => {
@@ -89,6 +88,7 @@ const Game = () => {
                     current_blood: data.current_blood,
                 },
                 is_active: data.is_active,
+                leaderboard: data.leaderboard
             }));
 
             // Notify other clients via WebSocket
@@ -114,42 +114,36 @@ const Game = () => {
     } else {
         console.log("game is active");
         return (
-         <div className="game-container">
+            <div className="game-container">
                 <div className="game-info">
                     <h2>Game ID: {game.id}</h2>
-                    <h3>NPC: {game.npc.name}</h3>
-                    <div className="blood-level-bar-container">
-                        <h2>Blood Level: {game.npc.current_blood}</h2>
-                        <div
-                            className="blood-level-bar"
-                            style={{ width: `${game.npc.current_blood/game.npc.attr.total_blood}%` }}
-                        ></div>
-                    </div>
-                    <form onSubmit={attackNPC} className="attack-form">
-                        <label>
-                            Damage:
-                            <input
-                                type="number"
-                                value={damage}
-                                onChange={(e) => setDamage(e.target.value)}
-                            />
-                        </label>
-                        <button type="submit">Attack</button>
-                    </form>
-                    <div className="participants">
-                        <h4>Participants:</h4>
-                        <ul>
-                            {game.participants.map((participant, index) => (
-                                <li key={index}>{participant}</li>
-                            ))}
-                        </ul>
-                    </div>
+                    <h3>NPC: {game.npc.attr.name}</h3>
+                    <img src= "{game.npc.attr.image.url}" alt="{game.npc.attr.name}" className="npc-image">
+                        <div className="blood-level-bar-container">
+                            <h2>Blood Level: {game.npc.current_blood}</h2>
+                            <div
+                                className="blood-level-bar"
+                                style={{width: `${game.npc.current_blood * 100 / game.npc.attr.total_blood}%`}}
+                            ></div>
+                        </div>
+                        <form onSubmit={attackNPC} className="attack-form">
+                            <label>
+                                Damage:
+                                <input
+                                    type="number"
+                                    value={damage}
+                                    onChange={(e) => setDamage(e.target.value)}
+                                />
+                            </label>
+                            <button type="submit">Attack</button>
+                        </form>
                 </div>
-                <Leaderboard leaderboard={leaderboard} />
+                <Leaderboard leaderboard={leaderboard}/>
+                <Footer/>
             </div>
-        );
+    );
     }
-};
+    };
 
-export default Game;
+    export default Game;
 

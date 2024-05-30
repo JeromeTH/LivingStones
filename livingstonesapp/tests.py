@@ -14,7 +14,6 @@ class NPCModelTest(TestCase):
     def test_create_npc(self):
         # Create a npc instance
         npc = NPC.objects.create(game=self.game, name='Dragon', current_blood=100)
-
         # Assertions to check if the npc was created successfully
         self.assertEqual(npc.name, 'Dragon')
         self.assertEqual(npc.current_blood, 100)

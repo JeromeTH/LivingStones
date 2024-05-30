@@ -1,23 +1,25 @@
 
-.join-game-container{
+.join-game-container {
     display: flex;
     height: 100vh;
     width: 100vw;
+    align-items: center;
     justify-content: center;
-    align-content: center;
     flex-direction: column;
 }
 
-.join-game{
+.join-game {
     display: flex; /* Use flexbox to center the button */
     justify-content: center; /* Center horizontally */
     padding-top: 50px; /* Adjust this value to set the distance from the top */
     width: 50%;
     height: 80%;
+    flex-direction: column;
 }
 
-.join-game p{
+.join-game p {
     color: white;
     font-weight: bold;
     font-size: 1.5em;
+    padding-top: 20px;
 }
