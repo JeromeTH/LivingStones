@@ -21,19 +21,19 @@ class Game(models.Model):
     is_active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"Game {self.id} by {self.creator.username}"
+        return f"Game {self.id}"
 
 
 class GameNPC(models.Model):
     game = models.OneToOneField(Game, on_delete=models.CASCADE, related_name='npc')
     attr = models.ForeignKey(NPC, on_delete=models.CASCADE)
-    current_blood = models.IntegerField()
+    current_blood = models.IntegerField(blank=True, null=False)  # Make the field optional
     # You can add more fields if needed to track NPC state in the game
 
     def save(self, *args, **kwargs):
-        if not self.pk:
-            # Set default blood level based on the NPC's total blood level when first created (when it does not have pk)
-            self.current = self.attr.total_blood
+        if not self.pk and self.current_blood is None:
+            # Set default blood level basedon the NPC's total blood level when first created (when it does not have pk)
+            self.current_blood = self.attr.total_blood
         super().save(*args, **kwargs)
 
     def __str__(self):

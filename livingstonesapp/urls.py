@@ -17,6 +17,7 @@ urlpatterns = [
                   path(route='login', view=views.login_user, name='login'),
                   path(route='logout', view=views.logout_request, name='logout'),
                   path(route='create-game', view=views.GameViewSet.as_view({'post': 'create'}), name='create-game'),
+                  path(route='npcs', view=views.NPCListView.as_view(), name='npc-list'),
                   path('active-games/', views.GameViewSet.as_view({'get': 'active'}), name='active-games'),
                   path('ended-games/', views.GameViewSet.as_view({'get': 'ended'}), name='ended-games'),
                   path('game/<int:pk>/', views.GameViewSet.as_view({'get': 'retrieve'}), name='game-detail'),

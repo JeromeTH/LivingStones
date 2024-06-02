@@ -5,6 +5,8 @@ from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 from rest_framework.views import APIView
+from django.shortcuts import get_object_or_404
+
 
 from .models import Game, NPC, Attack, GamePlayer, GameNPC
 from .serializers import GameSerializer, NPCSerializer, AttackSerializer
@@ -66,7 +68,7 @@ def registration(request):
     email_exist = False
     try:
         # Check if user already exists
-        get(username=username)
+        User.objects.get(username=username)
         username_exist = True
     except:
         # If not, simply log this is a new user
@@ -92,7 +94,7 @@ class NPCViewSet(viewsets.ModelViewSet):
 
 class NPCListView(APIView):
     @staticmethod
-    def get(request, *args, **kwargs):
+    def retrieve(self, request, *args, **kwargs):
         npcs: QuerySet[NPC] = NPC.objects.all()
         serializer = NPCSerializer(npcs, many=True)
         return Response(serializer.data)
@@ -101,6 +103,10 @@ class NPCListView(APIView):
 class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
+
+    def get_queryset(self):
+        queryset = Game.objects.select_related('npc', 'creator').prefetch_related('players', 'npc__attr')
+        return queryset
 
     # lookup_field = pk (default)
     @method_decorator(csrf_exempt, name='dispatch')
@@ -113,7 +119,8 @@ class GameViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def retrieve(self, request, *args, **kwargs):
-        game = self.get_object()
+        game_id = kwargs.get('pk')
+        game = get_object_or_404(self.get_queryset(), id=game_id)
         serializer = self.get_serializer(game)
         leaderboard = self.calculate_leaderboard(game)
         data = serializer.data
@@ -122,7 +129,7 @@ class GameViewSet(viewsets.ModelViewSet):
 
     @staticmethod
     def calculate_leaderboard(game):
-        players = game.players.all()
+        players = game.players.select_related('user').all()
         leaderboard = {}
         for player in players:
             leaderboard[player.user.username] = player.total_damage

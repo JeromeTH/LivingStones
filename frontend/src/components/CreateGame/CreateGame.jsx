@@ -1,15 +1,32 @@
 // CreateGame.jsx
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Modal from "../Elements/Modal"
 import Panel from "../Elements/Panel";
 import "./CreateGame.css"
 import Header from "../Header/Header";
+import Footer from "../Elements/Footer";
+
 const CreateGame = () => {
     const [npcName, setNPCName] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [bloodLevel, setBloodLevel] = useState('');
     const navigate = useNavigate();
+
+    const [npcList, setNPCList] = useState([]);
+    const [selectedNPC, setSelectedNPC] = useState(null);
+
+    useEffect(() => {
+        const fetchNPCs = async () => {
+            const response = await fetch(window.location.origin + '/livingstonesapp/npcs');
+            const data = await response.json();
+            setNPCList(data);
+            console.log(data);
+        };
+        fetchNPCs();
+    }, []);
+
+
     const createGame = async (event) => {
         event.preventDefault();
         const token = sessionStorage.getItem('token'); // Retrieve the JWT token
@@ -21,10 +38,7 @@ const CreateGame = () => {
                 'Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify({
-                npc: {
-                    name: npcName,
-                    current_blood: bloodLevel,
-                },
+                npc_id: selectedNPC,
             }),
         });
 
@@ -48,30 +62,24 @@ const CreateGame = () => {
                 <form onSubmit={createGame}>
                     <div>
                         <label>
-                            NPC Name:
-                            <input
-                                type="text"
-                                value={npcName}
-                                onChange={(e) => setNPCName(e.target.value)}
-                            />
-                        </label>
-                    </div>
-                    <div>
-                        <label>
-                            Blood Level:
-                            <input
-                                type="number"
-                                value={bloodLevel}
-                                onChange={(e) => setBloodLevel(e.target.value)}
-                            />
+                            Select NPC:
+                            <select
+                                value={selectedNPC}
+                                onChange={(e) => setSelectedNPC(e.target.value)}
+                            >
+                                <option value="">Select an NPC</option>
+                                {npcList.map((npc) => (
+                                    <option key={npc.id} value={npc.id}>
+                                        {npc.name} (Blood Level: {npc.current_blood})
+                                    </option>
+                                ))}
+                            </select>
                         </label>
                     </div>
                     <button type="submit">Create Game</button>
                 </form>
             </Modal>
-            <footer>
-                <p>&copy; 2024 NPC Fighting App</p>
-            </footer>
+            <Footer/>
         </div>
     );
 };

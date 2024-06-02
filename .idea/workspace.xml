@@ -5,35 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b85747b-3110-4217-a003-492b004ef81e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Dockerfile-django" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dockerfile-nginx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Dockerfile-react" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/django-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/django-service.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/nginx-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/nginx-service.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/react-deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/react-service.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/sqlite-pv.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/k8s/sqlite-pvc.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/nginx.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/LivingStones.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/LivingStones.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstones/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstones/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstonesapp/consumers.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/consumers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstonesapp/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/debug.py" beforeDir="false" afterPath="$PROJECT_DIR$/debug.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/livingstonesapp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/livingstonesapp/migrations/0001_initial.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/livingstonesapp/migrations/0002_remove_game_participants_gameplayer_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/livingstonesapp/migrations/0003_gameplayer_created_at_and_more.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/livingstonesapp/migrations/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/livingstonesapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/livingstonesapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/livingstonesapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/npc_images/Cornell.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/npc_images/Cornell.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/npc_images/Cornell_I4HYqao.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/npc_images/Cornell_I4HYqao.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/npc_images/Princeton.png" beforeDir="false" afterPath="$PROJECT_DIR$/media/npc_images/Princeton.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/static/asset-manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/asset-manifest.json.gz" beforeDir="false" afterPath="$PROJECT_DIR$/static/asset-manifest.json.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/index.html.gz" beforeDir="false" afterPath="$PROJECT_DIR$/static/index.html.gz" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/staticfiles.json" beforeDir="false" afterPath="$PROJECT_DIR$/static/staticfiles.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,6 +114,7 @@
       <workItem from="1716379669116" duration="122999000" />
       <workItem from="1717050988898" duration="32900000" />
       <workItem from="1717286629485" duration="65000" />
+      <workItem from="1717310222520" duration="11643000" />
     </task>
     <servers />
   </component>
