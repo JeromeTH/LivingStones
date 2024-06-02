@@ -21,6 +21,9 @@
 .game-info {
     width: 100%;
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .blood-level-bar-container {
@@ -96,4 +99,11 @@
 
 .participants li {
     margin-bottom: 5px;
+}
+
+.npc-image {
+    width: 100px; /* Adjust size as needed */
+    height: auto;
+    display: block; /* Ensure the image is displayed as a block element */
+    margin: 10px 0;
 }

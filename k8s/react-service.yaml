@@ -1,0 +1,14 @@
+# LivingStones/k8s/react-service.yaml
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: react
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000

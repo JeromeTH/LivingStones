@@ -22,7 +22,7 @@ class GameConsumer(AsyncWebsocketConsumer):
         )
 
     async def receive(self, text_data: Any = None, bytes_data: Any = None) -> None:
-        data = json.loads(text_data)
+        data = json
         current_blood = data['current_blood']
         is_active = data.get('is_active', True)
         leaderboard = data['leaderboard']

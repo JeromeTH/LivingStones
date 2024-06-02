@@ -32,9 +32,9 @@ class AttackSerializer(serializers.ModelSerializer):
 
 class GameSerializer(serializers.ModelSerializer):
     npc = GameNPCSerializer(many=False, read_only=True)
-    attacks = AttackSerializer(many=True, read_only=True)
+    #attacks = AttackSerializer(many=True, read_only=True)
     players = GamePlayerSerializer(many=True, read_only=True)
 
     class Meta:
         model = Game
-        fields = ['id', 'name', 'creator', 'players', 'start_time', 'end_time', 'is_active', 'npc', 'attacks']
+        fields = ['id', 'name', 'creator', 'players', 'start_time', 'end_time', 'is_active', 'npc']

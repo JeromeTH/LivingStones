@@ -41,6 +41,8 @@ urlpatterns = [
                   path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
                   path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
                   path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+                  path('media/<path:path>', serve, {'document_root': settings.MEDIA_ROOT}),
+                  # Explicitly serve media files
                   re_path(r'^.*$', TemplateView.as_view(template_name='index.html')),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 #

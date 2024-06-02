@@ -1,0 +1,38 @@
+# LivingStones/docker-compose.yml
+
+version: '3'
+
+services:
+  django:
+    build:
+      context: .
+      dockerfile: Dockerfile-django
+    container_name: django
+    command: daphne -b 0.0.0.0 -p 8000 livingstones.asgi:application
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - react
+
+  react:
+    build:
+      context: .
+      dockerfile: Dockerfile-react
+    container_name: react
+    ports:
+      - "3000:3000"
+    depends_on:
+      - django
+
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - django
+      - react

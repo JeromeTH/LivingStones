@@ -1,7 +1,7 @@
 /* Leaderboard Styles */
 .leaderboard {
-    width: 100%; /* Fill the width of the summary container */
-    height: 100%; /* Fill 80% of the height of the summary container */
+    width: 100%; /* Fill the width of the container */
+    height: 100%; /* Fill 80% of the height of the container */
     background-color: #500217;
     border: 2px solid #c91212;
     border-radius: 10px;

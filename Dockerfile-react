@@ -1,0 +1,24 @@
+# LivingStones/Dockerfile-django-react
+
+# LivingStones/Dockerfile-react
+
+FROM node:14
+
+# Set work directory
+WORKDIR /app
+
+# Install dependencies
+COPY package.json /app/
+RUN npm install
+
+# Copy project
+COPY . /app/
+
+# Build the application
+RUN npm run build
+
+# Expose the port the app runs on
+EXPOSE 3000
+
+# Serve the app
+CMD ["npx", "serve", "-s", "build"]

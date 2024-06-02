@@ -113,37 +113,38 @@ const Game = () => {
         navigate(`/game/${id}/summary/`);
     } else {
         console.log("game is active");
+        console.log(game.npc.attr.image);
         return (
             <div className="game-container">
                 <div className="game-info">
                     <h2>Game ID: {game.id}</h2>
                     <h3>NPC: {game.npc.attr.name}</h3>
-                    <img src= "{game.npc.attr.image.url}" alt="{game.npc.attr.name}" className="npc-image">
-                        <div className="blood-level-bar-container">
-                            <h2>Blood Level: {game.npc.current_blood}</h2>
-                            <div
-                                className="blood-level-bar"
-                                style={{width: `${game.npc.current_blood * 100 / game.npc.attr.total_blood}%`}}
-                            ></div>
-                        </div>
-                        <form onSubmit={attackNPC} className="attack-form">
-                            <label>
-                                Damage:
-                                <input
-                                    type="number"
-                                    value={damage}
-                                    onChange={(e) => setDamage(e.target.value)}
-                                />
-                            </label>
-                            <button type="submit">Attack</button>
-                        </form>
+                    <img src={game.npc.attr.image} alt="{{ game.npc.attr.name }}" className="npc-image"/>
+                    <div className="blood-level-bar-container">
+                        <h2>Blood Level: {game.npc.current_blood}</h2>
+                        <div
+                            className="blood-level-bar"
+                            style={{width: `${game.npc.current_blood * 100 / game.npc.attr.total_blood}%`}}
+                        ></div>
+                    </div>
+                    <form onSubmit={attackNPC} className="attack-form">
+                        <label>
+                            Damage:
+                            <input
+                                type="number"
+                                value={damage}
+                                onChange={(e) => setDamage(e.target.value)}
+                            />
+                        </label>
+                        <button type="submit">Attack</button>
+                    </form>
                 </div>
                 <Leaderboard leaderboard={leaderboard}/>
                 <Footer/>
             </div>
-    );
+        );
     }
-    };
+};
 
-    export default Game;
+export default Game;
 

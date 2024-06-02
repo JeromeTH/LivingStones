@@ -1,8 +1,10 @@
+from django.db.models import QuerySet
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
+from rest_framework.views import APIView
 
 from .models import Game, NPC, Attack, GamePlayer, GameNPC
 from .serializers import GameSerializer, NPCSerializer, AttackSerializer
@@ -64,7 +66,7 @@ def registration(request):
     email_exist = False
     try:
         # Check if user already exists
-        User.objects.get(username=username)
+        get(username=username)
         username_exist = True
     except:
         # If not, simply log this is a new user
@@ -86,6 +88,14 @@ def registration(request):
 class NPCViewSet(viewsets.ModelViewSet):
     queryset = NPC.objects.all()
     serializer_class = NPCSerializer
+
+
+class NPCListView(APIView):
+    @staticmethod
+    def get(request, *args, **kwargs):
+        npcs: QuerySet[NPC] = NPC.objects.all()
+        serializer = NPCSerializer(npcs, many=True)
+        return Response(serializer.data)
 
 
 class GameViewSet(viewsets.ModelViewSet):
@@ -171,12 +181,12 @@ class GameViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['get'], permission_classes=[IsAuthenticated])
     def summary(self, request, pk=None):
         game = self.get_object()
-        participants = set()
-        for participant in game.participants.all():
-            user = participant.username
-            participants.add(user)
+        players = set()
+        for player in game.players.all():
+            user = player.user.username
+            players.add(user)
         response_data = {
             'leaderboard': self.calculate_leaderboard(game),
-            'participants': list(participants),
+            'participants': list(players),
         }
         return Response(response_data, status=status.HTTP_200_OK)

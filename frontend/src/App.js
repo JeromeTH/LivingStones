@@ -22,7 +22,13 @@ function App() {
             {/*<Route path="/create-game" element={<CreateGame/>}/>*/}
             {/*<Route path="/game/:id" element={<Game/>}/>*/}
             {/*<Route path="/game/:id/join" element={<JoinGame/>}/>*/}
-            {/*<Route path="/game/:id/summary" element={<Summary/>}/>*/}
+            <Route
+                path="/game/:id/summary"
+                element={
+                    <PrivateRoute>
+                        <Summary/>
+                    </PrivateRoute>
+                }/>
 
             <Route
                 path="/create-game"
