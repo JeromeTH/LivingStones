@@ -4,19 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b85747b-3110-4217-a003-492b004ef81e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/debug.py" beforeDir="false" afterPath="$PROJECT_DIR$/debug.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstonesapp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstonesapp/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstonesapp/migrations/0002_remove_game_participants_gameplayer_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstonesapp/migrations/0003_gameplayer_created_at_and_more.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstonesapp/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstonesapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstonesapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstonesapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/views.py" afterDir="false" />
-    </list>
+    <list default="true" id="0b85747b-3110-4217-a003-492b004ef81e" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -114,7 +102,7 @@
       <workItem from="1716379669116" duration="122999000" />
       <workItem from="1717050988898" duration="32900000" />
       <workItem from="1717286629485" duration="65000" />
-      <workItem from="1717310222520" duration="11643000" />
+      <workItem from="1717310222520" duration="11989000" />
     </task>
     <servers />
   </component>
