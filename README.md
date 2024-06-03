@@ -186,3 +186,7 @@ docker-compose up
 
 /usr/local/etc/nginx/nginx.conf
 brew services start nginx
+
+docker-compose up -d --force-recreate nginx
+ docker-compose logs -f   
+
