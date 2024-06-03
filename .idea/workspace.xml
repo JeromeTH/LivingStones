@@ -4,7 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b85747b-3110-4217-a003-492b004ef81e" name="Changes" comment="" />
+    <list default="true" id="0b85747b-3110-4217-a003-492b004ef81e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/livingstonesapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/asset-manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/static/asset-manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/asset-manifest.json.gz" beforeDir="false" afterPath="$PROJECT_DIR$/static/asset-manifest.json.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/static/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/index.html.gz" beforeDir="false" afterPath="$PROJECT_DIR$/static/index.html.gz" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/staticfiles.json" beforeDir="false" afterPath="$PROJECT_DIR$/static/staticfiles.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -102,7 +111,7 @@
       <workItem from="1716379669116" duration="122999000" />
       <workItem from="1717050988898" duration="32900000" />
       <workItem from="1717286629485" duration="65000" />
-      <workItem from="1717310222520" duration="11989000" />
+      <workItem from="1717310222520" duration="16413000" />
     </task>
     <servers />
   </component>
@@ -132,6 +141,11 @@
           <url>file://$PROJECT_DIR$/livingstones/urls.py</url>
           <line>16</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/livingstonesapp/consumers.py</url>
+          <line>24</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/frontend/src/components/ActiveGames/ActiveGames.jsx</url>

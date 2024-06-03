@@ -12,6 +12,7 @@ const CreateGame = () => {
     const [showModal, setShowModal] = useState(false);
     const [bloodLevel, setBloodLevel] = useState('');
     const navigate = useNavigate();
+    const [gameName, setGameName] = useState('');
 
     const [npcList, setNPCList] = useState([]);
     const [selectedNPC, setSelectedNPC] = useState(null);
@@ -39,6 +40,7 @@ const CreateGame = () => {
             },
             body: JSON.stringify({
                 npc_id: selectedNPC,
+                name: gameName
             }),
         });
 
@@ -62,6 +64,17 @@ const CreateGame = () => {
                 <form onSubmit={createGame}>
                     <div>
                         <label>
+                            Game Name:
+                            <input
+                                type="text"
+                                value={gameName}
+                                onChange={(e) => setGameName(e.target.value)}
+                                required
+                            />
+                        </label>
+                    </div>
+                    <div>
+                        <label>
                             Select NPC:
                             <select
                                 value={selectedNPC}
@@ -70,11 +83,12 @@ const CreateGame = () => {
                                 <option value="">Select an NPC</option>
                                 {npcList.map((npc) => (
                                     <option key={npc.id} value={npc.id}>
-                                        {npc.name} (Blood Level: {npc.current_blood})
+                                        {npc.name} (Blood Level: {npc.total_blood})
                                     </option>
                                 ))}
                             </select>
                         </label>
+
                     </div>
                     <button type="submit">Create Game</button>
                 </form>

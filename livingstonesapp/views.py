@@ -93,11 +93,10 @@ class NPCViewSet(viewsets.ModelViewSet):
 
 
 class NPCListView(APIView):
-    @staticmethod
-    def retrieve(self, request, *args, **kwargs):
-        npcs: QuerySet[NPC] = NPC.objects.all()
+    def get(self, request, *args, **kwargs):
+        npcs = NPC.objects.all()
         serializer = NPCSerializer(npcs, many=True)
-        return Response(serializer.data)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class GameViewSet(viewsets.ModelViewSet):
@@ -112,9 +111,15 @@ class GameViewSet(viewsets.ModelViewSet):
     @method_decorator(csrf_exempt, name='dispatch')
     def create(self, request, *args, **kwargs):
         creator = request.user
-        npc_data = request.data.pop('npc')
-        game = Game.objects.create(creator=creator, **request.data)
-        NPC.objects.create(game=game, **npc_data)
+        data = request.data
+
+        # Extract name and npc_id from request data
+        game_name = data.get('name')
+        npc_id = data.get('npc_id')
+
+        game = Game.objects.create(creator=creator, name=game_name, is_active=True)
+        npc = NPC.objects.get(id=npc_id)
+        gamenpc = GameNPC.objects.create(game=game, attr=npc)
         serializer = self.get_serializer(game)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -186,10 +191,11 @@ class GameViewSet(viewsets.ModelViewSet):
         })
 
     @action(detail=True, methods=['get'], permission_classes=[IsAuthenticated])
-    def summary(self, request, pk=None):
-        game = self.get_object()
+    def summary(self, request, *args, **kwargs):
+        game_id = kwargs.get('pk')
+        game = get_object_or_404(self.get_queryset(), id=game_id)
         players = set()
-        for player in game.players.all():
+        for player in game.players.select_related('user').all():
             user = player.user.username
             players.add(user)
         response_data = {
