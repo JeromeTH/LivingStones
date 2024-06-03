@@ -1,6 +1,6 @@
 # LivingStones/Dockerfile-django-django
 
-FROM python:3.9
+FROM python:3.11.4
 
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -11,7 +11,8 @@ WORKDIR /app
 
 # Install dependencies
 COPY requirements.txt /app/
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --index-url https://pypi.org/simple -r requirements.txt
+
 
 # Copy project
 COPY . /app/

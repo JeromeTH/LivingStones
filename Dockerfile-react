@@ -2,17 +2,23 @@
 
 # LivingStones/Dockerfile-react
 
+# Use the official Node.js image
 FROM node:14
 
-# Set work directory
+# Set the working directory to /app
 WORKDIR /app
 
+# Copy package.json and package-lock.json files
+COPY frontend/package.json frontend/package-lock.json ./
+
 # Install dependencies
-COPY package.json /app/
 RUN npm install
 
-# Copy project
-COPY . /app/
+# Copy the rest of the frontend code
+COPY frontend ./
+
+# Change the working directory to /app/frontend
+WORKDIR /app/frontend
 
 # Build the application
 RUN npm run build

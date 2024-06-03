@@ -116,7 +116,6 @@ class GameViewSet(viewsets.ModelViewSet):
         # Extract name and npc_id from request data
         game_name = data.get('name')
         npc_id = data.get('npc_id')
-
         game = Game.objects.create(creator=creator, name=game_name, is_active=True)
         npc = NPC.objects.get(id=npc_id)
         gamenpc = GameNPC.objects.create(game=game, attr=npc)
