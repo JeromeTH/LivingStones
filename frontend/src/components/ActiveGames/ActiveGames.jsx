@@ -1,13 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import './ActiveGames.css';
-import Panel from "../Elements/Panel"
 import Header from "../Header/Header";
 import PaginatedPanel from "../Elements/PaginatedPanel";
 import Footer from "../Elements/Footer";
 
-const config = require('../../../settings');
-const API_URL = config.API_URL;
 const renderGameEntry = (game) => (
     <a href={`/game/${game.id}/join/`}>
         {game.name ? game.name : `Game ${game.id}`}

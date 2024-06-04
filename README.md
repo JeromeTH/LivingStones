@@ -191,3 +191,18 @@ docker-compose up -d --force-recreate nginx
  docker-compose logs -f   
 
 deployment server IP: 
+
+
+sudo yum update -y
+sudo yum install -y docker
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+exit
+ssh -i ~/.ssh/LightsailDefaultKey-ap-northeast-2.pem ec2-user@13.125.95.45
+docker --version
+
+sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+docker-compose --version
+
