@@ -1,9 +1,8 @@
-# LivingStones/Dockerfile-django-react
 
 # LivingStones/Dockerfile-react
 
 # Use the official Node.js image
-FROM node:14-alpine AS build-stage
+FROM node:14-alpine
 
 # Set the working directory to /app
 WORKDIR /app
