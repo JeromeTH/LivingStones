@@ -206,3 +206,37 @@ sudo chmod +x /usr/local/bin/docker-compose
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 docker-compose --version
 
+https://www.whatsmydns.net/#A/stonesliving.com
+django  | Invalid HTTP_HOST header: '13.125.95.45'. You may need to add '13.125.95.45' to ALLOWED_HOSTS.
+django  | Traceback (most recent call last):
+django  |   File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+django  |     response = get_response(request)
+django  |                ^^^^^^^^^^^^^^^^^^^^^
+django  |   File "/usr/local/lib/python3.11/site-packages/django/utils/deprecation.py", line 133, in __call__
+django  |     response = self.process_request(request)
+django  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django  |   File "/usr/local/lib/python3.11/site-packages/django/middleware/common.py", line 48, in process_request
+django  |     host = request.get_host()
+django  |            ^^^^^^^^^^^^^^^^^^
+django  |   File "/usr/local/lib/python3.11/site-packages/django/http/request.py", line 151, in get_host
+django  |     raise DisallowedHost(msg)
+django  | django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '13.125.95.45'. You may need to add '13.125.95.45' to ALLOWED_HOSTS.
+django  | 2024-06-04 09:00:12,886 ERROR    Invalid HTTP_HOST header: '13.125.95.45'. You may need to add '13.125.95.45' to ALLOWED_HOSTS.
+django  | Traceback (most recent call last):
+django  |   File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+django  |     response = get_response(request)
+django  |                ^^^^^^^^^^^^^^^^^^^^^
+django  |   File "/usr/local/lib/python3.11/site-packages/django/utils/deprecation.py", line 133, in __call__
+django  |     response = self.process_request(request)
+django  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+django  |   File "/usr/local/lib/python3.11/site-packages/django/middleware/common.py", line 48, in process_request
+django  |     host = request.get_host()
+django  |            ^^^^^^^^^^^^^^^^^^
+django  |   File "/usr/local/lib/python3.11/site-packages/django/http/request.py", line 151, in get_host
+django  |     raise DisallowedHost(msg)
+django  | django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '13.125.95.45'. You may need to add '13.125.95.45' to ALLOWED_HOSTS.
+django  | Bad Request: /
+django  | 2024-06-04 09:00:13,365 WARNING  Bad Request: /
+django  | 172.18.0.4:51246 - - [04/Jun/2024:09:00:13] "GET /" 400 58316
+nginx   | 170.106.159.160 - - [04/Jun/2024:09:00:13 +0000] "GET / HTTP/1.1" 400 58385 "-" "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"
+
