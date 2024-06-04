@@ -190,3 +190,4 @@ brew services start nginx
 docker-compose up -d --force-recreate nginx
  docker-compose logs -f   
 
+deployment server IP: 
