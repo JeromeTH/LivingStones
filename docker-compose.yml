@@ -1,6 +1,6 @@
 # LivingStones/docker-compose.yml
 
-version: '3'
+version: '3.8'
 
 services:
   django:
