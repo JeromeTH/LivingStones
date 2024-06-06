@@ -1,4 +1,4 @@
-# LivingStones/Dockerfile-django-django
+# LivingStones/Dockerfile-django
 
 FROM python:3.11.4
 
@@ -16,6 +16,14 @@ RUN pip install --no-cache-dir --index-url https://pypi.org/simple -r requiremen
 
 # Copy project
 COPY . /app/
+
+# Change the working directory to /app/frontend
+WORKDIR /app/frontend
+
+# Build the application
+RUN npm run build
+
+WORKDIR /app
 
 # Collect static files
 RUN python manage.py collectstatic --noinput
