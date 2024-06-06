@@ -9,8 +9,6 @@ services:
       dockerfile: Dockerfile-django
     container_name: django
     command: daphne -b 0.0.0.0 -p 8000 livingstones.asgi:application
-#    volumes:
-#      - .:/app
     ports:
       - "8000:8000"
 
