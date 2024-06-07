@@ -1,242 +1,212 @@
-add game restart button
+# LivingStones
 
-if enter deprecated game, then see it's last leaderboard
+LivingStones is a monster fighting game where users can battle NPCs (Non-Player Characters). The game is built with a Django backend and a React frontend, and it uses Nginx as the production server. The project aims to provide an engaging and interactive experience with real-time updates, sound effects, and animations.
 
-when creating new game, use least unused index
+## Table of Contents
+## Table of Contents
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Installation](#installation)
+- [Prerequisites](#prerequisites)
+- [Development Steps](#development-steps)
+- [Docker Server and Deployment](#docker-server-and-deployment)
+- [Usage](#usage)
+- [Useful Commands](#useful-commands)
+- [Contributing](#contributing)
+- [License](#license)
 
-add game name
+## Features
+- **Real-Time Battles**: Users can fight against NPCs with real-time updates.
+- **Multiple NPCs**: Each game can potentially feature multiple NPCs (future development).
+- **Leaderboard**: Tracks the total damage done to NPCs by each user.
+- **Sound and Visual Effects**: Enhanced gaming experience with sound and animations during attacks.
+- **Game Management**: Create games with custom names and select existing NPCs from the database.
 
-standardize different navigation methods
+## Tech Stack
+- **Frontend**: React
+- **Backend**: Django, SQLite
+- **Server**: Daphne (for WebSockets), Whitenoise (for static files)
+- **Production Server**: Nginx
+- **Deployment**: Docker, AWS Light Sail
 
-window.href
-navigate
-<link> 
-<a>
+## Installation
 
+### Prerequisites
+- **Docker**: Docker is a platform for developing, shipping, and running applications inside containers. Install Docker from the official website:
+    ```sh
+    # For Ubuntu
+    sudo apt-get update
+    sudo apt-get install \
+        ca-certificates \
+        curl \
+        gnupg \
+        lsb-release
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+    echo \
+      "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
+      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    sudo apt-get update
+    sudo apt-get install docker-ce docker-ce-cli containerd.io
 
-game and game summary, correctly retrieve past leaderboard. 
-todo: 
-1. game's historical attacks, create game-attack table
-2. Debug game logic
-4. https://www.w3schools.com/graphics/game_intro.asp
-5. Bug: total attack value should not be more than npc blood level
-6. https://aws.amazon.com/tutorials/deploy-webapp-lightsail/
+    # For macOS
+    brew install --cask docker
 
-implement the moving blood bar (add total blood attribute to the NPC object)
+    # For Windows
+    Download and install Docker Desktop from https://www.docker.com/products/docker-desktop
+    ```
 
+- **Docker Compose**: A tool for defining and running multi-container Docker applications. Install Docker Compose from the official website:
+    ```sh
+    # For Ubuntu
+    sudo curl -L "https://github.com/docker/compose/releases/download/v2.2.3/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
 
-Client
-   |
-   v
-Nginx (Reverse Proxy)
-   |
-   |--> Serve Static Files (React build files, media, static assets)
-   |
-   |--> Proxy API Requests /api/ to Daphne (Django backend)
-   |
-   |--> Proxy Web Socket Connections /ws/ to Daphne (Django backend)
+    # For macOS and Windows
+    Docker Desktop includes Docker Compose, no separate installation is needed.
+    ```
 
+- **Node.js**: JavaScript runtime built on Chrome's V8 JavaScript engine. Install Node.js from the official website:
+    ```sh
+    # For Ubuntu
+    curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+    sudo apt-get install -y nodejs
 
-# Build the Django image
-docker build -t your-django-image -f Dockerfile-django .
+    # For macOS
+    brew install node
 
-# Build the React image
-docker build -t your-react-image -f Dockerfile-react .
+    # For Windows
+    Download the Windows installer from https://nodejs.org and run the installation.
+    ```
 
-# Build the Nginx image
-docker build -t your-nginx-image -f Dockerfile-nginx .
+- **Python 3.x**: A programming language that lets you work quickly and integrate systems more effectively. Install Python 3.x from the official website:
+    ```sh
+    # For Ubuntu
+    sudo apt-get update
+    sudo apt-get install python3 python3-venv python3-pip
 
+    # For macOS
+    brew install python
 
-# Push the Django image
-docker push your-django-image
+    # For Windows
+    Download the installer from https://www.python.org and run the installation.
+    ```
 
-# Push the React image
-docker push your-react-image
+- **AWS CLI**: A unified tool to manage your AWS services. Install the AWS CLI from the official website:
+    ```sh
+    # For Ubuntu
+    sudo apt-get update
+    sudo apt-get install awscli
 
-# Push the Nginx image
-docker push your-nginx-image
+    # For macOS
+    brew install awscli
 
-kubectl apply -f k8s/django-deployment.yaml
-kubectl apply -f k8s/django-service.yaml
-kubectl apply -f k8s/react-deployment.yaml
-kubectl apply -f k8s/react-service.yaml
-kubectl apply -f k8s/nginx-deployment.yaml
-kubectl apply -f k8s/nginx-service.yaml
+    # For Windows
+    Download and run the AWS CLI MSI installer from https://aws.amazon.com/cli/
+    ```
 
-LivingStones/
-├── livingstones/
-│   ├── __init__.py
-│   ├── asgi.py
-│   ├── settings.py
-│   ├── urls.py
-│   └── wsgi.py
-├── livingstonesapp/
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── apps.py
-│   ├── models.py
-│   ├── views.py
-│   └── ...
-├── frontend/
-│   ├── public/
-│   ├── src/
-│   └── ...
-├── static/
-├── media/
-├── Dockerfile-django
-├── Dockerfile-react
-├── Dockerfile-nginx
-├── docker-compose.yml
-└── k8s/
-    ├── django-deployment.yaml
-    ├── django-service.yaml
-    ├── react-deployment.yaml
-    ├── react-service.yaml
-    ├── nginx-deployment.yaml
-    └── nginx-service.yaml
+### Development Steps
+1. **Clone the repository**:
+    ```sh
+    git clone https://github.com/jerometh/livingstones.git
+    cd livingstones
+    ```
 
+2. **Setup Backend**:
+    ```sh
+    python -m venv livingstonesenv
+    source livingstonesenv/bin/activate
+    pip install -r requirements.txt
+    python manage.py makemigrations livingstonesapp
+    python manage.py migrate
+    ```
 
-
-Full Deployment Steps
-Build Docker Images:
-
-
-# Build the Django image
-docker build -t your-django-image -f Dockerfile-django .
-
-# Build the React image
-docker build -t your-react-image -f Dockerfile-react .
-
-# Build the Nginx image
-docker build -t your-nginx-image -f Dockerfile-nginx .
-
-Push Docker Images to Amazon ECR:
-# Authenticate Docker to your ECR registry
-aws ecr get-login-password --region your-region | docker login --username AWS --password-stdin your-account-id.dkr.ecr.your-region.amazonaws.com
-
-# Tag and push images
-docker tag your-django-image:latest your-account-id.dkr.ecr.your-region.amazonaws.com/your-django-repo:latest
-docker tag your-react-image:latest your-account-id.dkr.ecr.your-region.amazonaws.com/your-react-repo:latest
-docker tag your-nginx-image:latest your-account-id.dkr.ecr.your-region.amazonaws.com/your-nginx-repo:latest
-
-docker push your-account-id.dkr.ecr.your-region.amazonaws.com/your-django-repo:latest
-docker push your-account-id.dkr.ecr.your-region.amazonaws.com/your-react-repo:latest
-docker push your-account-id.dkr.ecr.your-region.amazonaws.com/your-nginx-repo:latest
-
-Create Persistent Volume and Claim for SQLite:
-Create sqlite-pv.yaml and sqlite-pvc.yaml in the LivingStones/k8s/ directory.
-
-
-# LivingStones/k8s/sqlite-pv.yaml
-
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: sqlite-pv
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/mnt/data"
+3. **Setup Frontend**:
+    ```sh
+    cd ../frontend
+    npm install
+    npm run build
+    ```
+4. **Start Development Server**:
+   ```shell
+   #daphne server supports websockets while default django server doesn't
+   daphne -b 0.0.0.0 -p 8000 livingstones.asgi:application
+   #browse localhost:8000 in browser
+   ```
 
 
-# LivingStones/k8s/sqlite-pvc.yaml
+## Docker Server and Deployment
 
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: sqlite-pvc
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 1Gi
-
-Apply the Persistent Volume and Persistent Volume Claim:
-
-kubectl apply -f k8s/sqlite-pv.yaml
-kubectl apply -f k8s/sqlite-pvc.yaml
-
-Apply Kubernetes Manifests:
-
-kubectl apply -f k8s/django-deployment.yaml
-kubectl apply -f k8s/django-service.yaml
-kubectl apply -f k8s/react-deployment.yaml
-kubectl apply -f k8s/react-service.yaml
-kubectl apply -f k8s/nginx-deployment.yaml
-kubectl apply -f k8s/nginx-service.yaml
+*Identical for localhost and server*
+1. **Build Docker Images**
+   ```shell
+   docker-compose build
+   ```
+2. **Start Docker Server**:
+    ```sh
+    docker-compose up
+    ```
+3. To connect server with a domain ex. stonesliving.com, please follow: 
+https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-point-domain-to-distribution.html
 
 
+## Usage
+1. **Access the Application**:
+    Open your web browser and navigate to `http://localhost`.
 
-local deployment 
-# Build the Django image
-docker-compose build django
+2. **Creating a Game**:
+    - Navigate to the game creation page.
+    - Input the game name.
+    - Select existing NPCs from the database or create a new one.
 
-# Build the React image
-docker-compose build react
+3. **Playing the Game**:
+    - Join a game from the list.
+    - Engage in battles with NPCs.
+    - Enjoy sound effects and animations during attacks.
 
-# Build the Nginx image
-docker-compose build nginx
+## Deployment
+1. **Set ssh to remote server**: 
+   
+   ```sh
+    vim ~/.ssh/config
+   ```
+   ```text
+    #your ssh config should be something like this: 
+    Host ls-deploy
+    Hostname 3.39.185.37
+    User ec2-user
+    IdentityFile ~/.ssh/LightsailDefaultKey-ap-northeast-2.pem
+    ForwardAgent yes
+   ```
+    ```shell
+    ssh ls-deploy 
+    ```
+   
+2. **Pull the project to server**:
+    ```sh
+    git clone https://github.com/jerometh/livingstones.git
+    ```
 
+3. **Start running the Docker Containers**
+    follow the instructions here [Docker Server and Deployment](#docker-server-and-deployment)
+4. Visit the website on browser
 
-docker-compose up
+## Useful Commands
+1. **Get website response in terminal**
+    ```shell
+    curl <url>
+    ```
+2. ** Enter the file structure of the docker container**
+    ```shell
+   docker exec -it <container_name_or_id> /bin/sh
+    ```
+    
 
-/usr/local/etc/nginx/nginx.conf
-brew services start nginx
+## Contributing
+Contributions are welcome! Please fork the repository and create a pull request with your changes. Make sure to follow the coding standards and write tests for new features.
 
-docker-compose up -d --force-recreate nginx
- docker-compose logs -f   
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-deployment server IP: 
+---
 
-
-sudo yum update -y
-sudo yum install -y docker
-sudo service docker start
-sudo usermod -a -G docker ec2-user
-exit
-ssh -i ~/.ssh/LightsailDefaultKey-ap-northeast-2.pem ec2-user@13.125.95.45
-docker --version
-
-sudo curl -L "https://github.com/docker/compose/releases/download/$(curl -s https://api.github.com/repos/docker/compose/releases/latest | jq -r .tag_name)/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-docker-compose --version
-
-https://www.whatsmydns.net/#A/stonesliving.com
-django  | Invalid HTTP_HOST header: '13.125.95.45'. You may need to add '13.125.95.45' to ALLOWED_HOSTS.
-django  | Traceback (most recent call last):
-django  |   File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
-django  |     response = get_response(request)
-django  |                ^^^^^^^^^^^^^^^^^^^^^
-django  |   File "/usr/local/lib/python3.11/site-packages/django/utils/deprecation.py", line 133, in __call__
-django  |     response = self.process_request(request)
-django  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-django  |   File "/usr/local/lib/python3.11/site-packages/django/middleware/common.py", line 48, in process_request
-django  |     host = request.get_host()
-django  |            ^^^^^^^^^^^^^^^^^^
-django  |   File "/usr/local/lib/python3.11/site-packages/django/http/request.py", line 151, in get_host
-django  |     raise DisallowedHost(msg)
-django  | django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '13.125.95.45'. You may need to add '13.125.95.45' to ALLOWED_HOSTS.
-django  | 2024-06-04 09:00:12,886 ERROR    Invalid HTTP_HOST header: '13.125.95.45'. You may need to add '13.125.95.45' to ALLOWED_HOSTS.
-django  | Traceback (most recent call last):
-django  |   File "/usr/local/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
-django  |     response = get_response(request)
-django  |                ^^^^^^^^^^^^^^^^^^^^^
-django  |   File "/usr/local/lib/python3.11/site-packages/django/utils/deprecation.py", line 133, in __call__
-django  |     response = self.process_request(request)
-django  |                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-django  |   File "/usr/local/lib/python3.11/site-packages/django/middleware/common.py", line 48, in process_request
-django  |     host = request.get_host()
-django  |            ^^^^^^^^^^^^^^^^^^
-django  |   File "/usr/local/lib/python3.11/site-packages/django/http/request.py", line 151, in get_host
-django  |     raise DisallowedHost(msg)
-django  | django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: '13.125.95.45'. You may need to add '13.125.95.45' to ALLOWED_HOSTS.
-django  | Bad Request: /
-django  | 2024-06-04 09:00:13,365 WARNING  Bad Request: /
-django  | 172.18.0.4:51246 - - [04/Jun/2024:09:00:13] "GET /" 400 58316
-nginx   | 170.106.159.160 - - [04/Jun/2024:09:00:13 +0000] "GET / HTTP/1.1" 400 58385 "-" "Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1"
-
+Happy coding! If you have any questions, feel free to open an issue or contact the maintainers.
