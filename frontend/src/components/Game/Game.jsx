@@ -12,6 +12,8 @@ const Game = () => {
     const [leaderboard, setLeaderboard] = useState([]);
     const [damage, setDamage] = useState('');
     const [socket, setSocket] = useState(null);
+    const [isAttackMode, setIsAttackMode] = useState(true);
+
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -116,17 +118,10 @@ const Game = () => {
         console.log(game.npc.attr.image);
         return (
             <div className="game-container">
-                <div className="game-info">
-                    <h2>Game ID: {game.id}</h2>
-                    <h3>NPC: {game.npc.attr.name}</h3>
-                    <img src={game.npc.attr.image} alt="{{ game.npc.attr.name }}" className="npc-image"/>
-                    <div className="blood-level-bar-container">
-                        <h2>Blood Level: {game.npc.current_blood}</h2>
-                        <div
-                            className="blood-level-bar"
-                            style={{width: `${game.npc.current_blood * 100 / game.npc.attr.total_blood}%`}}
-                        ></div>
-                    </div>
+                <button onClick={() => setIsAttackMode(!isAttackMode)}>
+                    {isAttackMode ? "Show Game Progress" : "Attack NPC"}
+                </button>
+                {isAttackMode ? (
                     <form onSubmit={attackNPC} className="attack-form">
                         <label>
                             Damage:
@@ -138,11 +133,27 @@ const Game = () => {
                         </label>
                         <button type="submit">Attack</button>
                     </form>
-                </div>
-                <Leaderboard leaderboard={leaderboard}/>
+                ) : (
+                    <div className={"game-info"}>
+                        <h2>Game ID: {game.id}</h2>
+                        <h3>NPC: {game.npc.attr.name}</h3>
+                        <img src={game.npc.attr.image} alt="{{ game.npc.attr.name }}" className="npc-image"/>
+                        <div className="blood-level-bar-container">
+                            <h2>Blood Level: {game.npc.current_blood}</h2>
+                            <div
+                                className="blood-level-bar"
+                                style={{width: `${game.npc.current_blood * 100 / game.npc.attr.total_blood}%`}}
+                            ></div>
+                        </div>
+                        <Leaderboard leaderboard={leaderboard}/>
+                    </div>
+                )
+                }
                 <Footer/>
             </div>
-        );
+
+        )
+            ;
     }
 };
 
