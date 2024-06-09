@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "./Header.css";
 
 const Header = () => {
@@ -44,18 +44,27 @@ const Header = () => {
             </div>
         );
     }
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const toggleMenu = () => {
+        setIsMenuOpen(!isMenuOpen);
+    };
 
     return (
         <header className="navbar">
             <div className="container">
                 <h1>Living Stones</h1>
-                <nav>
+                <nav className={isMenuOpen ? 'open' : ''}>
                     <a className="homepage_links" href="/">Home</a>
                     <a className="homepage_links" href="/create-game">New Game</a>
                     <a className="homepage_links" href="/active-games">Active Games</a>
                     <a className="homepage_links" href="/ended-games">Past Games</a>
                     {home_page_items}
                 </nav>
+                <div className="hamburger" onClick={toggleMenu}>
+                    <span className="bar"></span>
+                    <span className="bar"></span>
+                    <span className="bar"></span>
+                </div>
             </div>
         </header>
     );
