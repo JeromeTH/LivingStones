@@ -8,17 +8,18 @@ services:
       context: .
       dockerfile: Dockerfile-django
     container_name: django
+    image: django
     command: daphne -b 0.0.0.0 -p 8000 livingstones.asgi:application
     ports:
       - "8000:8000"
 
-  react:
-    build:
-      context: .
-      dockerfile: Dockerfile-react
-    container_name: react
-    ports:
-      - "3000:3000"
+#  react:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile-react
+#    container_name: react
+#    ports:
+#      - "3000:3000"
 
   nginx:
     build:
@@ -29,4 +30,4 @@ services:
       - "80:80"
     depends_on:
       - django
-      - react
+#      - react
