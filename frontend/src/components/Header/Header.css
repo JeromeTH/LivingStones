@@ -11,6 +11,7 @@ header.navbar {
     justify-content: center;
     align-items: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    overflow-x: auto; /* Enable horizontal scrolling */
     z-index: 1000; /* Ensure the header is above other content */
 }
 
@@ -21,6 +22,7 @@ header.navbar .container {
     width: 100%;
     max-width: 1200px;
     padding: 0 20px;
+    overflow-x: auto; /* Enable horizontal scrolling */
 }
 
 header.navbar h1 {
