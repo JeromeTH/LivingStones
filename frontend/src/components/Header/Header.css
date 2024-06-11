@@ -85,33 +85,3 @@ header.navbar .hamburger .bar {
     margin: 4px 0;
     transition: 0.3s;
 }
-
-
-/* Media Queries */
-@media (max-width: 768px) {
-    header.navbar nav {
-        display: none; /* Hide nav links initially on smaller screens */
-        flex-direction: column;
-        width: 100%;
-        background-color: #0e0b16;
-        position: absolute;
-        top: 60px;
-        left: 0;
-        padding: 10px 0;
-    }
-
-    header.navbar nav.open {
-        display: flex; /* Show nav links when hamburger is clicked */
-    }
-
-    header.navbar .homepage_links {
-        margin: 10px 0;
-        padding: 10px 0;
-        width: 100%;
-        text-align: center;
-    }
-
-    header.navbar .hamburger {
-        display: flex; /* Show hamburger icon on smaller screens */
-    }
-}
