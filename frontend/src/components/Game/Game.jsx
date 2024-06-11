@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import Summary from "./Summary";
 import "./Game.css";
 import Leaderboard from "./Leaderboard";
 import Footer from "../Elements/Footer";
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const Game = () => {
     const {id} = useParams();
@@ -13,6 +14,9 @@ const Game = () => {
     const [damage, setDamage] = useState('');
     const [socket, setSocket] = useState(null);
     const [isAttackMode, setIsAttackMode] = useState(true);
+   // const audioRef = useRef(new Audio(attackSound));
+    const attackSound = useRef(new Audio(`${process.env.PUBLIC_URL}/media/sound_effects/345441__artmasterrich__punch_01.wav`));
+    const attackedSound = useRef(new Audio(`${process.env.PUBLIC_URL}/media/sound_effects/135855__joelaudio__grunt_001.wav`));
 
 
     useEffect(() => {
@@ -28,13 +32,13 @@ const Game = () => {
                 setGame(data);
                 setLeaderboard(data.leaderboard);
                 console.log(data);
+                console.log(process.env.PUBLIC_URL);
 
                 // Open WebSocket connection
                 const ws = new WebSocket(`ws://${window.location.host}/ws/game/${id}/`);
                 ws.onopen = () => {
                     console.log('WebSocket connection opened');
                 };
-
 
                 ws.onmessage = (e) => {
                     const message = JSON.parse(e.data);
@@ -46,6 +50,7 @@ const Game = () => {
                         },
                     }));
                     setLeaderboard(message.leaderboard);
+                    attackedSound.current.play();
                 };
                 setSocket(ws);
 
@@ -95,14 +100,14 @@ const Game = () => {
 
             // Notify other clients via WebSocket
             if (socket) {
+                await attackSound.current.play();
+                await delay(400); // Wait for 0.5 seconds
                 socket.send(JSON.stringify({
                     current_blood: data.current_blood,
                     is_active: data.is_active,
                     leaderboard: data.leaderboard
                 }));
             }
-
-
         } catch (error) {
             console.error('Error attacking npc:', error);
         }

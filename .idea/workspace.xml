@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b85747b-3110-4217-a003-492b004ef81e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/jsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Game/Game.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Game/Game.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +59,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/media/sound_effects" />
+    </key>
+  </component>
   <component name="RunManager" selected="Makefile Target.build-front">
     <configuration name="build-front" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
       <makefile filename="$PROJECT_DIR$/MakeFile" target="build-front" workingDirectory="" arguments="">
@@ -107,7 +115,7 @@
       <workItem from="1717050988898" duration="32900000" />
       <workItem from="1717286629485" duration="65000" />
       <workItem from="1717310222520" duration="32664000" />
-      <workItem from="1717465614036" duration="51086000" />
+      <workItem from="1717465614036" duration="57038000" />
     </task>
     <servers />
   </component>
