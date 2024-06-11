@@ -26,7 +26,10 @@ activate-env:
 	source livingstonesenv/bin/activate
 
 re-build-run:
-	cd frontend && npm run build && cd .. && python manage.py collectstatic --noinput && daphne -b 0.0.0.0 -p 8000 livingstones.asgi:application
+	cd frontend && npm run build && cd ..
+	rm -rf static  # Remove the static files directory
+	python manage.py collectstatic --noinput
+	daphne -b 0.0.0.0 -p 8000 livingstones.asgi:application
 
 debug:
 	python3 debug.py
