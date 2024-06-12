@@ -3,3 +3,4 @@ livingstonesenv/
 frontend/build/
 static
 .env
+db.sqlite3

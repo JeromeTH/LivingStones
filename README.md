@@ -210,3 +210,8 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ---
 
 Happy coding! If you have any questions, feel free to open an issue or contact the maintainers.
+
+#TODO
+show message indicating attack is successful
+server database and development database different
+add home page link to game page
