@@ -10,6 +10,9 @@ django.setup()
 from livingstonesapp.models import Game, GamePlayer, Attack
 from livingstonesapp.serializers import GameSerializer, GamePlayerSerializer
 
-game = Game.objects.select_related('npc').get(id=1)
+game = Game.objects.select_related('npc').get(id=7)
 game_serializer = GameSerializer(game)
 print(game_serializer.data)
+
+Game.objects.filter(id=7).delete()
+

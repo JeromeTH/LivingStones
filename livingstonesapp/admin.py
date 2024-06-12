@@ -13,6 +13,20 @@ from .models import Game, NPC, GameNPC, GamePlayer
 # class NPCAdmin(admin.ModelAdmin):
 #     list_display = ('name', 'current_blood')
 #     search_fields = ('name',)
+class GameAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
+
+    # def delete_model(self, request, obj):
+    #     # Ensure related objects are deleted first
+    #     if hasattr(obj, 'npc'):
+    #         obj.npc.delete()
+    #     super().delete_model(request, obj)
+
+    def get_queryset(self, request):
+        # Use select_related to fetch related objects in a single query
+        qs = super().get_queryset(request)
+        return qs.select_related('npc', 'npc__attr')
+
 
 class GameNPCAdmin(admin.ModelAdmin):
     list_display = ('id', 'game', 'attr', 'current_blood')
@@ -30,7 +44,7 @@ class GamePlayerAdmin(admin.ModelAdmin):
         return qs.select_related('game', 'user')
 
 
-admin.site.register(Game)
+admin.site.register(Game, GameAdmin)
 admin.site.register(NPC)
 admin.site.register(GameNPC, GameNPCAdmin)
 admin.site.register(GamePlayer, GamePlayerAdmin)

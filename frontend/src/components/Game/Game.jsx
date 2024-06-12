@@ -14,7 +14,6 @@ const Game = () => {
     const [damage, setDamage] = useState('');
     const [socket, setSocket] = useState(null);
     const [isAttackMode, setIsAttackMode] = useState(true);
-   // const audioRef = useRef(new Audio(attackSound));
     const attackSound = useRef(new Audio(`${process.env.PUBLIC_URL}/media/sound_effects/345441__artmasterrich__punch_01.wav`));
     const attackedSound = useRef(new Audio(`${process.env.PUBLIC_URL}/media/sound_effects/135855__joelaudio__grunt_001.wav`));
 

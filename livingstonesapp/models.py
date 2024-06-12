@@ -20,8 +20,14 @@ class Game(models.Model):
     end_time = models.DateTimeField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
 
+    # def delete(self, *args, **kwargs):
+    #     # Ensure related objects are deleted first
+    #     if hasattr(self, 'npc'):
+    #         self.npc.delete()
+    #     super().delete(*args, **kwargs)
+
     def __str__(self):
-        return f"Game {self.id}"
+        return f"Name: {self.name} id: {self.id}"
 
 
 class GameNPC(models.Model):
