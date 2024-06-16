@@ -79,4 +79,4 @@ class Attack(models.Model):
         ]
 
     def __str__(self):
-        return f"{self.attacker.username} attacked {self.damage} damage in Game {self.game.id}"
+        return f"{self.attacker.user.username} attacked {self.damage} damage in Game {self.game.id}"

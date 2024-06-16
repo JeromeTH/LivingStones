@@ -4,6 +4,7 @@ import Summary from "./Summary";
 import "./Game.css";
 import Leaderboard from "./Leaderboard";
 import Footer from "../Elements/Footer";
+
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const Game = () => {
@@ -16,6 +17,7 @@ const Game = () => {
     const [isAttackMode, setIsAttackMode] = useState(true);
     const attackSound = useRef(new Audio(`${process.env.PUBLIC_URL}/media/sound_effects/345441__artmasterrich__punch_01.wav`));
     const attackedSound = useRef(new Audio(`${process.env.PUBLIC_URL}/media/sound_effects/135855__joelaudio__grunt_001.wav`));
+    const [message, setMessage] = useState('');
 
 
     useEffect(() => {
@@ -106,6 +108,9 @@ const Game = () => {
                     is_active: data.is_active,
                     leaderboard: data.leaderboard
                 }));
+                setMessage('Attack sent!');
+                // Hide the message after 3 seconds
+                setTimeout(() => setMessage(''), 3000);
             }
         } catch (error) {
             console.error('Error attacking npc:', error);
@@ -126,17 +131,27 @@ const Game = () => {
                     {isAttackMode ? "Show Game Progress" : "Attack NPC"}
                 </button>
                 {isAttackMode ? (
-                    <form onSubmit={attackNPC} className="attack-form">
-                        <label>
-                            Damage:
-                            <input
-                                type="number"
-                                value={damage}
-                                onChange={(e) => setDamage(e.target.value)}
-                            />
-                        </label>
-                        <button type="submit">Attack</button>
-                    </form>
+                    <div className={"attack-form-container"}>
+                        <form onSubmit={attackNPC} className="attack-form">
+                            <label>
+                                Damage:
+                                <input
+                                    type="number"
+                                    value={damage}
+                                    onChange={(e) => setDamage(e.target.value)}
+                                />
+                            </label>
+                            <button type="submit">Attack</button>
+                            {message && <div className="message">{message}</div>}
+                        </form>
+                         <div className="blood-level-bar-container">
+                            <h2>Blood Level: {game.npc.current_blood}</h2>
+                            <div
+                                className="blood-level-bar"
+                                style={{width: `${game.npc.current_blood * 100 / game.npc.attr.total_blood}%`}}
+                            ></div>
+                        </div>
+                    </div>
                 ) : (
                     <div className={"game-info"}>
                         <h2>Game ID: {game.id}</h2>
@@ -150,6 +165,7 @@ const Game = () => {
                             ></div>
                         </div>
                         <Leaderboard leaderboard={leaderboard}/>
+                        <a className={"home-button"} href={'/'}>Home</a>
                     </div>
                 )
                 }

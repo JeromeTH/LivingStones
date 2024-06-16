@@ -25,6 +25,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
 }
 
 .blood-level-bar-container {
@@ -107,4 +108,24 @@
     height: auto;
     display: block; /* Ensure the image is displayed as a block element */
     margin: 10px 0;
+}
+
+.home-button {
+    font-family: 'Quicksand', serif;
+    text-decoration: none;
+    color: #d7dce7; /* Light text */
+    margin: 0 10px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: 2px solid #c3073f; /* Red border for links */
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+    background-color: #441313; /* Red background on hover */
+}
+
+.message {
+    color: green;
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: center;
 }
