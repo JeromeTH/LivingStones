@@ -1,23 +1,20 @@
 # serializers.py
 from rest_framework import serializers
-from .models import Game, Attack, GamePlayer
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
+from .models import Game, Attack, GamePlayer, Profile
 
 
-class UserSerializer(serializers.ModelSerializer):
+class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ['id', 'username', 'total_blood', 'attack_power']
+        model = Profile
+        fields = '__all__'
 
 
 class GamePlayerSerializer(serializers.ModelSerializer):
-    user = UserSerializer()
+    profile = ProfileSerializer()
 
     class Meta:
         model = GamePlayer
-        fields = ['id', 'game', 'user', 'total_damage', 'current_blood', 'created_at', 'defend_mode', 'boss_mode']
+        fields = ['id', 'game', 'profile', 'total_damage', 'current_blood', 'created_at', 'defend_mode', 'boss_mode']
 
 
 class AttackSerializer(serializers.ModelSerializer):

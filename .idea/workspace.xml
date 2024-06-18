@@ -7,16 +7,7 @@
     <list default="true" id="0b85747b-3110-4217-a003-492b004ef81e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Game/Game.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Game/Game.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstones/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstones/asgi.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstones/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstones/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstonesapp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstonesapp/consumers.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/consumers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstonesapp/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstonesapp/migrations/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstonesapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/livingstonesapp/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/livingstonesapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/livingstonesapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -124,7 +115,7 @@
       <workItem from="1717050988898" duration="32900000" />
       <workItem from="1717286629485" duration="65000" />
       <workItem from="1717310222520" duration="32664000" />
-      <workItem from="1717465614036" duration="92125000" />
+      <workItem from="1717465614036" duration="94405000" />
     </task>
     <servers />
   </component>

@@ -93,7 +93,7 @@ class GameViewSet(viewsets.ModelViewSet):
     serializer_class = GameSerializer
 
     def get_queryset(self):
-        queryset = Game.objects.prefetch_related('players', 'players__user')
+        queryset = Game.objects.prefetch_related('players', 'players__profile', 'players__profile__user')
         return queryset
 
     # lookup_field = pk (default)
@@ -116,24 +116,25 @@ class GameViewSet(viewsets.ModelViewSet):
 
     @action(detail=False, methods=['get'])
     def active(self, request):
-        games = Game.objects.filter(is_active=True)
+        games = self.get_queryset().filter(is_active=True)
         serializer = self.get_serializer(games, many=True)
         return Response(serializer.data)
 
     @action(detail=False, methods=['get'])
     def ended(self, request):
-        games = Game.objects.filter(is_active=False)
+        games = self.get_queryset().filter(is_active=False)
         serializer = self.get_serializer(games, many=True)
         return Response(serializer.data)
 
     @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
     def join(self, request, pk=None):
         game = self.get_object()
-        user = request.user
+        user = User.objects.select_related('profile').get(pk=request.user.pk)
+
         player, created = GamePlayer.objects.get_or_create(
             game=game,
             profile=user.profile,
-            defaults={'total_damage': 0, 'current_blood': user.total_blood}
+            defaults={'total_damage': 0, 'current_blood': user.profile.total_blood}
         )
         game.save()
         return Response({'status': 'joined'}, status=status.HTTP_200_OK)
