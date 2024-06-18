@@ -7,6 +7,10 @@
     <list default="true" id="0b85747b-3110-4217-a003-492b004ef81e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Game/Game.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Game/Game.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Game/Game.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Game/Game.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/livingstonesapp/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/livingstonesapp/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/livingstonesapp/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/serializers.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/livingstonesapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/views.py" afterDir="false" />
     </list>
@@ -115,7 +119,7 @@
       <workItem from="1717050988898" duration="32900000" />
       <workItem from="1717286629485" duration="65000" />
       <workItem from="1717310222520" duration="32664000" />
-      <workItem from="1717465614036" duration="94405000" />
+      <workItem from="1717465614036" duration="100113000" />
     </task>
     <servers />
   </component>
@@ -158,6 +162,12 @@
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/frontend/src/App.js</url>
           <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/frontend/src/components/Game/Game.jsx</url>
+          <line>152</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

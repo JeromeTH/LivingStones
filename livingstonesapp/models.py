@@ -39,6 +39,7 @@ class Game(models.Model):
 class GamePlayer(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE, related_name='players')
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
     total_damage = models.IntegerField()
     current_blood = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -53,9 +54,13 @@ class GamePlayer(models.Model):
         ]
 
     def save(self, *args, **kwargs):
-        if not self.pk and self.current_blood is None:
-            # Set default blood level basedon the NPC's total blood level when first created (when it does not have pk)
-            self.current_blood = self.profile.total_blood
+        if not self.pk:
+            if self.current_blood is None:
+                # Set default blood level basedon the NPC's total blood level when first created (when it does not have pk)
+                self.current_blood = self.profile.total_blood
+            if self.name is None:
+                self.name = self.profile.user.username
+
         super().save(*args, **kwargs)
 
     def __str__(self):

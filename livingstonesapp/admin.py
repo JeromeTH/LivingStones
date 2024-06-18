@@ -49,6 +49,7 @@ class GamePlayerAdmin(admin.ModelAdmin):
         GamePlayer.objects.filter(id=object_id).delete()
         return redirect('/admin/livingstonesapp/gameplayer/')
 
+
 class ProfileAdmin(admin.ModelAdmin):
     def get_queryset(self, request):
         qs = super().get_queryset(request)

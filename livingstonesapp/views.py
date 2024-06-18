@@ -112,6 +112,7 @@ class GameViewSet(viewsets.ModelViewSet):
         game = get_object_or_404(self.get_queryset(), id=game_id)
         serializer = self.get_serializer(game)
         data = serializer.data
+        data['current_user_id'] = request.user.id
         return Response(data)
 
     @action(detail=False, methods=['get'])
@@ -130,11 +131,11 @@ class GameViewSet(viewsets.ModelViewSet):
     def join(self, request, pk=None):
         game = self.get_object()
         user = User.objects.select_related('profile').get(pk=request.user.pk)
-
+        name = user.username
         player, created = GamePlayer.objects.get_or_create(
             game=game,
             profile=user.profile,
-            defaults={'total_damage': 0, 'current_blood': user.profile.total_blood}
+            defaults={'name': name, 'total_damage': 0, 'current_blood': user.profile.total_blood}
         )
         game.save()
         return Response({'status': 'joined'}, status=status.HTTP_200_OK)

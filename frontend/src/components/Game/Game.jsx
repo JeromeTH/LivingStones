@@ -1,9 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
-import Summary from "./Summary";
 import "./Game.css";
-import Leaderboard from "./Leaderboard";
 import Footer from "../Elements/Footer";
+import PaginatedPanel from "components/Elements/PaginatedPanel";
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -105,8 +104,9 @@ const Game = () => {
         console.log("game is inactive");
         navigate(`/game/${id}/summary/`);
     } else {
+        const bloodLeaderboard = [...game.players].sort((a, b) => b.current_blood - a.current_blood);
+        const damageLeaderboard = [...game.players].sort((a, b) => b.total_damage - a.total_damage);
         console.log("game is active");
-        console.log(game.npc.attr.image);
         return (
             <div className="game-container">
                 <button onClick={() => setIsAttackMode(!isAttackMode)}>
@@ -126,13 +126,6 @@ const Game = () => {
                             <button type="submit">Attack</button>
                             {message && <div className="message">{message}</div>}
                         </form>
-                        <div className="blood-level-bar-container">
-                            <h2>Blood Level: {game.npc.current_blood}</h2>
-                            <div
-                                className="blood-level-bar"
-                                style={{width: `${game.npc.current_blood * 100 / game.npc.attr.total_blood}%`}}
-                            ></div>
-                        </div>
                         <div className="opponents-selection">
                             <h3>Select Opponents to Attack</h3>
                             {game && game.players.map(player => (
@@ -149,7 +142,7 @@ const Game = () => {
                                                 }
                                             }}
                                         />
-                                        {player.user.username} (Blood: {player.current_blood})
+                                        {player.name} (Blood: {player.current_blood})
                                     </label>
                                 </div>
                             ))}
@@ -157,24 +150,32 @@ const Game = () => {
                     </div>
                 ) : (
                     <div className={"game-info"}>
-                        {/*<h2>Game ID: {game.id}</h2>*/}
-                        {/*<h3>NPC: {game.npc.attr.name}</h3>*/}
-                        {/*<img src={game.npc.attr.image} alt="{{ game.npc.attr.name }}" className="npc-image"/>*/}
-                        {/*<div className="blood-level-bar-container">*/}
-                        {/*    <h2>Blood Level: {game.npc.current_blood}</h2>*/}
-                        {/*    <div*/}
-                        {/*        className="blood-level-bar"*/}
-                        {/*        style={{width: `${game.npc.current_blood * 100 / game.npc.attr.total_blood}%`}}*/}
-                        {/*    ></div>*/}
-                        {/*</div>*/}
-                        {/*<Leaderboard leaderboard={leaderboard}/>*/}
-                        {/*<a className={"home-button"} href={'/'}>Home</a>*/}
+                        <PaginatedPanel
+                            items={bloodLeaderboard}
+                            title="Blood Leaderboard"
+                            itemsPerPage={10}
+                            renderEntry={(player) => (
+                                <>
+                                    {player.name} - {player.current_blood}
+                                </>
+                            )}
+                        />
+                        <PaginatedPanel
+                            items={damageLeaderboard}
+                            title="Damage Leaderboard"
+                            itemsPerPage={10}
+                            renderEntry={(player) => (
+                                <>
+                                    {player.name} - {player.total_damage}
+                                </>
+                            )}
+                        />
+                        <a className={"home-button"} href={'/'}>Home</a>
                     </div>
                 )
                 }
                 <Footer/>
             </div>
-
         )
             ;
     }
