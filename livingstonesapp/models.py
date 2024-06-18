@@ -62,7 +62,7 @@ class GamePlayer(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f"Player {self.id} in Game {self.game.id}"
+        return f"GamePlayer {self.id}"
 
 
 class Attack(models.Model):

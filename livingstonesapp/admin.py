@@ -33,7 +33,7 @@ class GamePlayerAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        return qs.select_related('game', 'profile')
+        return qs.select_related('game', 'profile', 'profile__user')
 
     def get_urls(self):
         urls = super().get_urls()

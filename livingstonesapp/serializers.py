@@ -14,7 +14,8 @@ class GamePlayerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GamePlayer
-        fields = ['id', 'game', 'name', 'profile', 'total_damage', 'current_blood', 'created_at', 'defend_mode', 'boss_mode']
+        fields = ['id', 'game', 'name', 'profile', 'total_damage', 'current_blood', 'created_at', 'defend_mode',
+                  'boss_mode']
 
 
 class AttackSerializer(serializers.ModelSerializer):

@@ -218,3 +218,9 @@ add home page link to game page
 leaderboard progress bar
 
 game page design
+
+admin page should not be able to choose boss from gameplayers 
+that's not in the game
+
+that is causing the accessibility issue because to list the boss candidates
+it's causing the issue
