@@ -58,8 +58,6 @@ class GamePlayer(models.Model):
             if self.current_blood is None:
                 # Set default blood level basedon the NPC's total blood level when first created (when it does not have pk)
                 self.current_blood = self.profile.total_blood
-            if self.name is None:
-                self.name = self.profile.user.username
 
         super().save(*args, **kwargs)
 
