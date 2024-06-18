@@ -16,6 +16,7 @@ import livingstonesapp.routing
 from django.core.asgi import get_asgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'livingstones.settings')
+print("DJANGO_SETTINGS_MODULE is set to:", os.environ.get('DJANGO_SETTINGS_MODULE'))
 
 #application = get_asgi_application()
 application = ProtocolTypeRouter({

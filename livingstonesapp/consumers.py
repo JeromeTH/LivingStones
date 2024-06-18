@@ -22,29 +22,44 @@ class GameConsumer(AsyncWebsocketConsumer):
         )
 
     async def receive(self, text_data: Any = None, bytes_data: Any = None) -> None:
-        data = json.loads(text_data)
-        current_blood = data['current_blood']
-        is_active = data.get('is_active', True)
-        leaderboard = data['leaderboard']
-
+        game_state = await self.get_game_state(include_static=False)
         await self.channel_layer.group_send(
             self.game_group_name,
             {
-                'type': 'update_current_blood',
-                'current_blood': current_blood,
-                'is_active': is_active,
-                'leaderboard': leaderboard,
+                'type': 'game_update',
+                'game': game_state
             }
         )
         return None
 
-    async def update_current_blood(self, event):
-        current_blood = event['current_blood']
-        is_active = event['is_active']
-        leaderboard = event['leaderboard']
+    async def game_update(self, event):
+        game = event['game']
+        await self.send(text_data=json.dumps(game))
 
-        await self.send(text_data=json.dumps({
-            'current_blood': current_blood,
-            'is_active': is_active,
-            'leaderboard': leaderboard,
-        }))
+    @sync_to_async
+    def get_game_state(self, include_static=False):
+        from .models import Game  # Lazy import within the function
+        game = Game.objects.get(pk=self.game_id)
+        players = [
+            {
+                'id': player.id,
+                'user': player.user.username,
+                'total_damage': player.total_damage,
+                'current_blood': player.current_blood,
+                'defend_mode': player.defend_mode,
+                'boss_mode': player.boss_mode
+            } for player in game.players.all()
+        ]
+        game_state = {
+            'is_active': game.is_active,
+            'players': players
+        }
+        if include_static:
+            game_state.update({
+                'id': game.id,
+                'name': game.name,
+                'creator': game.creator.username,
+                'start_time': game.start_time.isoformat(),
+                'end_time': game.end_time.isoformat() if game.end_time else None,
+            })
+        return game_state

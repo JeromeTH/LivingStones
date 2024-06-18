@@ -8,8 +8,8 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 
 
-from .models import Game, NPC, Attack, GamePlayer, GameNPC
-from .serializers import GameSerializer, NPCSerializer, AttackSerializer
+from .models import Game, Attack, GamePlayer
+from .serializers import GameSerializer, AttackSerializer
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.http import JsonResponse
@@ -37,6 +37,7 @@ def login_user(request):
     user = authenticate(username=username, password=password)
     data = {"userName": username}
     if user is not None:
+        user = User.objects.select_related('profile').get(username=username)
         # If user is valid, call login method to login current user
         login(request, user)
         # Generate JWT token
@@ -87,24 +88,12 @@ def registration(request):
         return JsonResponse(data)
 
 
-class NPCViewSet(viewsets.ModelViewSet):
-    queryset = NPC.objects.all()
-    serializer_class = NPCSerializer
-
-
-class NPCListView(APIView):
-    def get(self, request, *args, **kwargs):
-        npcs = NPC.objects.all()
-        serializer = NPCSerializer(npcs, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-
 class GameViewSet(viewsets.ModelViewSet):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
 
     def get_queryset(self):
-        queryset = Game.objects.select_related('npc', 'creator').prefetch_related('players', 'npc__attr')
+        queryset = Game.objects.prefetch_related('players', 'players__user')
         return queryset
 
     # lookup_field = pk (default)
@@ -112,13 +101,9 @@ class GameViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         creator = request.user
         data = request.data
-
         # Extract name and npc_id from request data
         game_name = data.get('name')
-        npc_id = data.get('npc_id')
         game = Game.objects.create(creator=creator, name=game_name, is_active=True)
-        npc = NPC.objects.get(id=npc_id)
-        gamenpc = GameNPC.objects.create(game=game, attr=npc)
         serializer = self.get_serializer(game)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -126,20 +111,8 @@ class GameViewSet(viewsets.ModelViewSet):
         game_id = kwargs.get('pk')
         game = get_object_or_404(self.get_queryset(), id=game_id)
         serializer = self.get_serializer(game)
-        leaderboard = self.calculate_leaderboard(game)
         data = serializer.data
-        data['leaderboard'] = leaderboard
         return Response(data)
-
-    @staticmethod
-    def calculate_leaderboard(game):
-        players = game.players.select_related('user').all()
-        leaderboard = {}
-        for player in players:
-            leaderboard[player.user.username] = player.total_damage
-        sorted_leaderboard = [{'username': user, 'total_damage': damage} for user, damage in
-                              sorted(leaderboard.items(), key=lambda item: item[1], reverse=True)]
-        return sorted_leaderboard
 
     @action(detail=False, methods=['get'])
     def active(self, request):
@@ -159,8 +132,8 @@ class GameViewSet(viewsets.ModelViewSet):
         user = request.user
         player, created = GamePlayer.objects.get_or_create(
             game=game,
-            user=user,
-            defaults={'total_damage': 0}
+            profile=user.profile,
+            defaults={'total_damage': 0, 'current_blood': user.total_blood}
         )
         game.save()
         return Response({'status': 'joined'}, status=status.HTTP_200_OK)
@@ -168,25 +141,31 @@ class GameViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
     def attack(self, request, pk=None):
         game = self.get_object()
-        damage = min(int(request.data.get('damage')), game.npc.current_blood)
-        attacker = game.players.filter(user=request.user).first()
-        target = game.npc
-        Attack.objects.create(game=game, attacker=attacker, target=target, damage=damage)
-        attacker.total_damage += damage
-        game.npc.current_blood -= damage
-        if game.npc.current_blood <= 0:
-            game.is_active = False
-            game.end_time = timezone.now()
+        damage = int(request.data.get('damage'))
+        target_ids = request.data.get('targets', [])
+        attacker = game.players.filter(profile__user=request.user).first()
+
+        if not target_ids:
+            return Response({'error': 'No targets specified'}, status=400)
+
+        for target_id in target_ids:
+            target = GamePlayer.objects.get(id=target_id, game=game)
+            actual_damage = min(damage, target.current_blood)
+            Attack.objects.create(game=game, attacker=attacker, target=target, damage=actual_damage)
+            attacker.total_damage += actual_damage
+            target.current_blood -= actual_damage
+            if target.current_blood <= 0:
+                target.current_blood = 0
+            target.save()
+
         attacker.save()
-        game.npc.save()
+
+        # Refresh game state
         game.save()
-        leaderboard = self.calculate_leaderboard(game)
         return Response({
             'status': 'attacked',
-            'current_blood': game.npc.current_blood,
             'is_active': game.is_active,
             'end_time': game.end_time if game.is_active is False else None,
-            'leaderboard': leaderboard
         })
 
     @action(detail=True, methods=['get'], permission_classes=[IsAuthenticated])

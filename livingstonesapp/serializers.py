@@ -1,27 +1,23 @@
 # serializers.py
 from rest_framework import serializers
-from .models import Game, NPC, Attack, GameNPC, GamePlayer
+from .models import Game, Attack, GamePlayer
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
-class NPCSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = NPC
-        fields = '__all__'
-
-
-class GameNPCSerializer(serializers.ModelSerializer):
-    attr = NPCSerializer(read_only=True)  # Include nested NPC details
-
-    class Meta:
-        model = GameNPC
-        fields = ['id', 'game', 'attr', 'current_blood']
+        model = User
+        fields = ['id', 'username', 'total_blood', 'attack_power']
 
 
 class GamePlayerSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
 
     class Meta:
         model = GamePlayer
-        fields = '__all__'
+        fields = ['id', 'game', 'user', 'total_damage', 'current_blood', 'created_at', 'defend_mode', 'boss_mode']
 
 
 class AttackSerializer(serializers.ModelSerializer):
@@ -31,10 +27,10 @@ class AttackSerializer(serializers.ModelSerializer):
 
 
 class GameSerializer(serializers.ModelSerializer):
-    npc = GameNPCSerializer(many=False, read_only=True)
-    #attacks = AttackSerializer(many=True, read_only=True)
+    # attacks = AttackSerializer(many=True, read_only=True)
     players = GamePlayerSerializer(many=True, read_only=True)
+    boss = GamePlayerSerializer(read_only=True, allow_null=True)
 
     class Meta:
         model = Game
-        fields = ['id', 'name', 'creator', 'players', 'start_time', 'end_time', 'is_active', 'npc']
+        fields = ['id', 'name', 'creator', 'players', 'start_time', 'end_time', 'is_active', 'boss']

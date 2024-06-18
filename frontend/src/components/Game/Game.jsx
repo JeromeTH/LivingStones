@@ -18,6 +18,7 @@ const Game = () => {
     const attackSound = useRef(new Audio(`${process.env.PUBLIC_URL}/media/sound_effects/345441__artmasterrich__punch_01.wav`));
     const attackedSound = useRef(new Audio(`${process.env.PUBLIC_URL}/media/sound_effects/135855__joelaudio__grunt_001.wav`));
     const [message, setMessage] = useState('');
+    const [selectedTargets, setSelectedTargets] = useState([]);
 
 
     useEffect(() => {
@@ -43,12 +44,9 @@ const Game = () => {
 
                 ws.onmessage = (e) => {
                     const message = JSON.parse(e.data);
-                    setGame((prevGame) => ({
+                    setGame(prevGame => ({
                         ...prevGame,
-                        npc: {
-                            ...prevGame.npc,
-                            current_blood: message.current_blood,
-                        },
+                        ...message
                     }));
                     setLeaderboard(message.leaderboard);
                     attackedSound.current.play();
@@ -69,7 +67,7 @@ const Game = () => {
         };
     }, [id]);
 
-    const attackNPC = async (event) => {
+    const attack = async (event) => {
         event.preventDefault();
         const token = sessionStorage.getItem('token');
 
@@ -80,34 +78,18 @@ const Game = () => {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({damage}),
+                body: JSON.stringify({damage, targets: selectedTargets}),
             });
 
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
 
-            const data = await response.json();
-            console.log(data);
-            setGame((prevGame) => ({
-                ...prevGame,
-                npc: {
-                    ...prevGame.npc,
-                    current_blood: data.current_blood,
-                },
-                is_active: data.is_active,
-                leaderboard: data.leaderboard
-            }));
-
             // Notify other clients via WebSocket
             if (socket) {
                 await attackSound.current.play();
                 await delay(400); // Wait for 0.5 seconds
-                socket.send(JSON.stringify({
-                    current_blood: data.current_blood,
-                    is_active: data.is_active,
-                    leaderboard: data.leaderboard
-                }));
+                socket.send(JSON.stringify({}));  // Include the action
                 setMessage('Attack sent!');
                 // Hide the message after 3 seconds
                 setTimeout(() => setMessage(''), 3000);
@@ -132,7 +114,7 @@ const Game = () => {
                 </button>
                 {isAttackMode ? (
                     <div className={"attack-form-container"}>
-                        <form onSubmit={attackNPC} className="attack-form">
+                        <form onSubmit={attack} className="attack-form">
                             <label>
                                 Damage:
                                 <input
@@ -144,19 +126,6 @@ const Game = () => {
                             <button type="submit">Attack</button>
                             {message && <div className="message">{message}</div>}
                         </form>
-                         <div className="blood-level-bar-container">
-                            <h2>Blood Level: {game.npc.current_blood}</h2>
-                            <div
-                                className="blood-level-bar"
-                                style={{width: `${game.npc.current_blood * 100 / game.npc.attr.total_blood}%`}}
-                            ></div>
-                        </div>
-                    </div>
-                ) : (
-                    <div className={"game-info"}>
-                        <h2>Game ID: {game.id}</h2>
-                        <h3>NPC: {game.npc.attr.name}</h3>
-                        <img src={game.npc.attr.image} alt="{{ game.npc.attr.name }}" className="npc-image"/>
                         <div className="blood-level-bar-container">
                             <h2>Blood Level: {game.npc.current_blood}</h2>
                             <div
@@ -164,8 +133,42 @@ const Game = () => {
                                 style={{width: `${game.npc.current_blood * 100 / game.npc.attr.total_blood}%`}}
                             ></div>
                         </div>
-                        <Leaderboard leaderboard={leaderboard}/>
-                        <a className={"home-button"} href={'/'}>Home</a>
+                        <div className="opponents-selection">
+                            <h3>Select Opponents to Attack</h3>
+                            {game && game.players.map(player => (
+                                <div key={player.id}>
+                                    <label>
+                                        <input
+                                            type="checkbox"
+                                            value={player.id}
+                                            onChange={(e) => {
+                                                if (e.target.checked) {
+                                                    setSelectedTargets([...selectedTargets, player.id]);
+                                                } else {
+                                                    setSelectedTargets(selectedTargets.filter(id => id !== player.id));
+                                                }
+                                            }}
+                                        />
+                                        {player.user.username} (Blood: {player.current_blood})
+                                    </label>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ) : (
+                    <div className={"game-info"}>
+                        {/*<h2>Game ID: {game.id}</h2>*/}
+                        {/*<h3>NPC: {game.npc.attr.name}</h3>*/}
+                        {/*<img src={game.npc.attr.image} alt="{{ game.npc.attr.name }}" className="npc-image"/>*/}
+                        {/*<div className="blood-level-bar-container">*/}
+                        {/*    <h2>Blood Level: {game.npc.current_blood}</h2>*/}
+                        {/*    <div*/}
+                        {/*        className="blood-level-bar"*/}
+                        {/*        style={{width: `${game.npc.current_blood * 100 / game.npc.attr.total_blood}%`}}*/}
+                        {/*    ></div>*/}
+                        {/*</div>*/}
+                        {/*<Leaderboard leaderboard={leaderboard}/>*/}
+                        {/*<a className={"home-button"} href={'/'}>Home</a>*/}
                     </div>
                 )
                 }
