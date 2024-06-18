@@ -215,3 +215,6 @@ Happy coding! If you have any questions, feel free to open an issue or contact t
 show message indicating attack is successful
 server database and development database different
 add home page link to game page
+leaderboard progress bar
+
+game page design
