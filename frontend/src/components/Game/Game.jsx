@@ -3,6 +3,7 @@ import {useParams, useNavigate} from 'react-router-dom';
 import "./Game.css";
 import Footer from "../Elements/Footer";
 import PaginatedPanel from "components/Elements/PaginatedPanel";
+import Panel from "components/Elements/Panel";
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -126,44 +127,44 @@ const Game = () => {
                             <button type="submit">Attack</button>
                             {message && <div className="message">{message}</div>}
                         </form>
-                        <div className="opponents-selection">
-                            <h3>Select Opponents to Attack</h3>
-                            {game && game.players.map(player => (
+                        <Panel
+                            items={game.players}
+                            title="Select Opponents to Attack"
+                            renderEntry={(player) => (
                                 <div key={player.id}>
                                     <label>
                                         <input
                                             type="checkbox"
                                             value={player.id}
+                                            checked={selectedTargets.includes(player.id)}
                                             onChange={(e) => {
                                                 if (e.target.checked) {
-                                                    setSelectedTargets([...selectedTargets, player.id]);
+                                                    setSelectedTargets(prevTargets => [...new Set([...prevTargets, player.id])]);
                                                 } else {
-                                                    setSelectedTargets(selectedTargets.filter(id => id !== player.id));
+                                                    setSelectedTargets(prevTargets => prevTargets.filter(id => id !== player.id));
                                                 }
                                             }}
                                         />
                                         {player.name} (Blood: {player.current_blood})
                                     </label>
                                 </div>
-                            ))}
-                        </div>
+                            )}
+                        />
                     </div>
                 ) : (
                     <div className={"game-info"}>
-                        <PaginatedPanel
+                        <Panel
                             items={bloodLeaderboard}
                             title="Blood Leaderboard"
-                            itemsPerPage={10}
                             renderEntry={(player) => (
                                 <>
                                     {player.name} - {player.current_blood}
                                 </>
                             )}
                         />
-                        <PaginatedPanel
+                        <Panel
                             items={damageLeaderboard}
                             title="Damage Leaderboard"
-                            itemsPerPage={10}
                             renderEntry={(player) => (
                                 <>
                                     {player.name} - {player.total_damage}

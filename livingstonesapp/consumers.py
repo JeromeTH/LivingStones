@@ -43,11 +43,11 @@ class GameConsumer(AsyncWebsocketConsumer):
         players = [
             {
                 'id': player.id,
-                'user': player.user.username,
+                'name': player.name,
                 'total_damage': player.total_damage,
                 'current_blood': player.current_blood,
                 'defend_mode': player.defend_mode,
-                'boss_mode': player.boss_mode
+                'boss_mode': player.boss_mode,
             } for player in game.players.all()
         ]
         game_state = {

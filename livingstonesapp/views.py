@@ -7,7 +7,6 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 
-
 from .models import Game, Attack, GamePlayer
 from .serializers import GameSerializer, AttackSerializer
 from django.contrib.auth.models import User
@@ -150,6 +149,8 @@ class GameViewSet(viewsets.ModelViewSet):
         if not target_ids:
             return Response({'error': 'No targets specified'}, status=400)
 
+        print(target_ids)
+        print(damage)
         for target_id in target_ids:
             target = GamePlayer.objects.get(id=target_id, game=game)
             actual_damage = min(damage, target.current_blood)
@@ -158,8 +159,10 @@ class GameViewSet(viewsets.ModelViewSet):
             target.current_blood -= actual_damage
             if target.current_blood <= 0:
                 target.current_blood = 0
+            print(target.current_blood)
             target.save()
-
+            # when attacking oneself
+            if attacker.id == target.id: attacker.current_blood = target.current_blood
         attacker.save()
 
         # Refresh game state
