@@ -15,14 +15,6 @@ class Profile(models.Model):
         return f"{self.user.username}'s profile"
 
 
-# Signal to create or update Profile whenever User is created or updated
-@receiver(post_save, sender=User)
-def create_or_update_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-    instance.profile.save()
-
-
 class Game(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='created_games')
     name = models.CharField(max_length=255, null=True, blank=True)  # New field for game name
