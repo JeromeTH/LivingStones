@@ -6,6 +6,13 @@ import PaginatedPanel from "components/Elements/PaginatedPanel";
 import Panel from "components/Elements/Panel";
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+const generateColor = (index) => {
+    const colors = ['#FF5733', '#33FF57', '#3357FF', '#FF33A5', '#A533FF', '#33FFF0']; // Add more colors as needed
+    return colors[index % colors.length];
+};
+const calculateWidthPercentage = (value, maxValue) => {
+    return (value / maxValue) * 100;
+};
 
 const Game = () => {
     const {id} = useParams();
@@ -157,18 +164,37 @@ const Game = () => {
                             items={bloodLeaderboard}
                             title="Blood Leaderboard"
                             renderEntry={(player) => (
-                                <>
-                                    {player.name} - {player.current_blood}
-                                </>
+                                <div style={{ width: '100%' }}>
+                                    <>
+                                        {player.name} - {player.current_blood}
+                                    </>
+                                    <div
+                                        className="color-bar"
+                                        style={{
+                                            width: `${calculateWidthPercentage(player.current_blood, Math.max(...game.players.map(p => p.current_blood)))}%`,
+                                            backgroundColor: generateColor(player.id)
+                                        }}
+                                    />
+                                </div>
+
                             )}
                         />
                         <Panel
                             items={damageLeaderboard}
                             title="Damage Leaderboard"
                             renderEntry={(player) => (
-                                <>
-                                    {player.name} - {player.total_damage}
-                                </>
+                               <div style={{ width: '100%' }}>
+                                    <>
+                                        {player.name} - {player.total_damage}
+                                    </>
+                                    <div
+                                        className="color-bar"
+                                        style={{
+                                            width: `${calculateWidthPercentage(player.total_damage, Math.max(...game.players.map(p => p.total_damage)))}%`,
+                                            backgroundColor: generateColor(player.id)
+                                        }}
+                                    />
+                                </div>
                             )}
                         />
                         <a className={"home-button"} href={'/'}>Home</a>
