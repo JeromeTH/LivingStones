@@ -26,7 +26,7 @@
 }
 
 .panel .list-container {
-    min-height: 400px; /* Adjust this height based on your needs */
+    /*min-height: 400px; !* Adjust this height based on your needs *!*/
     justify-content: flex-start;
     overflow-y: auto; /* Add vertical scrolling if content overflows */
     align-items: flex-start; /* Align items to the left */

@@ -93,4 +93,6 @@ label {
 img {
     border-radius: 50%;
     object-fit: cover; /* Ensure the image is covered properly */
+    width: auto;
+    height: 100%; /* Maintain aspect ratio */
 }

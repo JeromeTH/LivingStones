@@ -40,6 +40,7 @@ class GameConsumer(AsyncWebsocketConsumer):
     def get_game_state(self, include_static=False):
         from .models import Game  # Lazy import within the function
         game = Game.objects.get(pk=self.game_id)
+        game_players = game.players.select_related('profile').all()  # Select related profile for each player
         players = [
             {
                 'id': player.id,
@@ -48,7 +49,10 @@ class GameConsumer(AsyncWebsocketConsumer):
                 'current_blood': player.current_blood,
                 'defend_mode': player.defend_mode,
                 'boss_mode': player.boss_mode,
-            } for player in game.players.all()
+                'profile': {
+                    'image': player.profile.image.url if player.profile.image else None
+                }
+            } for player in game_players
         ]
         game_state = {
             'is_active': game.is_active,

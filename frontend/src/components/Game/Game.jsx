@@ -26,6 +26,7 @@ const Game = () => {
     const attackedSound = useRef(new Audio(`${process.env.PUBLIC_URL}/media/sound_effects/135855__joelaudio__grunt_001.wav`));
     const [message, setMessage] = useState('');
     const [selectedTargets, setSelectedTargets] = useState([]);
+    const [starredPlayer, setStarredPlayer] = useState(null);
 
 
     useEffect(() => {
@@ -51,10 +52,14 @@ const Game = () => {
 
                 ws.onmessage = (e) => {
                     const message = JSON.parse(e.data);
-                    setGame(prevGame => ({
-                        ...prevGame,
-                        ...message
-                    }));
+                    setGame(prevGame => {
+                        const updatedGame = {
+                            ...prevGame,
+                            ...message
+                        };
+                        console.log("Updated Game:", updatedGame);
+                        return updatedGame;
+                    });
                     setLeaderboard(message.leaderboard);
                     attackedSound.current.play();
                 };
@@ -106,6 +111,9 @@ const Game = () => {
         }
     };
 
+    const handleStarPlayer = (player) => {
+        setStarredPlayer(player);
+    };
 
     if (!game) return <div>Loading...</div>;
     if (!game.is_active) {
@@ -117,11 +125,11 @@ const Game = () => {
         console.log("game is active");
         return (
             <div className="game-container">
-                <button onClick={() => setIsAttackMode(!isAttackMode)}>
-                    {isAttackMode ? "Show Game Progress" : "Attack NPC"}
-                </button>
                 {isAttackMode ? (
                     <div className={"attack-form-container"}>
+                        <button onClick={() => setIsAttackMode(!isAttackMode)}>
+                            {isAttackMode ? "Show Game Progress" : "Attack NPC"}
+                        </button>
                         <form onSubmit={attack} className="attack-form">
                             <label>
                                 Damage:
@@ -160,48 +168,67 @@ const Game = () => {
                     </div>
                 ) : (
                     <div className={"game-info"}>
-                        <Panel
-                            items={bloodLeaderboard}
-                            title="Blood Leaderboard"
-                            renderEntry={(player) => (
-                                <div style={{ width: '100%' }}>
-                                    <>
-                                        {player.name} - {player.current_blood}
-                                    </>
-                                    <div
-                                        className="color-bar"
-                                        style={{
-                                            width: `${calculateWidthPercentage(player.current_blood, Math.max(...game.players.map(p => p.current_blood)))}%`,
-                                            backgroundColor: generateColor(player.id)
-                                        }}
-                                    />
+                        <button onClick={() => setIsAttackMode(!isAttackMode)}>
+                            {isAttackMode ? "Show Game Progress" : "Attack NPC"}
+                        </button>
+                        {starredPlayer && (
+                            <div className="starred-player">
+                                <img src={starredPlayer.profile.image} alt="Starred Player"/>
+                                <div
+                                    className="starred-color-bar"
+                                    style={{
+                                        width: '100%',
+                                        backgroundColor: generateColor(starredPlayer.id)
+                                    }}
+                                >
+                                    {starredPlayer.current_blood}
                                 </div>
+                            </div>
+                        )}
 
-                            )}
-                        />
-                        <Panel
-                            items={damageLeaderboard}
-                            title="Damage Leaderboard"
-                            renderEntry={(player) => (
-                               <div style={{ width: '100%' }}>
-                                    <>
-                                        {player.name} - {player.total_damage}
-                                    </>
-                                    <div
-                                        className="color-bar"
-                                        style={{
-                                            width: `${calculateWidthPercentage(player.total_damage, Math.max(...game.players.map(p => p.total_damage)))}%`,
-                                            backgroundColor: generateColor(player.id)
-                                        }}
-                                    />
-                                </div>
-                            )}
-                        />
+                        <div className={"leaderboard-container"}>
+                            <Panel
+                                items={bloodLeaderboard}
+                                title="Blood Leaderboard"
+                                renderEntry={(player) => (
+                                    <div className={"leaderboard-item"} onClick={() => handleStarPlayer(player)}>
+                                        <img src={player.profile.image} alt={"Player"}></img>
+                                        <div
+                                            className="color-bar"
+                                            style={{
+                                                width: `${calculateWidthPercentage(player.current_blood, Math.max(...game.players.map(p => p.current_blood)))}%`,
+                                                backgroundColor: generateColor(player.id)
+                                            }}
+                                        />
+                                        <span style={{textAlign: 'right'}}>{player.current_blood}</span>
+                                    </div>
+
+                                )}
+                            />
+                            <Panel
+                                items={damageLeaderboard}
+                                title="Damage Leaderboard"
+                                renderEntry={(player) => (
+                                    <div className={"leaderboard-item"}>
+                                        <img src={player.profile.image} alt={"Player"}></img>
+                                        {/*<>*/}
+                                        {/*    {player.name} - {player.total_damage}*/}
+                                        {/*</>*/}
+                                        <div
+                                            className="color-bar"
+                                            style={{
+                                                width: `${calculateWidthPercentage(player.total_damage, Math.max(...game.players.map(p => p.total_damage)))}%`,
+                                                backgroundColor: generateColor(player.id)
+                                            }}
+                                        />
+                                        <span style={{textAlign: 'right'}}>{player.total_damage}</span>
+                                    </div>
+                                )}
+                            />
+                        </div>
                     </div>
                 )
                 }
-                <a className={"home-button"} href={'/'}>Home</a>
-                <Footer/>
             </div>
         )
             ;

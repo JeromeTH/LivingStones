@@ -8,25 +8,24 @@
     text-align: center;
     height: 100vh;
     width: 100vw;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+    margin: 0;
+    padding: 0;
     background-color: #441313;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: relative;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 
 /* Game Info Styles */
 .game-info {
     width: 100%;
-    color: white;
+    height: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between; /* Space items to allow button to stay at the top */
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
 }
+
+
 
 .blood-level-bar-container {
     width: 100%;
@@ -133,4 +132,36 @@
     height: 20px;
     margin: 5px 0;
     border-radius: 5px;
+}
+
+
+.leaderboard-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.leaderboard-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 50px;
+    width: 100%;
+    justify-content: flex-start; /* Align items on the left */
+}
+
+.starred-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    height: 30%;
+    margin-bottom: 20px;
+}
+
+.fixed-button {
+
 }

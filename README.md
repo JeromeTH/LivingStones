@@ -224,3 +224,8 @@ that's not in the game
 
 that is causing the accessibility issue because to list the boss candidates
 it's causing the issue
+
+
+127.0.0.1:57653 - - [23/Jun/2024:12:35:22] "POST /livingstonesapp/game/2/attack/" 200 54
+Unauthorized: /livingstonesapp/game/2/attack/
+
