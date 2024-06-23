@@ -10,6 +10,7 @@ import ActiveGames from "./components/ActiveGames/ActiveGames";
 import EndedGames from "./components/EndedGames/EndedGames";
 import reportWebVitals from "./reportWebVitals";
 import Summary from "./components/Game/Summary";
+import Profile from "components/Profile/Profile";
 
 function App() {
     return (
@@ -19,9 +20,18 @@ function App() {
             <Route path="" element={<Home/>}/>
             <Route path="/active-games" element={<ActiveGames/>}/>
             <Route path="/ended-games" element={<EndedGames/>}/>
+
             {/*<Route path="/create-game" element={<CreateGame/>}/>*/}
             {/*<Route path="/game/:id" element={<Game/>}/>*/}
             {/*<Route path="/game/:id/join" element={<JoinGame/>}/>*/}
+             <Route
+                path="/profile"
+                element={
+                    <PrivateRoute>
+                        <Profile/>
+                    </PrivateRoute>
+                }/>
+
             <Route
                 path="/game/:id/summary"
                 element={
@@ -46,6 +56,7 @@ function App() {
                         <Game/>
                     </PrivateRoute>}
             />
+
             <Route
                 path="/game/:id/join"
                 element={

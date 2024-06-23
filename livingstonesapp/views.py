@@ -6,9 +6,10 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
 from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
-
-from .models import Game, Attack, GamePlayer
-from .serializers import GameSerializer, AttackSerializer
+from rest_framework.parsers import MultiPartParser, FormParser
+import io
+from .models import Game, Attack, GamePlayer, Profile
+from .serializers import GameSerializer, AttackSerializer, ProfileSerializer
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.http import JsonResponse
@@ -85,6 +86,34 @@ def registration(request):
     else:
         data = {"userName": username, "error": "Already Registered"}
         return JsonResponse(data)
+
+
+class ProfileViewSet(viewsets.ModelViewSet):
+    serializer_class = ProfileSerializer
+    parser_classes = (MultiPartParser, FormParser)  # Add parsers for file uploads
+
+    def get_queryset(self):
+        queryset = Profile.objects.select_related('User')
+        return queryset
+
+    def retrieve(self, request, *args, **kwargs):
+        profile = Profile.objects.get(user=request.user)
+        serializer = self.get_serializer(profile)
+        data = serializer.data
+        data['current_user_id'] = request.user.id
+        return Response(data)
+
+    @action(detail=True, methods=['put'], permission_classes=[IsAuthenticated])
+    def update(self, request, *args, **kwargs):
+        profile = Profile.objects.get(user=request.user)
+        print("Request data: ", request.data)
+        print("Files: ", request.FILES)
+
+        serializer = self.get_serializer(profile, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class GameViewSet(viewsets.ModelViewSet):

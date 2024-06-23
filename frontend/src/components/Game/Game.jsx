@@ -197,10 +197,10 @@ const Game = () => {
                                 </div>
                             )}
                         />
-                        <a className={"home-button"} href={'/'}>Home</a>
                     </div>
                 )
                 }
+                <a className={"home-button"} href={'/'}>Home</a>
                 <Footer/>
             </div>
         )

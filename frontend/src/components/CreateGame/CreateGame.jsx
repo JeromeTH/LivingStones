@@ -53,7 +53,6 @@ const CreateGame = () => {
         }
         console.log('Game created:', {npcName, bloodLevel});
         setShowModal(false);
-
     };
 
     return (

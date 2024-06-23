@@ -34,6 +34,7 @@ urlpatterns = [
                   path('register/', TemplateView.as_view(template_name='index.html')),
                   path('create-game/', TemplateView.as_view(template_name='index.html')),
                   path('active-games/', TemplateView.as_view(template_name='index.html')),
+                  path('profile/', TemplateView.as_view(template_name='index.html')),
                   path('ended-games/', TemplateView.as_view(template_name='index.html')),
                   path('game/<int:id>/', TemplateView.as_view(template_name='index.html')),
                   path('game/<int:id>/join/', TemplateView.as_view(template_name='index.html')),
