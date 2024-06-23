@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import Modal from "../Elements/Modal"
 import Footer from "../Elements/Footer";
+import "./Profile.css";
+import Header from "components/Header/Header";
 
 const Profile = () => {
     const [profile, setProfile] = useState({
@@ -69,17 +71,18 @@ const Profile = () => {
 
     return (
         <div>
+            <Header/>
             <div className="profile-container">
                 <h1>My Profile</h1>
-                <div>
+                <div className="profile-item">
                     <label>Total Blood: {profile.total_blood}</label>
                     <button onClick={() => handleOpenModal('total_blood')}>Change</button>
-                </div>
-                <div>
+                </div >
+                <div className="profile-item">
                     <label>Attack Power: {profile.attack_power}</label>
                     <button onClick={() => handleOpenModal('attack_power')}>Change</button>
                 </div>
-                <div>
+                <div className="profile-item">
                     <label>Profile Image:</label>
                     {profile.image && <img src={profile.image} alt="Profile" width="100"/>}
                     <button onClick={() => handleOpenModal('image')}>Change</button>

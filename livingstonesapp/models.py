@@ -3,13 +3,29 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+import os
+import uuid
+from django.utils.text import slugify
+
+
+def unique_filename(instance, filename):
+    """
+    Generate a unique filename using a slugified version of the original
+    filename and a unique identifier.
+    """
+    base, ext = os.path.splitext(filename)
+    # Generate a unique identifier
+    unique_id = uuid.uuid4().hex[:8]
+    # Create the new filename
+    new_filename = f"{slugify(base)}_{unique_id}{ext}"
+    return os.path.join('profile_images', new_filename)
 
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     total_blood = models.IntegerField(default=100)
     attack_power = models.IntegerField(default=10)
-    image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
+    image = models.ImageField(upload_to=unique_filename, blank=True, null=True)
 
     def __str__(self):
         return f"{self.user.username}'s profile"

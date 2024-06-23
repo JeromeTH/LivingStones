@@ -22,8 +22,7 @@ html, body {
 }
 
 h1 {
-    color: blue; /* Example style */
-
+    color: #98032c; /* Example style */
 }
 
 /* Buttons*/
@@ -85,4 +84,13 @@ footer {
     text-align: center;
     position: absolute;
     bottom: 10px; /* Position footer 10px from the bottom */
+}
+
+label {
+    color: #98032c; /* Light text for footer */
+}
+
+img {
+    border-radius: 50%;
+    object-fit: cover; /* Ensure the image is covered properly */
 }
