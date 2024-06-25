@@ -26,7 +26,6 @@
 }
 
 
-
 .blood-level-bar-container {
     width: 100%;
     max-width: 600px;
@@ -83,7 +82,6 @@
 }
 
 
-
 /* Participants Styles */
 .participants {
     margin-top: 20px;
@@ -128,6 +126,7 @@
     margin-top: 10px;
     text-align: center;
 }
+
 .color-bar {
     height: 20px;
     margin: 5px 0;
@@ -143,11 +142,16 @@
     flex-direction: row;
 }
 
+.leaderboard-container panel {
+    max-height: 50%;
+    overflow: auto;
+}
+
 .leaderboard-item {
     display: flex;
     flex-direction: row;
     align-items: center;
-    height: 50px;
+    height: 40px;
     width: 100%;
     justify-content: flex-start; /* Align items on the left */
 }
@@ -156,12 +160,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
     height: 30%;
     margin-bottom: 20px;
 }
 
-.fixed-button {
-
+.starred-color-bar {
+    display: flex;
+    width: 100%;
+    background-color: white;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-direction: row;
+    border-radius: 3px;
 }

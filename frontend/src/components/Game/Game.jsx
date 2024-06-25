@@ -82,7 +82,6 @@ const Game = () => {
     const attack = async (event) => {
         event.preventDefault();
         const token = sessionStorage.getItem('token');
-
         try {
             const response = await fetch(window.location.origin + `/livingstonesapp/game/${id}/attack/`, {
                 method: 'POST',
@@ -176,13 +175,20 @@ const Game = () => {
                                 <img src={starredPlayer.profile.image} alt="Starred Player"/>
                                 <div
                                     className="starred-color-bar"
-                                    style={{
-                                        width: '100%',
-                                        backgroundColor: generateColor(starredPlayer.id)
-                                    }}
                                 >
+                                    <div
+                                    style={{
+                                        width: `${starredPlayer.current_blood*100/starredPlayer.profile.total_blood}%`,
+                                        backgroundColor: 'red',
+                                        height: '100%',
+                                    }}>
+                                    </div>
                                     {starredPlayer.current_blood}
                                 </div>
+                                <div style={{color: 'white'}}>
+                                    剩餘血量：{starredPlayer.current_blood} / {starredPlayer.profile.total_blood}
+                                </div>
+
                             </div>
                         )}
 
