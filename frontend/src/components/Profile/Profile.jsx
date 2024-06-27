@@ -91,14 +91,14 @@ const Profile = () => {
             <Modal show={showModal} onClose={() => setShowModal(false)}>
                 <form onSubmit={handleSubmit}>
                     <div>
-                        <label>{modalContent === 'image' ? 'Upload Image' : 'New Value'}:</label>
+                        <label>{modalContent === 'image' ? '上傳影像' : '新數值'}:</label>
                         <input
                             type={modalContent === 'image' ? 'file' : 'text'}
                             onChange={handleChange}
                             required
                         />
                     </div>
-                    <button type="submit">Update</button>
+                    <button type="submit">確認</button>
                 </form>
             </Modal>
             <Footer/>
