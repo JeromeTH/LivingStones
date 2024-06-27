@@ -8,8 +8,9 @@ const Home = () => {
         <div className="home-container">
             <Header/>
             <main>
-                <h2>Welcome to Living Stones</h2>
-                <p>Login to start fighting npcs and track your progress.</p>
+                <h1>You Are Living Stones</h1>
+                <h2>台北真理堂2024國中營</h2>
+                <h2>隆重鉅獻</h2>
             </main>
             <Footer/>
         </div>

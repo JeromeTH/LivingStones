@@ -126,12 +126,12 @@ const Game = () => {
             <div className="game-container">
                 {isAttackMode ? (
                     <div className={"attack-form-container"}>
-                        <button onClick={() => setIsAttackMode(!isAttackMode)}>
-                            {isAttackMode ? "Show Game Progress" : "Attack NPC"}
+                        <button className={'button-large'} onClick={() => setIsAttackMode(!isAttackMode)}>
+                            {isAttackMode ? "排行榜畫面" : "攻擊畫面"}
                         </button>
                         <form onSubmit={attack} className="attack-form">
                             <label>
-                                Damage:
+                                攻擊量:
                                 <input
                                     type="number"
                                     value={damage}
@@ -143,7 +143,7 @@ const Game = () => {
                         </form>
                         <Panel
                             items={game.players}
-                            title="Select Opponents to Attack"
+                            title="勾選想攻擊之對手"
                             renderEntry={(player) => (
                                 <div key={player.id}>
                                     <label>
@@ -167,8 +167,8 @@ const Game = () => {
                     </div>
                 ) : (
                     <div className={"game-info"}>
-                        <button onClick={() => setIsAttackMode(!isAttackMode)}>
-                            {isAttackMode ? "Show Game Progress" : "Attack NPC"}
+                        <button className={'button-large'} onClick={() => setIsAttackMode(!isAttackMode)}>
+                            {isAttackMode ? "排行榜畫面" : "攻擊畫面"}
                         </button>
                         {starredPlayer && (
                             <div className="starred-player">
@@ -195,7 +195,7 @@ const Game = () => {
                         <div className={"leaderboard-container"}>
                             <Panel
                                 items={bloodLeaderboard}
-                                title="Blood Leaderboard"
+                                title="剩餘血量"
                                 renderEntry={(player) => (
                                     <div className={"leaderboard-item"} onClick={() => handleStarPlayer(player)}>
                                         <img src={player.profile.image} alt={"Player"}></img>
@@ -213,7 +213,7 @@ const Game = () => {
                             />
                             <Panel
                                 items={damageLeaderboard}
-                                title="Damage Leaderboard"
+                                title="攻擊量"
                                 renderEntry={(player) => (
                                     <div className={"leaderboard-item"}>
                                         <img src={player.profile.image} alt={"Player"}></img>

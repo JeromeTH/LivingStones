@@ -73,19 +73,19 @@ const Profile = () => {
         <div>
             <Header/>
             <div className="profile-container">
-                <h1>My Profile</h1>
+                <h1>戰鬥檔案</h1>
                 <div className="profile-item">
-                    <label>Total Blood: {profile.total_blood}</label>
-                    <button onClick={() => handleOpenModal('total_blood')}>Change</button>
+                    <label>總血量: {profile.total_blood}</label>
+                    <button onClick={() => handleOpenModal('total_blood')}>修改</button>
                 </div >
                 <div className="profile-item">
-                    <label>Attack Power: {profile.attack_power}</label>
-                    <button onClick={() => handleOpenModal('attack_power')}>Change</button>
+                    <label>攻擊力: {profile.attack_power}</label>
+                    <button onClick={() => handleOpenModal('attack_power')}>修改</button>
                 </div>
                 <div className="profile-item">
-                    <label>Profile Image:</label>
+                    <label>大頭照:</label>
                     {profile.image && <img src={profile.image} alt="Profile" width="100"/>}
-                    <button onClick={() => handleOpenModal('image')}>Change</button>
+                    <button onClick={() => handleOpenModal('image')}>修改</button>
                 </div>
             </div>
             <Modal show={showModal} onClose={() => setShowModal(false)}>

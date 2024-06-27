@@ -50,11 +50,11 @@ const Header = () => {
             <div className="container">
                 <h1>Living Stones</h1>
                 <nav>
-                    <a className="homepage_links" href="/">Home</a>
-                    <a className="homepage_links" href="/create-game">New Game</a>
-                    <a className="homepage_links" href="/active-games">Active Games</a>
-                    <a className="homepage_links" href="/ended-games">Past Games</a>
-                    <a className="homepage_links" href="/profile">My Profile</a>
+                    <a className="homepage_links" href="/">首頁</a>
+                    <a className="homepage_links" href="/create-game">創建遊戲室</a>
+                    <a className="homepage_links" href="/active-games">進行中</a>
+                    <a className="homepage_links" href="/ended-games">已結束</a>
+                    <a className="homepage_links" href="/profile">活石檔案</a>
                     {home_page_items}
                 </nav>
             </div>
