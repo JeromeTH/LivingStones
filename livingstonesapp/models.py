@@ -37,8 +37,6 @@ class Game(models.Model):
     start_time = models.DateTimeField(auto_now_add=True)
     end_time = models.DateTimeField(null=True, blank=True)
     is_active = models.BooleanField(default=True)
-    boss = models.OneToOneField('GamePlayer', null=True, blank=True, on_delete=models.SET_NULL,
-                                related_name='boss_of_game')
 
     def __str__(self):
         return f"Name: {self.name} id: {self.id}"
