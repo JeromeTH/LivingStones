@@ -37,7 +37,7 @@ services:
       - ./media:/app/media/
       - ./db:/app/db/
       - ./static:/app/static/
-      -
+
     ports:
       - "80:80"
     depends_on:
