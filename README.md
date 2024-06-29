@@ -229,3 +229,15 @@ it's causing the issue
 127.0.0.1:57653 - - [23/Jun/2024:12:35:22] "POST /livingstonesapp/game/2/attack/" 200 54
 Unauthorized: /livingstonesapp/game/2/attack/
 
+1. make root media directory a shared volume for both containers
+2. make root directory a shared volume
+3. git pull --> re-build --> container is referred to root so it changes as well
+4. containers are for managing 
+5. remove media from git to avoid confusion. In the code, there
+will be mentions to app/media, however, there is no such file,
+the actual file is in docker volumes
+the reason to do this is that re-build seems to run faster than building everything again
+I mean npm run build
+use lfs to store build files.
+let docker manage the installation and dependencies so I don't need to configure server
+but use the code on root server so I don't need to re-build docker everytime

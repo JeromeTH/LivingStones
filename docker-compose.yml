@@ -10,7 +10,9 @@ services:
     container_name: django
     image: django
     volumes:
-      - shared-media:/app/media/
+      - ./media:/app/media/
+      - ./db:/app/db/
+
     command: daphne -b 0.0.0.0 -p 8000 livingstones.asgi:application
     ports:
       - "8000:8000"
@@ -29,7 +31,8 @@ services:
       dockerfile: Dockerfile-nginx
     container_name: nginx
     volumes:
-      - shared-media:/app/media/
+      - ./media:/app/media/
+      - ./db:/app/db/
     ports:
       - "80:80"
     depends_on:
