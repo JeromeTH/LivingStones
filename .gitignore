@@ -1,6 +1,7 @@
 frontend/node_modules/
 livingstonesenv/
 frontend/build/
+livingstonesapp/migrations/
 static
 .env
 db/db.sqlite3
