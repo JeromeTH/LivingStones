@@ -241,3 +241,9 @@ I mean npm run build
 use lfs to store build files.
 let docker manage the installation and dependencies so I don't need to configure server
 but use the code on root server so I don't need to re-build docker everytime
+
+jerometh@Jeromes-MacBook-Pro LivingStones % scp -i ~/.ssh/LightsailDefaultKey-ap-northeast-2.pem ./db/db.sqlite3 ec2-user@3.39.185.37:~/LivingStones/db
+scp: dest open "LivingStones/db/db.sqlite3": Permission denied
+
+when I run migrations on server, the migration files
+are stored in server not in a docker image, thus
