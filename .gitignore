@@ -3,5 +3,8 @@ livingstonesenv/
 frontend/build/
 static
 .env
-db/db.sqlite3
+# Ignore all files in the db/ directory
+db/*
+
+# But don't ignore the directory itself
 !db/
