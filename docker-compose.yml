@@ -31,6 +31,7 @@ services:
       dockerfile: Dockerfile-nginx
     container_name: nginx
     volumes:
+      - .:/app
       - ./media:/app/media/
       - ./db:/app/db/
     ports:
