@@ -10,6 +10,7 @@ services:
     container_name: django
     image: django
     volumes:
+      - .:/app
       - ./media:/app/media/
       - ./db:/app/db/
 
