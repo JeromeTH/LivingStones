@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0b85747b-3110-4217-a003-492b004ef81e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile-django" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile-django" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
     </list>
@@ -117,7 +118,7 @@
       <workItem from="1717310222520" duration="32664000" />
       <workItem from="1717465614036" duration="100763000" />
       <workItem from="1719485259883" duration="8277000" />
-      <workItem from="1719577841419" duration="9423000" />
+      <workItem from="1719577841419" duration="12813000" />
     </task>
     <servers />
   </component>

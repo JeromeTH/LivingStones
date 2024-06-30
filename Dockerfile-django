@@ -32,11 +32,6 @@ RUN npm run build
 
 WORKDIR /app
 
-# db Migrations
-RUN python manage.py makemigrations
-RUN python manage.py makemigrations livingstonesapp
-RUN python manage.py migrate
-
 # Collect static files
 RUN python manage.py collectstatic --noinput
 

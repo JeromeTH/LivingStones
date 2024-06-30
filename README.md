@@ -247,3 +247,16 @@ scp: dest open "LivingStones/db/db.sqlite3": Permission denied
 
 when I run migrations on server, the migration files
 are stored in server not in a docker image, thus
+
+
+The problem now is: if I everything is contained in docker, then it db will reset during rebuild
+if only db in outside, the migrations would be stored in file system thus unable to update that db
+if everything is volumed outside, the some operations are not done, like creating static or migrations
+
+
+
+
+now, docker is only for installing environment and server settings
+it's gonna be easier to build docker containers this way
+everytime the code changes, run container restart
+and the restarting process include npm run build as well as collect static
