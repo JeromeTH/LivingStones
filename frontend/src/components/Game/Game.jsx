@@ -18,7 +18,6 @@ const Game = () => {
     const {id} = useParams();
     const navigate = useNavigate();
     const [game, setGame] = useState(null);
-    const [leaderboard, setLeaderboard] = useState([]);
     const [damage, setDamage] = useState('');
     const [socket, setSocket] = useState(null);
     const [isAttackMode, setIsAttackMode] = useState(true);
@@ -26,8 +25,8 @@ const Game = () => {
     const attackedSound = useRef(new Audio(`${process.env.PUBLIC_URL}/media/sound_effects/135855__joelaudio__grunt_001.wav`));
     const [message, setMessage] = useState('');
     const [selectedTargets, setSelectedTargets] = useState([]);
-    const [starredPlayer, setStarredPlayer] = useState(null);
-
+    const [starredPlayerIndex, setStarredPlayerIndex] = useState(0);
+    const [players, setPlayers] = useState([]);
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -40,7 +39,7 @@ const Game = () => {
 
                 const data = await response.json();
                 setGame(data);
-                setLeaderboard(data.leaderboard);
+                setPlayers(data.players);
                 console.log(data);
                 console.log(process.env.PUBLIC_URL);
 
@@ -60,7 +59,7 @@ const Game = () => {
                         console.log("Updated Game:", updatedGame);
                         return updatedGame;
                     });
-                    setLeaderboard(message.leaderboard);
+                    setPlayers(message.players);
                     attackedSound.current.play();
                 };
                 setSocket(ws);
@@ -78,6 +77,22 @@ const Game = () => {
             }
         };
     }, [id]);
+
+    useEffect(() => {
+        if (players.length > 0) {
+            setStarredPlayerIndex(0); // Set the first player as the starred player
+        }
+    }, [players]);
+
+    const starredPlayer = players[starredPlayerIndex];
+    const handleNextPlayer = () => {
+        setStarredPlayerIndex((prevIndex) => (prevIndex + 1) % players.length);
+    };
+
+    const handlePreviousPlayer = () => {
+        setStarredPlayerIndex((prevIndex) => (prevIndex - 1 + players.length) % players.length);
+    };
+
 
     const attack = async (event) => {
         event.preventDefault();
@@ -108,10 +123,6 @@ const Game = () => {
         } catch (error) {
             console.error('Error attacking npc:', error);
         }
-    };
-
-    const handleStarPlayer = (player) => {
-        setStarredPlayer(player);
     };
 
     if (!game) return <div>Loading...</div>;
@@ -184,16 +195,27 @@ const Game = () => {
                                 <div style={{color: 'white'}}>
                                     <h2>剩餘血量：{starredPlayer.current_blood} / {starredPlayer.profile.total_blood}</h2>
                                 </div>
-
+                                <div className={"button-container"}>
+                                    <button onClick={handlePreviousPlayer}>
+                                        <svg width="24" height="24" viewBox="0 0 24 24">
+                                            <polygon points="15,3 3,12 15,21" fill="white"/>
+                                        </svg>
+                                    </button>
+                                    <button onClick={handleNextPlayer}>
+                                        <svg width="24" height="24" viewBox="0 0 24 24">
+                                            <polygon points="9,3 21,12 9,21" fill="white"/>
+                                        </svg>
+                                    </button>
+                                </div>
                             </div>
                         )}
-                        (提示：於血量表點選選手使其置於銀幕中心)
                         <div className={"leaderboard-container"}>
                             <Panel
                                 items={bloodLeaderboard}
                                 title="剩餘血量"
                                 renderEntry={(player) => (
-                                    <div className={"leaderboard-item"} onClick={() => handleStarPlayer(player)}>
+                                    <div className={"leaderboard-item"}
+                                         onClick={() => setStarredPlayerIndex(players.indexOf(player))}>
                                         <img src={player.profile.image} alt={"Player"}></img>
                                         <div
                                             className="color-bar"
