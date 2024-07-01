@@ -3,5 +3,8 @@ livingstonesenv/
 frontend/build/
 livingstonesapp/migrations/
 static
+/media/profile_images/*
+!/media/profile_images/.gitkeep
+
 .env
 db/db.sqlite3
