@@ -162,8 +162,12 @@
     align-items: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    height: 30%;
+    height: 40%;
     margin-bottom: 20px;
+}
+
+.starred-player img {
+    height: 80%;
 }
 
 .starred-color-bar {
@@ -173,5 +177,12 @@
     justify-content: flex-start;
     align-items: flex-start;
     flex-direction: row;
-    border-radius: 3px;
+    border-radius: 10px;
+    height: 10%;
+}
+
+.starred-color-bar-blood {
+    background-color: red;
+    height: 100%;
+    border-radius: 10px;
 }

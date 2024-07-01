@@ -176,22 +176,18 @@ const Game = () => {
                                 <div
                                     className="starred-color-bar"
                                 >
-                                    <div
-                                    style={{
-                                        width: `${starredPlayer.current_blood*100/starredPlayer.profile.total_blood}%`,
-                                        backgroundColor: 'red',
-                                        height: '100%',
+                                    <div className={"starred-color-bar-blood"} style={{
+                                        width: `${starredPlayer.current_blood * 100 / starredPlayer.profile.total_blood}%`
                                     }}>
                                     </div>
-                                    {starredPlayer.current_blood}
                                 </div>
                                 <div style={{color: 'white'}}>
-                                    剩餘血量：{starredPlayer.current_blood} / {starredPlayer.profile.total_blood}
+                                    <h2>剩餘血量：{starredPlayer.current_blood} / {starredPlayer.profile.total_blood}</h2>
                                 </div>
 
                             </div>
                         )}
-
+                        (提示：於血量表點選選手使其置於銀幕中心)
                         <div className={"leaderboard-container"}>
                             <Panel
                                 items={bloodLeaderboard}
@@ -208,7 +204,6 @@ const Game = () => {
                                         />
                                         <span style={{textAlign: 'right'}}>{player.current_blood}</span>
                                     </div>
-
                                 )}
                             />
                             <Panel
