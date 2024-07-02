@@ -201,6 +201,7 @@ const Game = () => {
                                             <polygon points="15,3 3,12 15,21" fill="white"/>
                                         </svg>
                                     </button>
+                                    <h2>{starredPlayer.name}</h2>
                                     <button onClick={handleNextPlayer}>
                                         <svg width="24" height="24" viewBox="0 0 24 24">
                                             <polygon points="9,3 21,12 9,21" fill="white"/>
