@@ -164,6 +164,7 @@
     border-radius: 10px;
     height: 50%;
     margin-bottom: 20px;
+    max-width: 80vw;
 }
 
 .button-container {

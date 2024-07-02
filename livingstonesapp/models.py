@@ -25,7 +25,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     total_blood = models.IntegerField(default=100)
     attack_power = models.IntegerField(default=10)
-    image = models.ImageField(upload_to=unique_filename, blank=True, null=True)
+    image = models.ImageField(upload_to=unique_filename, blank=True, default='sample_images/ttlc.jpeg')
 
     def __str__(self):
         return f"{self.user.username}'s profile"
