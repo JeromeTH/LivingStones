@@ -6,16 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="0b85747b-3110-4217-a003-492b004ef81e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ActiveGames/ActiveGames.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ActiveGames/ActiveGames.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/EndedGames/EndedGames.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/EndedGames/EndedGames.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Header/Header.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Header/Header.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/Home/Home.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Home/Home.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Login/Login.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Login/Login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Profile/Profile.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Profile/Profile.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Profile/Profile.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Profile/Profile.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Register/Register.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Register/Register.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Register/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Register/Register.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
