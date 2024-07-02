@@ -7,7 +7,6 @@
     align-items: center;
     background-color: #1c1717; /* Dark background to match body */
     color: #e6e8f0; /* Light text */
-    padding: 20px;
     flex: 1; /* Take up the remaining space */
     width: 100vw;
     height: 100vh;

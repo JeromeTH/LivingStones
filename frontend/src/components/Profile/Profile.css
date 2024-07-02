@@ -1,31 +1,40 @@
-.profile-container {
+.profile-container{
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+.profile {
     display: flex;
     flex-direction: column; /* Align items vertically */
     justify-content: center; /* Center items vertically */
     align-items: center; /* Center items horizontally */
     gap: 20px; /* Add comfortable separation between items */
-    height: 100vh; /* Full height of the viewport */
     padding: 20px; /* Add some padding */
     box-sizing: border-box; /* Ensure padding is included in the width and height */
+    min-width: 30vw;
 }
 
-.profile-container h1 {
+.profile h1 {
     font-size: 46px;
     margin-bottom: 20px; /* Add some space below the heading */
 }
 
-.profile-container label {
+.profile label {
     font-size: 24px;
     margin-bottom: 10px; /* Add some space below labels */
 }
 
-.profile-container button {
+.profile button {
     margin-top: 10px; /* Add some space above buttons */
     padding: 10px 20px; /* Add padding for buttons */
     font-size: 16px; /* Increase font size for buttons */
 }
 
-.profile-container img {
+.profile img {
     border-radius: 50%;
     margin-bottom: 20px; /* Add some space below the image */
     width: 150px; /* Set image width */

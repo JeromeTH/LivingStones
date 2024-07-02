@@ -37,68 +37,70 @@ const Register = ({onClose}) => {
     return (
         <div className="register-container">
             <Header/>
-            <div className={"register-modal"} onClick={onClose}>
-                <div
-                    onClick={(e) => {
-                        e.stopPropagation();
-                    }}
-                    className='modalContainer'
-                >
-                    <h1>Register</h1>
-                    {error && <p className="error">{error}</p>}
-                    <form onSubmit={handleRegister} className="register-form">
-                        <label htmlFor="username">Username:</label>
-                        <input
-                            type="text"
-                            id="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                        />
-                        <label htmlFor="firstName">First Name:</label>
-                        <input
-                            type="text"
-                            id="firstName"
-                            value={firstName}
-                            onChange={(e) => setFirstName(e.target.value)}
-                            required
-                        />
-                        <label htmlFor="lastName">Last Name:</label>
-                        <input
-                            type="text"
-                            id="lastName"
-                            value={lastName}
-                            onChange={(e) => setLastName(e.target.value)}
-                            required
-                        />
-                        <label htmlFor="email">Email:</label>
-                        <input
-                            type="email"
-                            id="email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                        />
-                        <label htmlFor="password">Password:</label>
-                        <input
-                            type="password"
-                            id="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                        <label htmlFor="confirmPassword">Confirm Password:</label>
-                        <input
-                            type="password"
-                            id="confirmPassword"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            required
-                        />
-                        <button type="submit">Register</button>
-                    </form>
-                    <p>Already have an account? <a href="/login">Login here</a>.</p>
+            <div className={"register-modal-container"}>
+                <div className={"register-modal"} onClick={onClose}>
+                    <div
+                        onClick={(e) => {
+                            e.stopPropagation();
+                        }}
+                        className='modalContainer'
+                    >
+                        <h1>Register</h1>
+                        {error && <p className="error">{error}</p>}
+                        <form onSubmit={handleRegister} className="register-form">
+                            <label htmlFor="username">Username:</label>
+                            <input
+                                type="text"
+                                id="username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                required
+                            />
+                            <label htmlFor="firstName">First Name:</label>
+                            <input
+                                type="text"
+                                id="firstName"
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                                required
+                            />
+                            <label htmlFor="lastName">Last Name:</label>
+                            <input
+                                type="text"
+                                id="lastName"
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                                required
+                            />
+                            <label htmlFor="email">Email:</label>
+                            <input
+                                type="email"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                            />
+                            <label htmlFor="password">Password:</label>
+                            <input
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                            />
+                            <label htmlFor="confirmPassword">Confirm Password:</label>
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                required
+                            />
+                            <button type="submit">Register</button>
+                        </form>
+                        <p>Already have an account? <a href="/login">Login here</a>.</p>
 
+                    </div>
                 </div>
 
             </div>

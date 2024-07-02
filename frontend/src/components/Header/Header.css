@@ -1,9 +1,10 @@
 /* Header.css */
 header.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
+    /*position: fixed;*/
+    /*top: 0;*/
+    /*left: 0;*/
     width: 100%;
+    grid-row: 1; /* Ensures the header is in the first row */
     background-color: #0e0b16; /* Dark background */
     padding: 10px 0;
     border-bottom: 2px solid #c3073f; /* Red border */

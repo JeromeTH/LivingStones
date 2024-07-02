@@ -70,9 +70,9 @@ const Profile = () => {
     };
 
     return (
-        <div>
+        <div className={"profile-container"}>
             <Header/>
-            <div className="profile-container">
+            <div className="profile">
                 <h1>戰鬥檔案</h1>
                 <div className="profile-item">
                     <label>總血量: {profile.total_blood}</label>

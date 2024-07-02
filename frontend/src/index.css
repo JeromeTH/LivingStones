@@ -83,8 +83,6 @@ footer {
     border-top: 2px solid #c3073f; /* Red border for footer */
     width: 100%;
     text-align: center;
-    position: absolute;
-    bottom: 10px; /* Position footer 10px from the bottom */
 }
 
 label {
