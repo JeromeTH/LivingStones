@@ -101,6 +101,7 @@ class ProfileViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(profile)
         data = serializer.data
         data['current_user_id'] = request.user.id
+        data['name'] = request.user.username
         return Response(data)
 
     @action(detail=True, methods=['put'], permission_classes=[IsAuthenticated])

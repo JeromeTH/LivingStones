@@ -28,6 +28,11 @@ const Game = () => {
     const [selectedTargets, setSelectedTargets] = useState([]);
     const [starredPlayerIndex, setStarredPlayerIndex] = useState(0);
     const [players, setPlayers] = useState([]);
+    const [profile, setProfile] = useState({
+        total_blood: 100,
+        attack_power: 10,
+        image: null
+    });
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -76,9 +81,7 @@ const Game = () => {
                 console.error('Error fetching game:', error);
             }
         };
-
         fetchGame();
-
         return () => {
             if (socket) {
                 socket.close();
@@ -86,13 +89,22 @@ const Game = () => {
         };
     }, [id]);
 
-    // useEffect(() => {
-    //     if (players.length > 0) {
-    //         setStarredPlayerIndex(0); // Set the first player as the starred player
-    //     }
-    // }, [players]);
-    // console.log(players);
-    // console.log(starredPlayerIndex);
+    useEffect(() => {
+        const fetchProfile = async () => {
+            const token = sessionStorage.getItem('token');
+            const response = await fetch(window.location.origin + '/livingstonesapp/profile/', {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            const data = await response.json();
+            console.log(data);
+            setProfile(data);
+        };
+        fetchProfile();
+    }, []);
+
 
     const starredPlayer = players[starredPlayerIndex];
     const handleNextPlayer = () => {
@@ -179,6 +191,8 @@ const Game = () => {
                         <button className={'button-large'} onClick={() => setIsAttackMode(!isAttackMode)}>
                             {isAttackMode ? "排行榜畫面" : "攻擊畫面"}
                         </button>
+                        <img src={profile.image} alt={"Me"}></img>
+                        <h2>{profile.name}</h2>
                         <form onSubmit={attack} className="attack-form">
                             <label>
                                 攻擊量:

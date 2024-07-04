@@ -215,3 +215,15 @@
     height: 100%;
     border-radius: 10px;
 }
+
+.attack-form-container{
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.attack-form-container img{
+    height: 10%;
+}
