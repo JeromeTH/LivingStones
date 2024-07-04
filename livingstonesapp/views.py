@@ -164,11 +164,17 @@ class GameViewSet(viewsets.ModelViewSet):
         game = self.get_object()
         user = User.objects.select_related('profile').get(pk=request.user.pk)
         name = user.username
+        data = json.loads(request.body)
+        is_boss = data.get('is_boss', False)  # Default to False if not provided
+
         player, created = GamePlayer.objects.get_or_create(
             game=game,
             profile=user.profile,
-            defaults={'name': name, 'total_damage': 0, 'current_blood': user.profile.total_blood}
+            defaults={'name': name, 'total_damage': 0, 'current_blood': user.profile.total_blood,
+                      'boss_mode': is_boss}
         )
+        player.boss_mode = is_boss
+        player.save()
         game.save()
         return Response({'status': 'joined'}, status=status.HTTP_200_OK)
 

@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b85747b-3110-4217-a003-492b004ef81e" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/Elements/Countdown.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/Elements/Countdown.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/Elements/Panel.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Elements/Panel.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Game/Game.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Game/Game.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/Game/Game.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Game/Game.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/JoinGame/JoinGame.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/JoinGame/JoinGame.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/JoinGame/JoinGame.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/JoinGame/JoinGame.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/livingstonesapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,7 +176,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/frontend/src/components/Game/Game.jsx</url>
-          <line>193</line>
+          <line>199</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>

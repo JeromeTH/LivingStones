@@ -9,6 +9,7 @@ const JoinGame = () => {
     const navigate = useNavigate();
     const [game, setGame] = useState(null);
     const [error, setError] = useState(null);
+    const [isBoss, setIsBoss] = useState(false);
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -36,7 +37,8 @@ const JoinGame = () => {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
-                }
+                },
+                body: JSON.stringify({ is_boss: isBoss })
             });
 
             if (!response.ok) {
@@ -64,6 +66,14 @@ const JoinGame = () => {
                 <p>Game ID: {game.id}</p>
                 <p>Game Name: {game.name}</p>
                 <p>Creator: {game.creator.username}</p>
+                <p>
+                    <input
+                        type="checkbox"
+                        checked={isBoss}
+                        onChange={(e) => setIsBoss(e.target.checked)}
+                    />
+                    Are you the Boss?
+                </p>
                 <button className={"button-large"} onClick={joinGame}>Join Game</button>
             </div>
             <Footer/>

@@ -184,8 +184,14 @@ const Game = () => {
         console.log("game is inactive");
         navigate(`/game/${id}/summary/`);
     } else {
-        const bloodLeaderboard = [...game.players].sort((a, b) => b.current_blood - a.current_blood);
-        const damageLeaderboard = [...game.players].sort((a, b) => b.total_damage - a.total_damage);
+        const bloodLeaderboard = [...game.players]
+            .filter(player => !player.boss_mode)
+            .sort((a, b) => b.current_blood - a.current_blood);
+
+        const damageLeaderboard = [...game.players]
+            .filter(player => !player.boss_mode)
+            .sort((a, b) => b.total_damage - a.total_damage);
+
         console.log("game is active");
         return (
             <div className="game-container">
@@ -300,7 +306,7 @@ const Game = () => {
                             <button className={'button-large'} onClick={() => setShowCountdown(true)}>
                                 倒數
                             </button>
-                            {showCountdown && <Countdown onComplete={() => setShowCountdown(false)} />}
+                            {showCountdown && <Countdown onComplete={() => setShowCountdown(false)}/>}
                         </div>
 
                         <Panel
