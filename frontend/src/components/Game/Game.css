@@ -119,12 +119,26 @@
     transition: background-color 0.3s, color 0.3s;
     background-color: #441313; /* Red background on hover */
 }
-
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
 .message {
-    color: green;
-    font-size: 16px;
-    margin-top: 10px;
-    text-align: center;
+    position: fixed; /* Fixed position to stay centered on screen */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center both horizontally and vertically */
+    color: rgba(0, 255, 0, 0.7); /* Transparent green */
+    font-weight: bold;
+    font-size: 4rem; /* Ultra-large text */
+    z-index: 1000; /* Ensure it's above other elements */
+    pointer-events: none; /* So it doesn't interfere with form interaction */
+    opacity: 1;
+    animation: fadeOut 0.5s forwards 0.5s;
 }
 
 .color-bar {
@@ -177,9 +191,10 @@
     width: 100%
 }
 
-.button-container button{
+.button-container button {
     border-radius: 50%;
 }
+
 .starred-player img {
     height: 70%;
 }

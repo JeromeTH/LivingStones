@@ -154,8 +154,6 @@ const Game = () => {
 
             // Notify other clients via WebSocket
             if (socket) {
-                await attackSound.current.play();
-                await delay(400); // Wait for 0.5 seconds
                 socket.send(JSON.stringify({}));  // Include the action
                 setMessage('Healed!');
                 // Hide the message after 3 seconds
@@ -193,7 +191,7 @@ const Game = () => {
                             <button type="submit">Attack</button>
                             {message && <div className="message">{message}</div>}
                         </form>
-                        <form onSubmit={heal} className="refill-form">
+                        <form onSubmit={heal} className="attack-form">
                             <label>
                                 回血量:
                                 <input
