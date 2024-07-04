@@ -75,6 +75,7 @@ const JoinGame = () => {
                     Are you the Boss?
                 </p>
                 <button className={"button-large"} onClick={joinGame}>Join Game</button>
+                Note: The Boss will not be on the leaderboard. However, it can still be shown on the center of the screen.
             </div>
             <Footer/>
         </div>

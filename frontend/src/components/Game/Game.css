@@ -34,6 +34,21 @@
     align-items: center;
 }
 
+.dark-red {
+    background-color: #500217;
+}
+
+.dark-green {
+    background-color: #143602;
+}
+
+.game-info button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 
 .blood-level-bar-container {
     width: 100%;
@@ -200,9 +215,6 @@
     width: 100%
 }
 
-.button-container button {
-    border-radius: 50%;
-}
 
 .starred-player img {
     height: 70%;

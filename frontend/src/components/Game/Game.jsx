@@ -35,6 +35,7 @@ const Game = () => {
         image: null
     });
     const [showCountdown, setShowCountdown] = useState(false);
+    const [isBossTurn, setIsBossTurn] = useState(false);
 
 
     useEffect(() => {
@@ -193,6 +194,7 @@ const Game = () => {
             .sort((a, b) => b.total_damage - a.total_damage);
 
         console.log("game is active");
+        console.log(isBossTurn);
         return (
             <div className="game-container">
                 {isAttackMode ? (
@@ -270,7 +272,7 @@ const Game = () => {
                                 </div>
                             )}
                         />
-                        <div className={"game-info"}>
+                        <div className={`game-info ${isBossTurn ? 'dark-red' : 'dark-green'}`}>
                             <button className={'button-large'} onClick={() => setIsAttackMode(!isAttackMode)}>
                                 {isAttackMode ? "排行榜畫面" : "攻擊畫面"}
                             </button>
@@ -303,10 +305,15 @@ const Game = () => {
                                     </div>
                                 </div>
                             )}
-                            <button className={'button-large'} onClick={() => setShowCountdown(true)}>
-                                倒數
-                            </button>
-                            {showCountdown && <Countdown onComplete={() => setShowCountdown(false)}/>}
+                            <div className={"button-container"}>
+                                <button className={'button-large'} onClick={() => setShowCountdown(true)}>
+                                    倒數
+                                </button>
+                                {showCountdown && <Countdown onComplete={() => setShowCountdown(false)}/>}
+                                <button className={'button-large'} onClick={() => setIsBossTurn(!isBossTurn)}>
+                                    回合轉換
+                                </button>
+                            </div>
                         </div>
 
                         <Panel
