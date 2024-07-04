@@ -80,7 +80,7 @@ def registration(request):
         user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name,
                                         password=password, email=email)
         # Login the user and redirect to list page
-        login(request, user)
+        # login(request, user)
         data = {"userName": username, "status": "Authenticated"}
         return JsonResponse(data)
     else:
@@ -135,12 +135,14 @@ class GameViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(game)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+    @action(detail=False, methods=['get'])
     def retrieve(self, request, *args, **kwargs):
         game_id = kwargs.get('pk')
         game = get_object_or_404(self.get_queryset(), id=game_id)
         serializer = self.get_serializer(game)
         data = serializer.data
         data['current_user_id'] = request.user.id
+        print(request.user)
         return Response(data)
 
     @action(detail=False, methods=['get'])
@@ -155,7 +157,8 @@ class GameViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(games, many=True)
         return Response(serializer.data)
 
-    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
+    # @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
+    @action(detail=True, methods=['post'])
     def join(self, request, pk=None):
         game = self.get_object()
         user = User.objects.select_related('profile').get(pk=request.user.pk)
@@ -168,7 +171,8 @@ class GameViewSet(viewsets.ModelViewSet):
         game.save()
         return Response({'status': 'joined'}, status=status.HTTP_200_OK)
 
-    @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
+    # @action(detail=True, methods=['post'], permission_classes=[IsAuthenticated])
+    @action(detail=True, methods=['post'])
     def attack(self, request, pk=None):
         game = self.get_object()
         damage = int(request.data.get('damage'))
@@ -198,6 +202,23 @@ class GameViewSet(viewsets.ModelViewSet):
         game.save()
         return Response({
             'status': 'attacked',
+            'is_active': game.is_active,
+            'end_time': game.end_time if game.is_active is False else None,
+        })
+
+    @action(detail=True, methods=['post'])
+    def heal(self, request, pk=None):
+        game = self.get_object()
+        healing = int(request.data.get('healing'))
+        print(request.user)
+        player = game.players.filter(profile__user=request.user).first()
+        player.current_blood += healing
+        player.save()
+
+        # Refresh game state
+        game.save()
+        return Response({
+            'status': 'healed',
             'is_active': game.is_active,
             'end_time': game.end_time if game.is_active is False else None,
         })

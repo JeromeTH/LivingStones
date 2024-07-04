@@ -19,6 +19,7 @@ const Game = () => {
     const navigate = useNavigate();
     const [game, setGame] = useState(null);
     const [damage, setDamage] = useState('');
+    const [healing, setHealing] = useState('');
     const [socket, setSocket] = useState(null);
     const [isAttackMode, setIsAttackMode] = useState(true);
     const attackSound = useRef(new Audio(`${process.env.PUBLIC_URL}/media/sound_effects/345441__artmasterrich__punch_01.wav`));
@@ -30,8 +31,15 @@ const Game = () => {
 
     useEffect(() => {
         const fetchGame = async () => {
+            const token = sessionStorage.getItem('token');
             try {
-                const response = await fetch(window.location.origin + `/livingstonesapp/game/${id}/`);
+                const response = await fetch(window.location.origin + `/livingstonesapp/game/${id}/`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
 
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -78,11 +86,13 @@ const Game = () => {
         };
     }, [id]);
 
-    useEffect(() => {
-        if (players.length > 0) {
-            setStarredPlayerIndex(0); // Set the first player as the starred player
-        }
-    }, [players]);
+    // useEffect(() => {
+    //     if (players.length > 0) {
+    //         setStarredPlayerIndex(0); // Set the first player as the starred player
+    //     }
+    // }, [players]);
+    // console.log(players);
+    // console.log(starredPlayerIndex);
 
     const starredPlayer = players[starredPlayerIndex];
     const handleNextPlayer = () => {
@@ -125,6 +135,37 @@ const Game = () => {
         }
     };
 
+    const heal = async (event) => {
+        event.preventDefault();
+        const token = sessionStorage.getItem('token');
+        try {
+            const response = await fetch(window.location.origin + `/livingstonesapp/game/${id}/heal/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({healing}),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            // Notify other clients via WebSocket
+            if (socket) {
+                await attackSound.current.play();
+                await delay(400); // Wait for 0.5 seconds
+                socket.send(JSON.stringify({}));  // Include the action
+                setMessage('Healed!');
+                // Hide the message after 3 seconds
+                setTimeout(() => setMessage(''), 3000);
+            }
+        } catch (error) {
+            console.error('Error Healing:', error);
+        }
+    };
+
     if (!game) return <div>Loading...</div>;
     if (!game.is_active) {
         console.log("game is inactive");
@@ -151,6 +192,17 @@ const Game = () => {
                             </label>
                             <button type="submit">Attack</button>
                             {message && <div className="message">{message}</div>}
+                        </form>
+                        <form onSubmit={heal} className="refill-form">
+                            <label>
+                                回血量:
+                                <input
+                                    type="number"
+                                    value={healing}
+                                    onChange={(e) => setHealing(e.target.value)}
+                                />
+                            </label>
+                            <button type="submit">Heal</button>
                         </form>
                         <Panel
                             items={game.players}

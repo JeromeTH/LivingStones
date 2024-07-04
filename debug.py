@@ -1,18 +1,20 @@
-import os
-import django
+import jwt
 
-# Set the environment variable for Django settings
-os.environ['DJANGO_SETTINGS_MODULE'] = 'livingstones.settings'
+# Example JWT token (replace with your actual token)
+token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzIwMTQ2NDgxLCJpYXQiOjE3MjAwNjAwODEsImp0aSI6Ijc5OGM0ZmQ2MjRkZTRmNDlhMWU4NWRhMzY2ZDU1MDc2IiwidXNlcl9pZCI6MX0.pgX9QObhFBLmzuc0deP29_RabMwkPOS-f6D6ftfl_Ts'
+# Decode the token without verifying the signature
+decoded_token = jwt.decode(token, options={"verify_signature": False})
 
-# Initialize Django
-django.setup()
+# Print the decoded token
+print(decoded_token)
 
-from livingstonesapp.models import Game, GamePlayer, Attack
-from livingstonesapp.serializers import GameSerializer, GamePlayerSerializer
+# Check the 'exp' claim
+if 'exp' in decoded_token:
+    exp_timestamp = decoded_token['exp']
+    from datetime import datetime
 
-game = Game.objects.select_related('npc').get(id=7)
-game_serializer = GameSerializer(game)
-print(game_serializer.data)
-
-Game.objects.filter(id=7).delete()
-
+    # Convert the timestamp to a datetime object
+    exp_datetime = datetime.utcfromtimestamp(exp_timestamp)
+    print(f"Token expires at: {exp_datetime}")
+else:
+    print("The 'exp' claim is not present in the token.")

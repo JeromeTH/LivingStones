@@ -260,3 +260,20 @@ now, docker is only for installing environment and server settings
 it's gonna be easier to build docker containers this way
 everytime the code changes, run container restart
 and the restarting process include npm run build as well as collect static
+
+  File "/app/livingstonesapp/views.py", line 174, in attack
+    damage = int(request.data.get('damage'))
+ValueError: invalid literal for int() with base 10: ''
+
+TODO:
+    Add refill function (5)
+    Boss jumps when attacked (5) 
+    Don't show Boss on leaderboard (3)
+    Boss be bigger on screen (3)
+    Unauthorized problem (5)
+    prevent staff from attacking other members (2)
+    visual effect when attack (3)
+    Countdown (2)
+    Switch color when round changes (4)
+
+    
