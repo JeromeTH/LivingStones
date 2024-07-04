@@ -65,7 +65,7 @@ button:disabled {
 
 /* Large button size */
 .button-large {
-    font-size: large;
+    font-size: 2em;
     padding: 10px 20px;
 }
 
@@ -86,7 +86,7 @@ footer {
 }
 
 label {
-    color: #98032c; /* Light text for footer */
+    color: #ee0444; /* Light text for footer */
 }
 
 img {

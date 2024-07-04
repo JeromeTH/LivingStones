@@ -4,6 +4,7 @@ import "./Game.css";
 import Footer from "../Elements/Footer";
 import PaginatedPanel from "components/Elements/PaginatedPanel";
 import Panel from "components/Elements/Panel";
+import Countdown from "components/Elements/Countdown";
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const generateColor = (index) => {
@@ -33,6 +34,8 @@ const Game = () => {
         attack_power: 10,
         image: null
     });
+    const [showCountdown, setShowCountdown] = useState(false);
+
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -241,79 +244,86 @@ const Game = () => {
                         />
                     </div>
                 ) : (
-                    <div className={"game-info"}>
-                        <button className={'button-large'} onClick={() => setIsAttackMode(!isAttackMode)}>
-                            {isAttackMode ? "排行榜畫面" : "攻擊畫面"}
-                        </button>
-                        {starredPlayer && (
-                            <div className="starred-player">
-                                <img src={starredPlayer.profile.image} alt="Starred Player"/>
-                                <div
-                                    className="starred-color-bar"
-                                >
-                                    <div className={"starred-color-bar-blood"} style={{
-                                        width: `${starredPlayer.current_blood * 100 / starredPlayer.profile.total_blood}%`
-                                    }}>
+                    <div className={"game-info-container"}>
+
+                        <Panel
+                            items={bloodLeaderboard}
+                            title="剩餘血量"
+                            renderEntry={(player) => (
+                                <div className={"leaderboard-item"}
+                                     onClick={() => setStarredPlayerIndex(players.indexOf(player))}>
+                                    <img src={player.profile.image} alt={"Player"}></img>
+                                    <div
+                                        className="color-bar"
+                                        style={{
+                                            width: `${calculateWidthPercentage(player.current_blood, Math.max(...game.players.map(p => p.current_blood)))}%`,
+                                            backgroundColor: generateColor(player.id)
+                                        }}
+                                    />
+                                    <span style={{textAlign: 'right'}}>{player.current_blood}</span>
+                                </div>
+                            )}
+                        />
+                        <div className={"game-info"}>
+                            <button className={'button-large'} onClick={() => setIsAttackMode(!isAttackMode)}>
+                                {isAttackMode ? "排行榜畫面" : "攻擊畫面"}
+                            </button>
+                            {starredPlayer && (
+                                <div className="starred-player">
+                                    <img src={starredPlayer.profile.image} alt="Starred Player"/>
+                                    <div
+                                        className="starred-color-bar"
+                                    >
+                                        <div className={"starred-color-bar-blood"} style={{
+                                            width: `${starredPlayer.current_blood * 100 / starredPlayer.profile.total_blood}%`
+                                        }}>
+                                        </div>
+                                    </div>
+                                    <div style={{color: 'white'}}>
+                                        <h2>剩餘血量：{starredPlayer.current_blood} / {starredPlayer.profile.total_blood}</h2>
+                                    </div>
+                                    <div className={"button-container"}>
+                                        <button onClick={handlePreviousPlayer}>
+                                            <svg width="24" height="24" viewBox="0 0 24 24">
+                                                <polygon points="15,3 3,12 15,21" fill="white"/>
+                                            </svg>
+                                        </button>
+                                        <h2>{starredPlayer.name}</h2>
+                                        <button onClick={handleNextPlayer}>
+                                            <svg width="24" height="24" viewBox="0 0 24 24">
+                                                <polygon points="9,3 21,12 9,21" fill="white"/>
+                                            </svg>
+                                        </button>
                                     </div>
                                 </div>
-                                <div style={{color: 'white'}}>
-                                    <h2>剩餘血量：{starredPlayer.current_blood} / {starredPlayer.profile.total_blood}</h2>
-                                </div>
-                                <div className={"button-container"}>
-                                    <button onClick={handlePreviousPlayer}>
-                                        <svg width="24" height="24" viewBox="0 0 24 24">
-                                            <polygon points="15,3 3,12 15,21" fill="white"/>
-                                        </svg>
-                                    </button>
-                                    <h2>{starredPlayer.name}</h2>
-                                    <button onClick={handleNextPlayer}>
-                                        <svg width="24" height="24" viewBox="0 0 24 24">
-                                            <polygon points="9,3 21,12 9,21" fill="white"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                            </div>
-                        )}
-                        <div className={"leaderboard-container"}>
-                            <Panel
-                                items={bloodLeaderboard}
-                                title="剩餘血量"
-                                renderEntry={(player) => (
-                                    <div className={"leaderboard-item"}
-                                         onClick={() => setStarredPlayerIndex(players.indexOf(player))}>
-                                        <img src={player.profile.image} alt={"Player"}></img>
-                                        <div
-                                            className="color-bar"
-                                            style={{
-                                                width: `${calculateWidthPercentage(player.current_blood, Math.max(...game.players.map(p => p.current_blood)))}%`,
-                                                backgroundColor: generateColor(player.id)
-                                            }}
-                                        />
-                                        <span style={{textAlign: 'right'}}>{player.current_blood}</span>
-                                    </div>
-                                )}
-                            />
-                            <Panel
-                                items={damageLeaderboard}
-                                title="攻擊量"
-                                renderEntry={(player) => (
-                                    <div className={"leaderboard-item"}>
-                                        <img src={player.profile.image} alt={"Player"}></img>
-                                        {/*<>*/}
-                                        {/*    {player.name} - {player.total_damage}*/}
-                                        {/*</>*/}
-                                        <div
-                                            className="color-bar"
-                                            style={{
-                                                width: `${calculateWidthPercentage(player.total_damage, Math.max(...game.players.map(p => p.total_damage)))}%`,
-                                                backgroundColor: generateColor(player.id)
-                                            }}
-                                        />
-                                        <span style={{textAlign: 'right'}}>{player.total_damage}</span>
-                                    </div>
-                                )}
-                            />
+                            )}
+                            <button className={'button-large'} onClick={() => setShowCountdown(true)}>
+                                倒數
+                            </button>
+                            {showCountdown && <Countdown onComplete={() => setShowCountdown(false)} />}
                         </div>
+
+                        <Panel
+                            items={damageLeaderboard}
+                            title="攻擊量"
+                            renderEntry={(player) => (
+                                <div className={"leaderboard-item"}>
+                                    <img src={player.profile.image} alt={"Player"}></img>
+                                    {/*<>*/}
+                                    {/*    {player.name} - {player.total_damage}*/}
+                                    {/*</>*/}
+                                    <div
+                                        className="color-bar"
+                                        style={{
+                                            width: `${calculateWidthPercentage(player.total_damage, Math.max(...game.players.map(p => p.total_damage)))}%`,
+                                            backgroundColor: generateColor(player.id)
+                                        }}
+                                    />
+                                    <span style={{textAlign: 'right'}}>{player.total_damage}</span>
+                                </div>
+                            )}
+                        />
+
                     </div>
                 )
                 }

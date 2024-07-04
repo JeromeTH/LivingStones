@@ -120,8 +120,7 @@
 }
 
 .panel li {
-    font-size: 1.2em; /* Increase the font size */
-    padding: 10px;
+    font-size: 2em; /* Increase the font size */
     border-bottom: 1px solid #ddd;
 }
 
@@ -130,6 +129,6 @@
 }
 
 .panel a {
-    font-size: 1.2em;
+    font-size: 2em;
     color: white;
 }
