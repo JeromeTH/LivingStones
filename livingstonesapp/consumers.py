@@ -47,6 +47,7 @@ class GameConsumer(AsyncWebsocketConsumer):
                 'name': player.name,
                 'total_damage': player.total_damage,
                 'current_blood': player.current_blood,
+                'shield': player.shield,
                 'defend_mode': player.defend_mode,
                 'boss_mode': player.boss_mode,
                 'profile': {

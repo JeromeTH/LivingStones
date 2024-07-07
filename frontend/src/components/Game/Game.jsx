@@ -21,6 +21,7 @@ const Game = () => {
     const [game, setGame] = useState(null);
     const [damage, setDamage] = useState('');
     const [healing, setHealing] = useState('');
+    const [shielding, setShielding] = useState('');
     const [socket, setSocket] = useState(null);
     const [isAttackMode, setIsAttackMode] = useState(true);
     const attackSound = useRef(new Audio(`${process.env.PUBLIC_URL}/media/sound_effects/345441__artmasterrich__punch_01.wav`));
@@ -29,7 +30,7 @@ const Game = () => {
     const [selectedTargets, setSelectedTargets] = useState([]);
     const [starredPlayerIndex, setStarredPlayerIndex] = useState(0);
     const [players, setPlayers] = useState([]);
-    const [profile, setProfile] = useState({
+    const [current_profile, setCurrentProfile] = useState({
         total_blood: 100,
         attack_power: 10,
         image: null
@@ -104,7 +105,7 @@ const Game = () => {
             });
             const data = await response.json();
             console.log(data);
-            setProfile(data);
+            setCurrentProfile(data);
         };
         fetchProfile();
     }, []);
@@ -180,6 +181,35 @@ const Game = () => {
         }
     };
 
+     const shield = async (event) => {
+        event.preventDefault();
+        const token = sessionStorage.getItem('token');
+        try {
+            const response = await fetch(window.location.origin + `/livingstonesapp/game/${id}/shield/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({shielding}),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+
+            // Notify other clients via WebSocket
+            if (socket) {
+                socket.send(JSON.stringify({}));  // Include the action
+                setMessage('added Shield!');
+                // Hide the message after 3 seconds
+                setTimeout(() => setMessage(''), 3000);
+            }
+        } catch (error) {
+            console.error('Error Shielding:', error);
+        }
+    };
+
     if (!game) return <div>Loading...</div>;
     if (!game.is_active) {
         console.log("game is inactive");
@@ -202,8 +232,9 @@ const Game = () => {
                         <button className={'button-large'} onClick={() => setIsAttackMode(!isAttackMode)}>
                             {isAttackMode ? "排行榜畫面" : "攻擊畫面"}
                         </button>
-                        <img src={profile.image} alt={"Me"}></img>
-                        <h2>{profile.name}</h2>
+                        <img src={current_profile.image} alt={"Me"}></img>
+                        <h2>{current_profile.name}</h2>
+                        <h2>防禦力：{current_profile.shield}</h2>
                         <form onSubmit={attack} className="attack-form">
                             <label>
                                 攻擊量:
@@ -213,7 +244,7 @@ const Game = () => {
                                     onChange={(e) => setDamage(e.target.value)}
                                 />
                             </label>
-                            <button type="submit">Attack</button>
+                            <button type="submit">執行</button>
                             {message && <div className="message">{message}</div>}
                         </form>
                         <form onSubmit={heal} className="attack-form">
@@ -225,8 +256,21 @@ const Game = () => {
                                     onChange={(e) => setHealing(e.target.value)}
                                 />
                             </label>
-                            <button type="submit">Heal</button>
+                            <button type="submit">執行</button>
                         </form>
+                        <form onSubmit={shield} className="attack-form">
+                            <label>
+                                增加防禦力:
+                                <input
+                                    type="number"
+                                    value={shielding}
+                                    onChange={(e) => setShielding(e.target.value)}
+                                />
+                            </label>
+                            <button type="submit">執行</button>
+                            {message && <div className="message">{message}</div>}
+                        </form>
+
                         <Panel
                             items={game.players}
                             title="勾選想攻擊之對手"
@@ -245,7 +289,7 @@ const Game = () => {
                                                 }
                                             }}
                                         />
-                                        {player.name} (Blood: {player.current_blood})
+                                        {player.name} (血量: {player.current_blood} 防禦力：{player.shield})
                                     </label>
                                 </div>
                             )}

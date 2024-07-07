@@ -22,7 +22,7 @@
     font-family: 'Quicksand', Arial, sans-serif;
     display: flex;
     flex-direction: column;
-    overflow-y: auto; /* Add vertical scrolling if content overflows */
+    overflow: auto;
 }
 
 .panel .list-container {

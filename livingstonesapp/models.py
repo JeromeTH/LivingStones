@@ -48,6 +48,7 @@ class GamePlayer(models.Model):
     name = models.CharField(max_length=100)
     total_damage = models.IntegerField()
     current_blood = models.IntegerField(default=0)
+    shield = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     defend_mode = models.BooleanField(default=False)
     boss_mode = models.BooleanField(default=False)

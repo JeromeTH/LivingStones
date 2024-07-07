@@ -193,7 +193,8 @@ class GameViewSet(viewsets.ModelViewSet):
         print(damage)
         for target_id in target_ids:
             target = GamePlayer.objects.get(id=target_id, game=game)
-            actual_damage = min(damage, target.current_blood)
+            actual_damage = max(0, damage - target.shield)
+            actual_damage = min(actual_damage, target.current_blood)
             Attack.objects.create(game=game, attacker=attacker, target=target, damage=actual_damage)
             attacker.total_damage += actual_damage
             target.current_blood -= actual_damage
@@ -229,6 +230,24 @@ class GameViewSet(viewsets.ModelViewSet):
             'is_active': game.is_active,
             'end_time': game.end_time if game.is_active is False else None,
         })
+
+    @action(detail=True, methods=['post'])
+    def shield(self, request, pk=None):
+        game = self.get_object()
+        shielding = int(request.data.get('shielding'))
+        print(request.user)
+        player = game.players.filter(profile__user=request.user).first()
+        player.shield += shielding
+        player.save()
+
+        # Refresh game state
+        game.save()
+        return Response({
+            'status': 'healed',
+            'is_active': game.is_active,
+            'end_time': game.end_time if game.is_active is False else None,
+        })
+
 
     @action(detail=True, methods=['get'], permission_classes=[IsAuthenticated])
     def summary(self, request, *args, **kwargs):
