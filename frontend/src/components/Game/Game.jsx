@@ -234,7 +234,6 @@ const Game = () => {
                         </button>
                         <img src={current_profile.image} alt={"Me"}></img>
                         <h2>{current_profile.name}</h2>
-                        <h2>防禦力：{current_profile.shield}</h2>
                         <form onSubmit={attack} className="attack-form">
                             <label>
                                 攻擊量:
