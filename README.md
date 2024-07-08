@@ -287,4 +287,9 @@ docker run -it --rm \
   -d stonesliving.com
 
 Saving debug log to /var/log/letsencrypt/letsencrypt.log
+docker run -it --rm   
+-v certbot-etc:/etc/letsencrypt   
+-v certbot-var:/var/lib/letsencrypt   
+-p 80:80   certbot/certbot certonly --standalone   
+-d stonesliving.com
 
