@@ -284,7 +284,7 @@ docker run -it --rm \
   -p 80:80 \
   certbot/certbot certonly --webroot \
   --webroot-path=/var/lib/letsencrypt \
-  -d stonesliving.com -d www.stonesliving.com
+  -d stonesliving.com
 
 Saving debug log to /var/log/letsencrypt/letsencrypt.log
 

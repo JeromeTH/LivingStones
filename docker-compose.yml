@@ -61,6 +61,5 @@ volumes:
   shared-media:
   db-sqlite:
   db-migrations:
-
   certbot-etc:
   certbot-var:
