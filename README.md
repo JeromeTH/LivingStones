@@ -275,5 +275,16 @@ TODO:
     visual effect when attack (3)
     Countdown (2)
     Switch color when round changes (4)
+    猜拳贏了輸了
 
-    
+docker run -it --rm \
+  -v certbot-etc:/etc/letsencrypt \
+  -v certbot-var:/var/lib/letsencrypt \
+  -v "$(pwd)/nginx.conf:/etc/nginx/nginx.conf" \
+  -p 80:80 \
+  certbot/certbot certonly --webroot \
+  --webroot-path=/var/lib/letsencrypt \
+  -d stonesliving.com -d www.stonesliving.com
+
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+
