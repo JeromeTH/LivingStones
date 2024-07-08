@@ -239,7 +239,7 @@
 
 .attack-form-container{
     display: flex;
-    height: 100vh;
+    height: fit-content;
     flex-direction: column;
     justify-content: center;
     align-items: center;

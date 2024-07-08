@@ -181,7 +181,7 @@ const Game = () => {
         }
     };
 
-     const shield = async (event) => {
+    const shield = async (event) => {
         event.preventDefault();
         const token = sessionStorage.getItem('token');
         try {
@@ -210,6 +210,36 @@ const Game = () => {
         }
     };
 
+    const defend = async (newDefendMode) => {
+        const token = sessionStorage.getItem('token');
+        try {
+            const response = await fetch(`${window.location.origin}/livingstonesapp/game/${id}/defend/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({defendMode: newDefendMode}),
+            });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            if (socket) {
+                socket.send(JSON.stringify({}));  // Include the action
+            }
+        } catch (error) {
+            console.error('Error defending:', error);
+        }
+    };
+    const handleWinChange = () => {
+        defend(true).catch(error => console.error('Error in handleWinChange:', error)); // Handle potential errors
+    };
+
+    const handleLoseChange = () => {
+        defend(false).catch(error => console.error('Error in handleLoseChange:', error)); // Handle potential errors
+    };
+
     if (!game) return <div>Loading...</div>;
     if (!game.is_active) {
         console.log("game is inactive");
@@ -223,8 +253,8 @@ const Game = () => {
             .filter(player => !player.boss_mode)
             .sort((a, b) => b.total_damage - a.total_damage);
 
+        const current_player = game.players.filter(player => player.profile.id === game.current_user_id)[0];
         console.log("game is active");
-        console.log(isBossTurn);
         return (
             <div className="game-container">
                 {isAttackMode ? (
@@ -234,6 +264,26 @@ const Game = () => {
                         </button>
                         <img src={current_profile.image} alt={"Me"}></img>
                         <h2>{current_profile.name}</h2>
+                        <div>
+                            <label>
+                                贏：
+                                <input
+                                    type="checkbox"
+                                    checked={current_player.defend_mode}
+                                    onChange={handleWinChange}
+                                />
+                            </label>
+                            <label>
+                                輸：
+                                <input
+                                    type="checkbox"
+                                    checked={!current_player.defend_mode}
+                                    onChange={handleLoseChange}
+                                />
+                            </label>
+                        </div>
+                        <p>{current_player.defend_mode ? '猜拳：贏' : '猜拳：輸'}</p>
+
                         <form onSubmit={attack} className="attack-form">
                             <label>
                                 攻擊量:
@@ -288,7 +338,7 @@ const Game = () => {
                                                 }
                                             }}
                                         />
-                                        {player.name} (血量: {player.current_blood} 防禦力：{player.shield})
+                                        {player.name} ({player.defend_mode ? "贏" : "輸"}, 血量: {player.current_blood} 防禦力：{player.shield})
                                     </label>
                                 </div>
                             )}

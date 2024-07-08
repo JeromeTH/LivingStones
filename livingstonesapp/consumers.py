@@ -52,7 +52,8 @@ class GameConsumer(AsyncWebsocketConsumer):
                 'boss_mode': player.boss_mode,
                 'profile': {
                     'image': player.profile.image.url if player.profile.image else None,
-                    'total_blood': player.profile.total_blood
+                    'total_blood': player.profile.total_blood,
+                    'id': player.profile.id
                 }
             } for player in game_players
         ]

@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0b85747b-3110-4217-a003-492b004ef81e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nginx.conf" beforeDir="false" afterPath="$PROJECT_DIR$/nginx.conf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Game/Game.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Game/Game.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Game/Game.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Game/Game.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/livingstonesapp/consumers.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/consumers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/livingstonesapp/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/livingstonesapp/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/livingstonesapp/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +122,7 @@
       <workItem from="1717465614036" duration="100763000" />
       <workItem from="1719485259883" duration="8277000" />
       <workItem from="1719577841419" duration="21492000" />
-      <workItem from="1720339739993" duration="12501000" />
+      <workItem from="1720339739993" duration="21210000" />
     </task>
     <servers />
   </component>
@@ -173,7 +178,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/frontend/src/components/Game/Game.jsx</url>
-          <line>231</line>
+          <line>261</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
