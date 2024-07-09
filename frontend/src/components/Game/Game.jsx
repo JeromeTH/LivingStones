@@ -78,7 +78,7 @@ const Game = () => {
                         return updatedGame;
                     });
                     setPlayers(message.players);
-                    attackedSound.current.play();
+                    // attackedSound.current.play();
                 };
                 setSocket(ws);
 
