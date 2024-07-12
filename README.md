@@ -293,3 +293,6 @@ docker run -it --rm  \
     -p 80:80   certbot/certbot certonly --standalone   \
     -d stonesliving.com
 
+docker run -it --rm \
+  -v livingstones_certbot-etc:/etc/letsencrypt \
+  busybox sh -c "ls -l /etc/letsencrypt/live/stonesliving.com/; ls -l /etc/letsencrypt/archive/stonesliving.com/"
