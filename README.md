@@ -134,9 +134,10 @@ LivingStones is a monster fighting game where users can battle NPCs (Non-Player 
    ```
 
 
-## Docker Server and Deployment
+## Docker Server
 
-*Identical for localhost and server*
+*One can use a server of one's choice. This example is conducted on Amazon LightSail Server.*
+
 1. **Build Docker Images**
    ```shell
    docker-compose build
@@ -186,9 +187,11 @@ https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-point-do
     git clone https://github.com/jerometh/livingstones.git
     ```
 
-3. **Start running the Docker Containers**
+3. Obtain domain registration and configure nginx.conf. Follow instructions here: 
+https://docs.aws.amazon.com/lightsail/latest/userguide/amazon-lightsail-domain-registration.html
+4. **Start running the Docker Containers**
     follow the instructions here [Docker Server and Deployment](#docker-server-and-deployment)
-4. Visit the website on browser
+5. Visit the website on browser
 
 ## Useful Commands
 1. **Get website response in terminal**
@@ -211,88 +214,22 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 Happy coding! If you have any questions, feel free to open an issue or contact the maintainers.
 
-#TODO
-show message indicating attack is successful
-server database and development database different
-add home page link to game page
-leaderboard progress bar
+## TODO
+- I successfully enabled HTTPS secure connection by obtaining certificates using Certbot and reconfiguring `nginx.conf`.
+- However, the websocket connection needs to also be securely configured, which hasn't been done yet. This is a future direction.
 
-game page design
-
-admin page should not be able to choose boss from gameplayers 
-that's not in the game
-
-that is causing the accessibility issue because to list the boss candidates
-it's causing the issue
-
-
-127.0.0.1:57653 - - [23/Jun/2024:12:35:22] "POST /livingstonesapp/game/2/attack/" 200 54
-Unauthorized: /livingstonesapp/game/2/attack/
-
-1. make root media directory a shared volume for both containers
-2. make root directory a shared volume
-3. git pull --> re-build --> container is referred to root so it changes as well
-4. containers are for managing 
-5. remove media from git to avoid confusion. In the code, there
-will be mentions to app/media, however, there is no such file,
-the actual file is in docker volumes
-the reason to do this is that re-build seems to run faster than building everything again
-I mean npm run build
-use lfs to store build files.
-let docker manage the installation and dependencies so I don't need to configure server
-but use the code on root server so I don't need to re-build docker everytime
-
-jerometh@Jeromes-MacBook-Pro LivingStones % scp -i ~/.ssh/LightsailDefaultKey-ap-northeast-2.pem ./db/db.sqlite3 ec2-user@3.39.185.37:~/LivingStones/db
-scp: dest open "LivingStones/db/db.sqlite3": Permission denied
-
-when I run migrations on server, the migration files
-are stored in server not in a docker image, thus
-
-
-The problem now is: if I everything is contained in docker, then it db will reset during rebuild
-if only db in outside, the migrations would be stored in file system thus unable to update that db
-if everything is volumed outside, the some operations are not done, like creating static or migrations
-
-
-
-
-now, docker is only for installing environment and server settings
-it's gonna be easier to build docker containers this way
-everytime the code changes, run container restart
-and the restarting process include npm run build as well as collect static
-
-  File "/app/livingstonesapp/views.py", line 174, in attack
-    damage = int(request.data.get('damage'))
-ValueError: invalid literal for int() with base 10: ''
-
-TODO:
-    Add refill function (5)
-    Boss jumps when attacked (5) 
-    Don't show Boss on leaderboard (3)
-    Boss be bigger on screen (3)
-    Unauthorized problem (5)
-    prevent staff from attacking other members (2)
-    visual effect when attack (3)
-    Countdown (2)
-    Switch color when round changes (4)
-    猜拳贏了輸了
-
+### To create SSL credentials:
+Note: stoneliving.com should be changed to your doomain name 
+```bash
 docker run -it --rm \
-  -v certbot-etc:/etc/letsencrypt \
-  -v certbot-var:/var/lib/letsencrypt \
-  -v "$(pwd)/nginx.conf:/etc/nginx/nginx.conf" \
-  -p 80:80 \
-  certbot/certbot certonly --webroot \
-  --webroot-path=/var/lib/letsencrypt \
-  -d stonesliving.com
-
-Saving debug log to /var/log/letsencrypt/letsencrypt.log
-docker run -it --rm  \
-    -v livingstones_certbot-etc:/etc/letsencrypt   \
-    -v livingstones_certbot-var:/var/lib/letsencrypt   \
-    -p 80:80   certbot/certbot certonly --standalone   \
+    -v livingstones_certbot-etc:/etc/letsencrypt \
+    -v livingstones_certbot-var:/var/lib/letsencrypt \
+    -p 80:80 certbot/certbot certonly --standalone \
     -d stonesliving.com
-
+```
+### To check that SSL credentials are successfully created:
+```bash
 docker run -it --rm \
   -v livingstones_certbot-etc:/etc/letsencrypt \
   busybox sh -c "ls -l /etc/letsencrypt/live/stonesliving.com/; ls -l /etc/letsencrypt/archive/stonesliving.com/"
+```

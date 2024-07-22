@@ -22,14 +22,6 @@ services:
     ports:
       - "8000:8000"
 
-  #  react:
-  #    build:
-  #      context: .
-  #      dockerfile: Dockerfile-react
-  #    container_name: react
-  #    ports:
-  #      - "3000:3000"
-
   nginx:
     build:
       context: .
