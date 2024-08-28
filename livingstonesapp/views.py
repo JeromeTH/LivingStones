@@ -26,7 +26,6 @@ from django.contrib.auth.decorators import login_required
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
-
 @csrf_exempt
 def login_user(request):
     # Get username and password from request.POST dictionary
